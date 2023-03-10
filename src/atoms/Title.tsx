@@ -1,5 +1,3 @@
-import React from "react";
-
 type TitleProps = {
   children: React.ReactNode;
 };
