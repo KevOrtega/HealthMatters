@@ -1,7 +1,7 @@
 type TitleProps = {
-  children: React.ReactNode;
+	children: React.ReactNode;
 };
 
 export default function Title(props: TitleProps) {
-  return <h1 {...props} />;
+	return <h1 {...props} />;
 }
