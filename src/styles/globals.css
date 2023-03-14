@@ -3,9 +3,7 @@
 @tailwind utilities;
 
 * {
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
+	@apply font-sans text-mine-shaft box-border p-0 m-0;
 }
 
 html,
