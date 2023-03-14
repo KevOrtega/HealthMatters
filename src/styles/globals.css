@@ -1,20 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+	@apply font-sans text-mine-shaft box-border p-0 m-0;
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+	max-width: 100vw;
+	overflow-x: hidden;
 }
 
 body {
-  background-color: #fff;
+	background-color: #fff;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }

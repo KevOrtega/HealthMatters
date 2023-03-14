@@ -1,8 +1,25 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
+	content: [
+		"./app/**/*.{js,ts,jsx,tsx}",
+		"./pages/**/*.{js,ts,jsx,tsx}",
+		"./components/**/*.{js,ts,jsx,tsx}",
+
+		// Or if using `src` directory:
+		"./src/**/*.{js,ts,jsx,tsx}",
+	],
+	theme: {
+		colors: {
+			transparent: "transparent",
+			"kaitoke-green": "#005227",
+			"deep-sea": "#038554",
+			"caribbean-green": "#03BB85",
+			viking: "#68DDBD",
+			anakiwa: "#A4FFF7",
+			white: "#ffffff",
+			"mine-shaft": "#333333",
+		},
+		extend: {},
+	},
+	plugins: [],
+};
