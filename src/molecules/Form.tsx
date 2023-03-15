@@ -6,16 +6,18 @@ interface FormState {
 	email: string;
 	password: string;
 	medical_license: number;
+	medical_specialty: string;
 	zip_code: number;
 }
 
-const Form = () => {
+const InputSetup = () => {
 	const [formState, setFormState] = useState<FormState>({
 		first_name: "",
 		last_name: "",
 		email: "",
 		password: "",
 		medical_license: 0,
+		medical_specialty: "",
 		zip_code: 0,
 	});
 
@@ -72,7 +74,7 @@ const Form = () => {
 			<br />
 			<br />
 
-			<label htmlFor="Medical License">Matricula/Licencia Medica:</label>
+			<label htmlFor="Medical License"> Matricula/Licencia medica: </label>
 			<input
 				type={"text"}
 				name={"medical_License"}
@@ -82,6 +84,17 @@ const Form = () => {
 			/>
 			<br />
 			<br />
+
+			<label htmlFor="Medical Speciality"> Especialidad medica: </label>
+			<input
+				type="text"
+				name="medical_specialty"
+				value={formState.medical_specialty}
+				placeholder={"Ex: Cardiologist"}
+				onChange={handleInputChange}
+				required
+			/>
+
 			<label htmlFor="Zip Code"> Codigo Postal: </label>
 			<input type="text" name="zip_code" placeholder={"Ex: 7600"} onChange={handleInputChange} required />
 
@@ -93,4 +106,4 @@ const Form = () => {
 	);
 };
 
-export default Form;
+export default InputSetup;
