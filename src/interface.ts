@@ -5,5 +5,6 @@ export type TitleProps = {
 
 export type ButtonProps = {
 	children: React.ReactNode;
-	type?: "primary" | "secondary" | "submit";
+	type?: "primary" | "secondary" | "submit" | "navButton";
+	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
