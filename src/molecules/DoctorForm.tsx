@@ -9,8 +9,6 @@ import {
 	ZipCodeInput,
 } from "@/atoms/InputField";
 
-import React from "react";
-
 export default function DoctorForm() {
 	return (
 		<div>
