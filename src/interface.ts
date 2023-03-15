@@ -5,6 +5,12 @@ export type TitleProps = {
 
 export type ButtonProps = {
 	children: React.ReactNode;
-	type?: "primary" | "secondary" | "submit" | "navButton";
+	type?: "primary" | "secondary" | "submit";
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
+};
+
+export type LinkProps = {
+	children: React.ReactNode;
+	href: string;
+	className: string;
 };
