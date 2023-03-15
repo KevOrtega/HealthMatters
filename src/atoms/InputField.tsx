@@ -8,7 +8,7 @@ interface InputFieldsProps {
 	placeholder?: string;
 }
 
-const InputFields: React.FC<InputFieldsProps> = ({ label, name, type, required = false, placeholder }) => {
+const InputFields: React.FC = ({ label, name, type, required = false, placeholder }: InputFieldsProps) => {
 	const [value, setValue] = useState("");
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
