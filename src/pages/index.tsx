@@ -1,12 +1,12 @@
 import Button from "@/atoms/Button";
-import InputSetup from "@/molecules/Form";
+import DoctorForm from "@/molecules/DoctorForm";
 // import Title from "@/atoms/Title";
 
 export default function Home() {
 	return (
 		<main>
-			<Button>first button</Button>
-			<InputSetup />
+			<Button>El Boton de Kevin</Button>
+			<DoctorForm />
 		</main>
 	);
 }
