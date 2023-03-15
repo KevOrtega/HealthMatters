@@ -19,6 +19,14 @@ module.exports = {
 			white: "#ffffff",
 			"mine-shaft": "#333333",
 		},
+		fontFamily: {
+			sans: ["Poppins", "sans-serif"],
+			handwrite: ["Dancing Script", "cursive"],
+		},
+		fontWeight: {
+			medium: "500",
+			bold: "700",
+		},
 		extend: {},
 	},
 	plugins: [],

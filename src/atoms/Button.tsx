@@ -1,7 +1,4 @@
-type ButtonProps = {
-	children: React.ReactNode;
-	type?: "primary" | "secondary" | "submit";
-};
+import { ButtonProps } from "@/interface";
 
 export default function Button({ type = "primary", ...props }: ButtonProps) {
 	const button_types = {
