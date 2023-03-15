@@ -4,7 +4,8 @@ import Button from "@/atoms/Button";
 export default function Home() {
 	return (
 		<main>
-			<Button>El Boton de Kevin</Button>
+			<Button>get started</Button>
+			<Button type="secondary">LogIn</Button>
 		</main>
 	);
 }
