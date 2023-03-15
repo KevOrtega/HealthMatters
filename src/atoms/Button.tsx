@@ -1,6 +1,9 @@
+import React from "react";
+
 type ButtonProps = {
 	children: React.ReactNode;
-	type?: "primary" | "secondary" | "submit";
+	type?: "primary" | "secondary" | "submit" | "navButton";
+	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 export default function Button({ type = "primary", ...props }: ButtonProps) {
@@ -18,6 +21,9 @@ export default function Button({ type = "primary", ...props }: ButtonProps) {
 			/>
 		),
 		submit: () => <button {...props} />,
+		navButton: () => (
+			<button className="bg-teal-400 hover:bg-teal-200 text-green 800 font-semibold py-2 px-4 rounded" {...props}></button>
+		),
 	};
 	return button_types[type]();
 }
