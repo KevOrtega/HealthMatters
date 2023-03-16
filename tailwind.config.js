@@ -18,7 +18,7 @@ module.exports = {
 			viking: "#68DDBD",
 			anakiwa: "#A4FFF7",
 			white: "#ffffff",
-			shadow: "#ccc",
+			egg: "#ccc",
 		},
 		fontFamily: {
 			sans: ["Poppins", "sans-serif"],

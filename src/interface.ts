@@ -12,7 +12,7 @@ export type ButtonProps = {
 };
 
 export type ImageProps = {
-	type: "medicine";
+	type: "choose" | "map" | "medicine" | "pay" | "search" | "tune";
 	className?: string;
 };
 

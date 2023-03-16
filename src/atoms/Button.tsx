@@ -1,6 +1,6 @@
 import { ButtonProps } from "@/interface";
 
-export default function ({ className, type = "primary", ...props }: ButtonProps) {
+export default function Button({ className, type = "primary", ...props }: ButtonProps) {
 	const button_types = {
 		primary: () => (
 			<button
