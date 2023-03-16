@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const Filter = () => {
-	const [filters, setFilters] = useState<string[]>(["Pediatra", "lalala"]);
+	const [filters, setFilters] = useState<string[]>(["Surgeon", "Pediactric", "Dentistry", "Traumatologist", "Arthopedics"]);
 
 	const listStyles = "list-disc pl-8";
 
