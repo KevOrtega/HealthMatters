@@ -15,6 +15,7 @@ export default function Navbar() {
 						Search
 					</Button>
 				</div>
+				<div className="border-l-2 border-gray-500 mx-6 h-6"></div>
 				<Button type="navButton" onClick={() => console.log("Login button clicked")}>
 					Login
 				</Button>
