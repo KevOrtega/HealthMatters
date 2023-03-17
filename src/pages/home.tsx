@@ -1,10 +1,14 @@
+import Services from "@/molecules/Services";
+import Header from "@/molecules/Header";
 import Main from "@/atoms/Main";
-import Filter from "@/molecules/Filter";
+import Specialities from "@/molecules/Specialities";
 
 export default function home() {
 	return (
 		<Main>
-			<Filter />
+			<Header />
+			<Specialities />
+			<Services />
 		</Main>
 	);
 }

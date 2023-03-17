@@ -26,3 +26,11 @@ export type MainProps = {
 	children: React.ReactNode;
 	className?: string;
 };
+
+export type iService = {
+	title: string;
+	info: string;
+	price: number;
+	doctor: string;
+	rating: number;
+};
