@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const RegistrationForm = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const router = useRouter();
 
 	const handleGoogleLogin = () => {
 		window.location.href = "https://accounts.google.com/login";
@@ -28,6 +32,10 @@ const RegistrationForm = () => {
 			alert("Contraseña no válida (debe tener al menos 6 caracteres)");
 			return;
 		}
+	};
+
+	const handleSignUp = () => {
+		router.push("/signup"); // aquí se navega a la ruta "/signup"
 	};
 
 	return (
@@ -74,7 +82,9 @@ const RegistrationForm = () => {
 				<hr className="border-b-1 border-gray-500 w-full" />
 			</div>
 
-			<button className="inline-block text-left ml-3 bg-green-500 text-black py-2 px-4 rounded-full ">Sign up</button>
+			<button onClick={handleSignUp} className="inline-block text-left ml-3 bg-green-500 text-black py-2 px-4 rounded-full ">
+				Sign up
+			</button>
 		</form>
 	);
 };

@@ -8,7 +8,6 @@ export default function _app({ Component, pageProps }: AppProps) {
 	return (
 		<div>
 			<Head>
-				<Navbar />
 				<title>HealthMatters</title>
 				{/* <link rel="icon" href="/favicon.ico" /> */}
 			</Head>

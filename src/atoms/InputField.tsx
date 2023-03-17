@@ -8,7 +8,7 @@ interface InputFieldsProps {
 	placeholder?: string;
 }
 
-const InputFields: React.FC = ({ label, name, type, required = false, placeholder }: InputFieldsProps) => {
+const InputFields = ({ label, name, type, required = false, placeholder }: InputFieldsProps) => {
 	const [value, setValue] = useState("");
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,19 +23,19 @@ const InputFields: React.FC = ({ label, name, type, required = false, placeholde
 	);
 };
 
-export const FirstNameInput: React.FC = () => {
+export const FirstNameInput = () => {
 	return <InputFields type="text" label="Nombre: " name="first_name" placeholder={"Ex: John"} required={true} />;
 };
-export const LastNameInput: React.FC = () => {
+export const LastNameInput = () => {
 	return <InputFields type="text" label="Apellido: " name="first_name" placeholder={"Ex: Doe"} required={true} />;
 };
-export const EmailInput: React.FC = () => {
+export const EmailInput = () => {
 	return <InputFields type="email" label="E-mail: " name="email" placeholder={"Ex: myname@example.com"} required={true} />;
 };
-export const PasswordInput: React.FC = () => {
+export const PasswordInput = () => {
 	return <InputFields type="password" label="Contraseña: " name="password" placeholder={"********"} required={true} />;
 };
-export const LicenseInput: React.FC = () => {
+export const LicenseInput = () => {
 	return (
 		<InputFields
 			type="text"
@@ -46,7 +46,7 @@ export const LicenseInput: React.FC = () => {
 		/>
 	);
 };
-export const SpecialtyInput: React.FC = () => {
+export const SpecialtyInput = () => {
 	return (
 		<InputFields
 			type="text"
@@ -57,9 +57,9 @@ export const SpecialtyInput: React.FC = () => {
 		/>
 	);
 };
-export const ZipCodeInput: React.FC = () => {
+export const ZipCodeInput = () => {
 	return <InputFields type="text" label="Codigo Postal: " name="zip_code" placeholder={"Ex: 7600"} required={true} />;
 };
-export const PhoneInput: React.FC = () => {
+export const PhoneInput = () => {
 	return <InputFields type="text" label="Telefono: " name="phone_number" placeholder={"Ex: 054 223-5419716"} required={true} />;
 };
