@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function Header() {
 	return (
 		<header className="bg-gray-900">
@@ -6,14 +8,19 @@ function Header() {
 				<nav>
 					<ul className="flex space-x-4">
 						<li>
-							<a href="/" className="text-gray-300 hover:text-white">
-								Home
-							</a>
+							<Link href="/">
+								<a className="text-gray-300 hover:text-white">Home</a>
+							</Link>
 						</li>
 						<li>
-							<a href="/login" className="text-gray-300 hover:text-white">
-								LogIn
-							</a>
+							<Link href="/login">
+								<a className="text-gray-300 hover:text-white">LogIn</a>
+							</Link>
+						</li>
+						<li>
+							<Link href="/signup">
+								<a className="text-gray-300 hover:text-white">Sign up</a>
+							</Link>
 						</li>
 					</ul>
 				</nav>

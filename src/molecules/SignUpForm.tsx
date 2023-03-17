@@ -1,13 +1,14 @@
-import { useState } from "react";
-import Signup from "@/pages/api/SignUp";
+import { FormEvent, useState } from "react";
+import { useRouter } from "next/router";
 
 const SignupFormPage = () => {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const router = useRouter();
 
-	const handleSubmit = (event) => {
+	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
 
 		// Realiza la validación correspondiente
