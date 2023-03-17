@@ -1,24 +1,19 @@
-import Link from "next/link";
-import Button from "../atoms/Button";
+import Link from "@/atoms/Link";
+import Title from "@/atoms/Title";
 
 export default function Navbar() {
 	return (
-		<nav className="flex items-center justify-between bg-teal-50 p-6">
+		<nav className="flex items-center justify-between p-6 shadow-xl rounded-xl">
 			<div className="flex items-center">
-				<Link href="/" className="font-semibold text-xl tracking-tight text-green-800">
-					Health Matters
-				</Link>
+				<Title type="big">HealthMatters</Title>
 			</div>
 			<div className="flex items-center justify-end">
-				<div className="mr-10">
-					<Button type="navButton" onClick={() => console.log("Search button clicked")}>
-						Search
-					</Button>
-				</div>
-				<div className="border-l-2 border-gray-500 mx-6 h-6"></div>
-				<Button type="navButton" onClick={() => console.log("Login button clicked")}>
+				<Link href="/home" className="mr-10">
+					Home
+				</Link>
+				<Link href="/login" className="mr-10">
 					Login
-				</Button>
+				</Link>
 			</div>
 		</nav>
 	);
