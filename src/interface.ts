@@ -27,7 +27,7 @@ export type MainProps = {
 	className?: string;
 };
 
-export type iDoctor = {
+export type iService = {
 	title: string;
 	info: string;
 	price: number;

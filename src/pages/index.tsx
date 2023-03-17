@@ -2,7 +2,7 @@ import Button from "@/atoms/Button";
 import Image from "@/atoms/Image";
 import Main from "@/atoms/Main";
 import Title from "@/atoms/Title";
-import Navbar from "@/molecules/Navbar";
+import LandingNavbar from "@/molecules/LandingNavbar";
 import Link from "@/atoms/Link";
 
 export default function Landing() {
@@ -28,7 +28,7 @@ export default function Landing() {
 			</section>
 			<section className="h-screen flex flex-col">
 				<div className="w-1/3 ml-auto mr-14">
-					<Navbar />
+					<LandingNavbar />
 				</div>
 				<div className="h-1/3 w-max relative">
 					<Image className="h-full" type="map" />

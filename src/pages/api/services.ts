@@ -1,9 +1,10 @@
-import { iDoctor } from "@/interface";
-import React from "react";
-import Doctor from "./Doctor";
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import type { NextApiRequest, NextApiResponse } from "next";
 
-const Doctors: React.FC = () => {
-	const doctors_data: iDoctor[] = [
+import { iService } from "@/interface";
+
+export default function handler(req: NextApiRequest, res: NextApiResponse<iService[]>) {
+	const doctors_data: iService[] = [
 		{
 			title: "Revision Pediatrica",
 			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
@@ -26,17 +27,5 @@ const Doctors: React.FC = () => {
 			rating: 5,
 		},
 	];
-
-	return (
-		<div className="container mx-auto">
-			<h1 className="text-2xl font-bold mb-4">Tarjetas de información</h1>
-			<div className="grid grid-cols-3 gap-4">
-				{doctors_data.map((card) => (
-					<Doctor {...card} />
-				))}
-			</div>
-		</div>
-	);
-};
-
-export default Doctors;
+	res.status(200).json(doctors_data);
+}
