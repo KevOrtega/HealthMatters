@@ -7,10 +7,6 @@ const RegistrationForm = () => {
 
 	const router = useRouter();
 
-	const handleGoogleLogin = () => {
-		window.location.href = "https://accounts.google.com/login";
-	};
-
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
@@ -34,22 +30,11 @@ const RegistrationForm = () => {
 	};
 
 	const handleSignUp = () => {
-		router.push("/signup"); // aquí se navega a la ruta "/signup"
+		router.push("/signup");
 	};
 
 	return (
 		<form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6 bg-white rounded-lg shadow-md">
-			<h1 className="text-3xl mb-6">Welcome to Health Matters</h1>
-			<button onClick={handleGoogleLogin}>
-				<img
-					src="https://th.bing.com/th/id/OIP.KEygYmezNxIdPeCrxbrQ6wHaD_?pid=ImgDet&rs=1"
-					alt="Google Logo"
-					width="50"
-					height="50"
-					className="inline-block mr-2"
-				/>
-				Continue with Google
-			</button>
 			<label htmlFor="email" className="block mb-2">
 				Email:
 			</label>
