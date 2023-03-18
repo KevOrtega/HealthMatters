@@ -1,14 +1,17 @@
+import { ServiceSearchProvider } from "@/hooks/ServiceSearchProvider";
 import Services from "@/molecules/Services";
 import Header from "@/molecules/Header";
 import Main from "@/atoms/Main";
-import Specialities from "@/molecules/Specialities";
+import Specialties from "@/molecules/Specialties";
 
 export default function home() {
 	return (
 		<Main>
-			<Header />
-			<Specialities />
-			<Services />
+			<ServiceSearchProvider>
+				<Header />
+				<Specialties />
+				<Services />
+			</ServiceSearchProvider>
 		</Main>
 	);
 }

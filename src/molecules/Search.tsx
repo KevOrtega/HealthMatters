@@ -1,22 +1,51 @@
+import Button from "@/atoms/Button";
+import Image from "@/atoms/Image";
+import Input from "@/atoms/Input";
+import { useServiceSearchContext } from "@/hooks/ServiceSearchProvider";
 import React, { useState } from "react";
 
 function SearchBar() {
 	const [query, setQuery] = useState("");
+	const { dispatch } = useServiceSearchContext();
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		dispatch({
+			type: "SET_SEARCH",
+			payload: query,
+		});
 	};
 
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setQuery(event.target.value);
+	const handleChange = ({
+		target: { value },
+	}: React.ChangeEvent<HTMLInputElement>) => {
+		setQuery(value);
+	};
+
+	const handleKeyDown = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+		key === "Enter" &&
+			dispatch({
+				type: "SET_SEARCH",
+				payload: query,
+			});
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="flex items-center justify-center mb-4">
-			<input type="text" value={query} onChange={handleChange} className="border-2 border-gray-400 rounded py-2 px-4" />
-			<button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4">
-				Search
-			</button>
+		<form
+			onSubmit={handleSubmit}
+			className="flex items-center w-1/3 h-full shadow-xl rounded-full overflow-hidden"
+		>
+			<Input
+				className="w-full h-full"
+				type="search"
+				value={query}
+				onChange={handleChange}
+				onKeyDown={handleKeyDown}
+				placeholder="find your service"
+			/>
+			<Button type="submit" className="p-2">
+				<Image className="h-4/5 rotate-90" type="search" />
+			</Button>
 		</form>
 	);
 }
