@@ -5,20 +5,19 @@ import {
 } from "@/interface";
 import React, { useContext, useReducer } from "react";
 
-const serviceSearchContext = React.createContext<service_search_context>({
-	search: "",
-	specialties: [],
-	order: "default",
-	dispatch: () => ({ type: "SET_SEARCH", payload: "" }),
-});
-
-export const useServiceSearchContext = () => useContext(serviceSearchContext);
-
 const initialState: service_search = {
 	search: "",
 	specialties: [],
 	order: "default",
+	page: 1,
 };
+
+const serviceSearchContext = React.createContext<service_search_context>({
+	...initialState,
+	dispatch: () => ({ type: "SET_SEARCH", payload: "" }),
+});
+
+export const useServiceSearchContext = () => useContext(serviceSearchContext);
 
 const reducer = (
 	state: service_search,
@@ -45,6 +44,12 @@ const reducer = (
 			return {
 				...state,
 				order,
+			};
+		},
+		SET_PAGE: (page: string) => {
+			return {
+				...state,
+				page: Number(page),
 			};
 		},
 	};

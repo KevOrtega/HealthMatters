@@ -24,6 +24,7 @@ export default function Button({
 				{...props}
 			/>
 		),
+		pagination: () => <button className={className} {...props} />,
 		submit: () => <button className={className} {...props} />,
 		default: () => <button className={className} {...props} />,
 	};

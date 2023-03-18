@@ -6,6 +6,8 @@ import MapSVG from "../assets/map.svg";
 import PaySVG from "../assets/pay.svg";
 import SearchSVG from "../assets/search.svg";
 import TuneSVG from "../assets/tune.svg";
+import ArrowBack from "../assets/arrow_back.svg";
+import ArrowForward from "../assets/arrow_forward.svg";
 
 export default function Image({ type, className }: ImageProps) {
 	const image_types = {
@@ -49,6 +51,20 @@ export default function Image({ type, className }: ImageProps) {
 				className={"w-auto h-auto " + className}
 				src={TuneSVG}
 				alt="tune"
+			/>
+		),
+		arrow_back: () => (
+			<ImageNext
+				className={"w-auto h-auto " + className}
+				src={ArrowBack}
+				alt="back"
+			/>
+		),
+		arrow_forward: () => (
+			<ImageNext
+				className={"w-auto h-auto " + className}
+				src={ArrowForward}
+				alt="forward"
 			/>
 		),
 	};

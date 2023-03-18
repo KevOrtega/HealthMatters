@@ -7,13 +7,34 @@ export type TitleProps = {
 export type ButtonProps = {
 	children: React.ReactNode;
 	className?: string;
-	type?: "primary" | "secondary" | "submit" | "default";
+	type?: "primary" | "secondary" | "pagination" | "submit" | "default";
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 export type ImageProps = {
-	type: "choose" | "map" | "medicine" | "pay" | "search" | "tune";
+	type:
+		| "choose"
+		| "map"
+		| "medicine"
+		| "pay"
+		| "search"
+		| "tune"
+		| "arrow_back"
+		| "arrow_forward";
 	className?: string;
+};
+
+export type InputProps = {
+	className?: string;
+	placeholder?: string;
+	type: "search" | "pagination";
+	value?: string;
+	onChange?: React.ChangeEventHandler<HTMLInputElement>;
+	onClick?: React.MouseEventHandler<HTMLInputElement>;
+	onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
+	onBlur?: React.FocusEventHandler<HTMLInputElement>;
+	min?: number;
+	max?: number;
 };
 
 export type LinkProps = {
@@ -43,6 +64,7 @@ export type service_search = {
 	search: string;
 	specialties: string[];
 	order: string;
+	page: number;
 };
 
 export interface service_search_context extends service_search {
@@ -50,6 +72,6 @@ export interface service_search_context extends service_search {
 }
 
 export type service_search_action = {
-	type: "SET_SEARCH" | "SET_SPECIALTIES" | "SET_ORDER";
+	type: "SET_SEARCH" | "SET_SPECIALTIES" | "SET_ORDER" | "SET_PAGE";
 	payload: string;
 };

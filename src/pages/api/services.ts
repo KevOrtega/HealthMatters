@@ -5,10 +5,8 @@ import { iService } from "@/interface";
 
 export default function handler(
 	req: NextApiRequest,
-	res: NextApiResponse<iService[]>
+	res: NextApiResponse<{ pages: number; results: iService[] }>
 ) {
-	console.log(req.query);
-
 	const doctors_data: iService[] = [
 		{
 			title: "Revision Pediatrica",
@@ -67,5 +65,8 @@ export default function handler(
 			rating: 5,
 		},
 	];
-	res.status(200).json(doctors_data);
+	res.status(200).json({
+		pages: Math.ceil(doctors_data.length / 6),
+		results: doctors_data.slice(0, 6),
+	});
 }

@@ -24,20 +24,20 @@ export default function Landing() {
 						</Link>
 					</div>
 				</div>
-				<Image type="medicine" />
+				<Image className="w-1/2" type="medicine" />
 			</section>
 			<section className="h-screen flex flex-col">
 				<div className="w-1/3 ml-auto mr-14">
 					<LandingNavbar />
 				</div>
-				<div className="h-1/3 w-max relative">
+				<div className="px-10 h-1/3 w-max relative">
 					<Image className="h-full" type="map" />
 					<p className="w-max translate-x-full -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
 						find the best <span className="text-kaitoke-green">doctor</span> for
 						you
 					</p>
 				</div>
-				<div className="h-1/3 w-max self-end">
+				<div className="px-10 h-1/3 w-max justify-end self-end">
 					<Image className="h-full" type="choose" />
 					<p className="w-max -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
 						Choose the service{" "}
@@ -46,9 +46,9 @@ export default function Landing() {
 				</div>
 			</section>
 			<section className="h-screen flex flex-col">
-				<div className="h-1/3 w-max self-center m-auto">
+				<div className="h-1/3 w-max mt-20 m-auto">
 					<Image className="h-full" type="pay" />
-					<p className="w-max translate-x-full -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
+					<p className="w-max -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
 						Pay the way <span className="text-kaitoke-green">you</span> prefer
 					</p>
 				</div>
