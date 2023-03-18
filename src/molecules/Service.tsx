@@ -4,7 +4,14 @@ import Button from "@/atoms/Button";
 import { serviceProps } from "@/interface";
 import Title from "@/atoms/Title";
 
-const Service: React.FC<serviceProps> = ({ className, title, info, price, doctor, rating }) => {
+const Service: React.FC<serviceProps> = ({
+	className,
+	title,
+	info,
+	price,
+	doctor,
+	rating,
+}) => {
 	return (
 		<Button
 			className={

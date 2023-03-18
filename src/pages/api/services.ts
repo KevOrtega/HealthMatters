@@ -3,7 +3,10 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { iService } from "@/interface";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<iService[]>) {
+export default function handler(
+	req: NextApiRequest,
+	res: NextApiResponse<iService[]>
+) {
 	const doctors_data: iService[] = [
 		{
 			title: "Revision Pediatrica",

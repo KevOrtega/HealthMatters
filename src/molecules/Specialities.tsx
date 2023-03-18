@@ -11,7 +11,9 @@ const Filter = () => {
 				{specialities &&
 					specialities.map((speciality, i) => (
 						<li key={i}>
-							<Button className="transition-colors active:text-mine-shaft">{speciality}</Button>
+							<Button className="transition-colors active:text-mine-shaft">
+								{speciality}
+							</Button>
 						</li>
 					))}
 				<li>

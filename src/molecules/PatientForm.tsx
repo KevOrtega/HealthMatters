@@ -1,4 +1,11 @@
-import { EmailInput, FirstNameInput, LastNameInput, PasswordInput, PhoneInput, ZipCodeInput } from "@/atoms/InputField";
+import {
+	EmailInput,
+	FirstNameInput,
+	LastNameInput,
+	PasswordInput,
+	PhoneInput,
+	ZipCodeInput,
+} from "@/atoms/InputField";
 
 export default function PatientForm() {
 	return (
