@@ -7,6 +7,8 @@ export default function handler(
 	req: NextApiRequest,
 	res: NextApiResponse<iService[]>
 ) {
+	console.log(req.query);
+
 	const doctors_data: iService[] = [
 		{
 			title: "Revision Pediatrica",

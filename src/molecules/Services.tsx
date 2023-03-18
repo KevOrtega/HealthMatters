@@ -2,9 +2,11 @@ import React from "react";
 import Service from "@/molecules/Service";
 import useServices from "@/hooks/useServices";
 import Title from "@/atoms/Title";
+import { useServiceSearchContext } from "@/hooks/ServiceSearchProvider";
 
 const Services: React.FC = () => {
-	const { services } = useServices();
+	const { search, specialties, order } = useServiceSearchContext();
+	const { services } = useServices(search, specialties, order);
 	return (
 		<div className="w-full px-20">
 			<Title className="text-left my-6" type="medium">
