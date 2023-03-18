@@ -5,12 +5,6 @@ import { useServiceSearchContext } from "@/hooks/ServiceSearchProvider";
 import useServices from "@/hooks/useServices";
 import { useEffect, useState } from "react";
 
-// const PaginationContainer = styled.div`
-// 	display: flex;
-// 	justify-content: flex-start;
-// 	align-items: center;
-// `;
-
 function Pagination() {
 	const { pages } = useServices();
 	const { order, search, specialties, page, dispatch } =
