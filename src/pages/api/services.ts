@@ -26,6 +26,41 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<iServi
 			doctor: "John Doe",
 			rating: 5,
 		},
+		{
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			price: 5000,
+			doctor: "John Doe",
+			rating: 5,
+		},
+		{
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			price: 5000,
+			doctor: "John Doe",
+			rating: 5,
+		},
+		{
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			price: 5000,
+			doctor: "John Doe",
+			rating: 5,
+		},
+		{
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			price: 5000,
+			doctor: "Doctor John Doe",
+			rating: 5,
+		},
+		{
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			price: 5000,
+			doctor: "John Doe",
+			rating: 5,
+		},
 	];
 	res.status(200).json(doctors_data);
 }

@@ -15,7 +15,7 @@ const Filter = () => {
 						</li>
 					))}
 				<li>
-					<Button className="flex items-center shadow-md text-mine-shaft font-bold py-4 px-8 rounded-md transition-shadow active:shadow-sm">
+					<Button className="flex items-center shadow-md text-mine-shaft font-bold py-4 px-8 rounded-md transition-shadow hover:shadow-lg active:shadow-md">
 						Filter <Image className="w-5 ml-4" type="tune" />
 					</Button>
 				</li>

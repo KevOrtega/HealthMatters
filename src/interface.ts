@@ -34,3 +34,7 @@ export type iService = {
 	doctor: string;
 	rating: number;
 };
+
+export interface serviceProps extends iService {
+	className?: string;
+}
