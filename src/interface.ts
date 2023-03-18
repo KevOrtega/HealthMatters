@@ -34,3 +34,22 @@ export type iService = {
 	doctor: string;
 	rating: number;
 };
+
+export interface serviceProps extends iService {
+	className?: string;
+}
+
+export type service_search = {
+	search: string;
+	specialties: string[];
+	order: string;
+};
+
+export interface service_search_context extends service_search {
+	dispatch: React.Dispatch<service_search_action>;
+}
+
+export type service_search_action = {
+	type: "SET_SEARCH" | "SET_SPECIALTIES" | "SET_ORDER";
+	payload: string;
+};

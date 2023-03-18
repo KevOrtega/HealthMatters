@@ -3,7 +3,12 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { iService } from "@/interface";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<iService[]>) {
+export default function handler(
+	req: NextApiRequest,
+	res: NextApiResponse<iService[]>
+) {
+	console.log(req.query);
+
 	const doctors_data: iService[] = [
 		{
 			title: "Revision Pediatrica",
@@ -17,6 +22,41 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<iServi
 			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
 			price: 5000,
 			doctor: "John Doe",
+			rating: 5,
+		},
+		{
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			price: 5000,
+			doctor: "John Doe",
+			rating: 5,
+		},
+		{
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			price: 5000,
+			doctor: "John Doe",
+			rating: 5,
+		},
+		{
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			price: 5000,
+			doctor: "John Doe",
+			rating: 5,
+		},
+		{
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			price: 5000,
+			doctor: "John Doe",
+			rating: 5,
+		},
+		{
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			price: 5000,
+			doctor: "Doctor John Doe",
 			rating: 5,
 		},
 		{

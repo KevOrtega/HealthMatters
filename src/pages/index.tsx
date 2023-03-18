@@ -33,13 +33,15 @@ export default function Landing() {
 				<div className="h-1/3 w-max relative">
 					<Image className="h-full" type="map" />
 					<p className="w-max translate-x-full -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
-						find the best <span className="text-kaitoke-green">doctor</span> for you
+						find the best <span className="text-kaitoke-green">doctor</span> for
+						you
 					</p>
 				</div>
 				<div className="h-1/3 w-max self-end">
 					<Image className="h-full" type="choose" />
 					<p className="w-max -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
-						Choose the service <span className="text-kaitoke-green">you want</span>
+						Choose the service{" "}
+						<span className="text-kaitoke-green">you want</span>
 					</p>
 				</div>
 			</section>

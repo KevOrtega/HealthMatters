@@ -16,10 +16,13 @@ export default function CreateAccountPatient() {
 			<PatientForm />
 			<br />
 			<p>
-				Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi, consectetur dolorum. Consectetur libero autem beatae
-				architecto voluptatum voluptatibus nostrum dolore alias nisi, saepe mollitia, dignissimos eaque aliquam ratione ex minima.
-				Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio inventore voluptate similique sed magnam numquam
-				exercitationem maxime ea adipisci, aliquam eaque quos. Ducimus possimus nesciunt mollitia! Fuga aut velit accusantium?
+				Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi,
+				consectetur dolorum. Consectetur libero autem beatae architecto
+				voluptatum voluptatibus nostrum dolore alias nisi, saepe mollitia,
+				dignissimos eaque aliquam ratione ex minima. Lorem ipsum dolor sit, amet
+				consectetur adipisicing elit. Distinctio inventore voluptate similique
+				sed magnam numquam exercitationem maxime ea adipisci, aliquam eaque
+				quos. Ducimus possimus nesciunt mollitia! Fuga aut velit accusantium?
 			</p>
 		</div>
 	);
