@@ -1,6 +1,6 @@
 import { LinkProps } from "@/interface";
-import Link from "next/link";
+import LinkNext from "next/link";
 
-export default function LinkAtom({ className, ...props }: LinkProps) {
-	return <Link className={className} {...props} />;
+export default function Link({ className, ...props }: LinkProps) {
+	return <LinkNext className={className} {...props} />;
 }
