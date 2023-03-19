@@ -5,7 +5,7 @@ import React from "react";
 export default function CreateAccountPatient() {
 	return (
 		<div>
-			<h1>LA PAGINA DEL DOC</h1>
+			<h1>Create Account Patient</h1>
 			<br />
 			<img
 				src="https://fastly.picsum.photos/id/180/2400/1600.jpg?hmac=Ig-CXcpNdmh51k3kXpNqNqcDYTwXCIaonYiBOnLXBb8"

@@ -5,7 +5,7 @@ import React from "react";
 export default function CreateAccountDoc() {
 	return (
 		<div>
-			<h1>LA PAGINA DEL DOC</h1>
+			<h1>Create Account Doctor</h1>
 			<br />
 			<img
 				src="https://picsum.photos/id/60/1920/1200"
