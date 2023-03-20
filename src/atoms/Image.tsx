@@ -8,7 +8,6 @@ import SearchSVG from "../assets/search.svg";
 import TuneSVG from "../assets/tune.svg";
 import ArrowBack from "../assets/arrow_back.svg";
 import ArrowForward from "../assets/arrow_forward.svg";
-import Ascendant from "../assets/ascendant.svg";
 
 export default function Image({ type, className }: ImageProps) {
 	const image_types = {
@@ -28,7 +27,6 @@ export default function Image({ type, className }: ImageProps) {
 		),
 		medicine: () => (
 			<ImageNext
-				priority
 				className={"w-auto h-auto " + className}
 				src={MedicineSVG}
 				alt="medicine"
@@ -67,13 +65,6 @@ export default function Image({ type, className }: ImageProps) {
 				className={"w-auto h-auto " + className}
 				src={ArrowForward}
 				alt="forward"
-			/>
-		),
-		ascendant: () => (
-			<ImageNext
-				className={"w-auto h-auto invert " + className}
-				src={Ascendant}
-				alt="ascendant"
 			/>
 		),
 	};

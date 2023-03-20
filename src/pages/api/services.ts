@@ -9,65 +9,57 @@ export default function handler(
 ) {
 	const doctors_data: iService[] = [
 		{
-			name: "Revision Pediatrica",
-			description:
-				"atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
 			price: 5000,
 			doctor: "John Doe",
 			rating: 5,
 		},
 		{
-			name: "Revision Pediatrica",
-			description:
-				"atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
 			price: 5000,
 			doctor: "John Doe",
 			rating: 5,
 		},
 		{
-			name: "Revision Pediatrica",
-			description:
-				"atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
 			price: 5000,
 			doctor: "John Doe",
 			rating: 5,
 		},
 		{
-			name: "Revision Pediatrica",
-			description:
-				"atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
 			price: 5000,
 			doctor: "John Doe",
 			rating: 5,
 		},
 		{
-			name: "Revision Pediatrica",
-			description:
-				"atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
 			price: 5000,
 			doctor: "John Doe",
 			rating: 5,
 		},
 		{
-			name: "Revision Pediatrica",
-			description:
-				"atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
 			price: 5000,
 			doctor: "John Doe",
 			rating: 5,
 		},
 		{
-			name: "Revision Pediatrica",
-			description:
-				"atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
 			price: 5000,
 			doctor: "Doctor John Doe",
 			rating: 5,
 		},
 		{
-			name: "Revision Pediatrica",
-			description:
-				"atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
+			title: "Revision Pediatrica",
+			info: "atención médica de bebés, niños y adolescentes. Hasta los 18 años.",
 			price: 5000,
 			doctor: "John Doe",
 			rating: 5,

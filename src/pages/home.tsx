@@ -1,4 +1,4 @@
-import { ServiceSearchProvider } from "@/context/ServiceSearchProvider";
+import { ServiceSearchProvider } from "@/hooks/ServiceSearchProvider";
 import Services from "@/molecules/Services";
 import Header from "@/molecules/Header";
 import Main from "@/atoms/Main";

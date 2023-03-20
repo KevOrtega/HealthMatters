@@ -1,14 +1,13 @@
 import React from "react";
 
-import { serviceProps } from "@/interface";
-
 import Button from "@/atoms/Button";
+import { serviceProps } from "@/interface";
 import Title from "@/atoms/Title";
 
 const Service: React.FC<serviceProps> = ({
 	className,
-	name,
-	description,
+	title,
+	info,
 	price,
 	doctor,
 	rating,
@@ -21,13 +20,13 @@ const Service: React.FC<serviceProps> = ({
 			}
 		>
 			<Title className="w-full text-center" type="medium">
-				{name}
+				{title}
 			</Title>
-			<p className="text-egg my-2 text-left">{description}</p>
+			<p className="text-egg my-2 text-left">{info}</p>
 			<p className="text-egg mb-2 text-left">${price}</p>
 			<p className="text-egg mb-2 text-left">rating: {rating}</p>
-			<p className="z-10 absolute bottom-0 right-0 min-w-max w-2/5 translate-x-1/3 translate-y-1/3 bg-deep-sea text-white uppercase text-lg text-center p-4">
-				{doctor.length ? doctor : "doctor gutierrez"}
+			<p className="z-10 absolute bottom-0 right-0 min-w-max w-2/5 translate-x-1/3 translate-y-1/3 bg-deep-sea text-white uppercase text-lg text-center p-4 backdrop-filter">
+				{doctor}
 			</p>
 		</Button>
 	);
