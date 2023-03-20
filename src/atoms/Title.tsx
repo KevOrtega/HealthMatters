@@ -1,13 +1,28 @@
-type TitleProps = {
-	children: React.ReactNode;
-	type?: "bigger" | "big" | "medium";
-};
+import { TitleProps } from "@/interface";
 
-export default function Title({ type = "bigger", ...props }: TitleProps) {
+export default function Title({
+	className,
+	type = "bigger",
+	...props
+}: TitleProps) {
 	const title_types: Record<string, Function> = {
-		bigger: () => <h1 {...props} />,
-		big: () => <h2 {...props} />,
-		medium: () => <h3 {...props} />,
+		bigger: () => (
+			<h1
+				className={"text-9xl text-white font-handwrite font-bold " + className}
+				{...props}
+			/>
+		),
+		big: () => (
+			<h2
+				className={
+					"text-4xl text-deep-sea font-handwrite font-bold " + className
+				}
+				{...props}
+			/>
+		),
+		medium: () => (
+			<h3 className={"text-2xl font-bold " + className} {...props} />
+		),
 	};
 
 	return title_types[type]();
