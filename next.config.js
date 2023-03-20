@@ -5,6 +5,7 @@ const nextConfig = {
 		services_url: "https://healthmattersapi-production.up.railway.app/services",
 		specialties_url:
 			"https://healthmattersapi-production.up.railway.app/specialties",
+		doctors_url: "https://healthmattersapi-production.up.railway.app/doctors",
 	},
 };
 
