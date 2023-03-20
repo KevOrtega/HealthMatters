@@ -4,6 +4,7 @@ import { serviceProps } from "@/interface";
 
 import Button from "@/atoms/Button";
 import Title from "@/atoms/Title";
+import useDoctorById from "@/hooks/useDoctorById";
 
 const Service: React.FC<serviceProps> = ({
 	className,
@@ -13,6 +14,8 @@ const Service: React.FC<serviceProps> = ({
 	doctor,
 	rating,
 }) => {
+	const { service_doctor } = useDoctorById(doctor);
+
 	return (
 		<Button
 			className={
@@ -26,9 +29,11 @@ const Service: React.FC<serviceProps> = ({
 			<p className="text-egg my-2 text-left">{description}</p>
 			<p className="text-egg mb-2 text-left">${price}</p>
 			<p className="text-egg mb-2 text-left">rating: {rating}</p>
-			<p className="z-10 absolute bottom-0 right-0 min-w-max w-2/5 translate-x-1/3 translate-y-1/3 bg-deep-sea text-white uppercase text-lg text-center p-4">
-				{doctor.length ? doctor : "doctor gutierrez"}
-			</p>
+			{service_doctor && (
+				<p className="z-10 absolute bottom-0 right-0 min-w-max w-2/5 translate-x-1/3 translate-y-1/3 bg-deep-sea text-white uppercase text-lg text-center p-4">
+					{service_doctor.name} {service_doctor.lastname}
+				</p>
+			)}
 		</Button>
 	);
 };
