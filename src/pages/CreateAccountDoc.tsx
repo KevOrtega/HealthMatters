@@ -1,29 +1,16 @@
 import DoctorForm from "../molecules/DoctorForm";
-
 import React from "react";
+import Title from "@/atoms/Title";
+import Link from "@/atoms/Link";
 
 export default function CreateAccountDoc() {
 	return (
 		<div>
-			<h1>LA PAGINA DEL DOC</h1>
-			<br />
-			<img
-				src="https://picsum.photos/id/60/1920/1200"
-				alt="Random Image"
-				width={400}
-			/>
-			<br />
+			<Link href="/">
+				<Title type="big">HealthMatters</Title>
+			</Link>
+			<h1>Create Account Doctor</h1>
 			<DoctorForm />
-			<br />
-			<p>
-				Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi,
-				consectetur dolorum. Consectetur libero autem beatae architecto
-				voluptatum voluptatibus nostrum dolore alias nisi, saepe mollitia,
-				dignissimos eaque aliquam ratione ex minima. Lorem ipsum dolor sit, amet
-				consectetur adipisicing elit. Distinctio inventore voluptate similique
-				sed magnam numquam exercitationem maxime ea adipisci, aliquam eaque
-				quos. Ducimus possimus nesciunt mollitia! Fuga aut velit accusantium?
-			</p>
 		</div>
 	);
 }
