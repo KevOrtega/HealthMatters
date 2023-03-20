@@ -10,7 +10,7 @@ import {
 export default function PatientForm() {
 	return (
 		<div>
-			<form className="container py-1">
+			<form className="container py-4">
 				<div className="mt-4 flex justify-end">
 					<div className="w-1/2 text-center">
 						<h2 className="text-2xl font-bold mb-4">Patient Form</h2>
