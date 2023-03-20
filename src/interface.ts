@@ -20,7 +20,8 @@ export type ImageProps = {
 		| "search"
 		| "tune"
 		| "arrow_back"
-		| "arrow_forward";
+		| "arrow_forward"
+		| "ascendant";
 	className?: string;
 };
 
@@ -49,11 +50,25 @@ export type MainProps = {
 };
 
 export type iService = {
-	title: string;
-	info: string;
+	name: string;
+	description: string;
 	price: number;
 	doctor: string;
 	rating: number;
+};
+
+export type services_response = {
+	services: iService[];
+	current_page: number;
+	pages: number;
+	count: number;
+};
+
+export type specialties_response = {
+	_id: string;
+	name: "string";
+	doctor: string[];
+	__v: number;
 };
 
 export interface serviceProps extends iService {

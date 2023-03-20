@@ -1,7 +1,7 @@
 import Button from "@/atoms/Button";
 import Image from "@/atoms/Image";
 import Input from "@/atoms/Input";
-import { useServiceSearchContext } from "@/hooks/ServiceSearchProvider";
+import { useServiceSearchContext } from "@/context/ServiceSearchProvider";
 import React, { useState } from "react";
 
 function SearchBar() {

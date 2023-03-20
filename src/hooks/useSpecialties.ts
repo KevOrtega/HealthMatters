@@ -1,12 +1,12 @@
 import useSWR from "swr";
-import { specialties_URL, specialtiesFetcher } from "@/services/specialties";
+import { specialtiesFetcher } from "@/requests";
 
 export default function useSpecialties() {
 	const {
 		data: specialties,
 		isLoading,
 		mutate,
-	} = useSWR(specialties_URL, specialtiesFetcher);
+	} = useSWR(process.env.specialties_url, specialtiesFetcher);
 
 	return {
 		specialties,
