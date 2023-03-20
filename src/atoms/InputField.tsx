@@ -22,8 +22,11 @@ const InputFields = ({
 	};
 
 	return (
-		<div>
-			<label htmlFor="{name}">{label}</label>
+		<div className="flex flex-col mb-4">
+			<label htmlFor="{name}" className="text-lg mb-2 text-left">
+				{label}
+			</label>
+
 			<input
 				type={type}
 				name={name}
@@ -31,6 +34,8 @@ const InputFields = ({
 				onChange={handleChange}
 				placeholder={placeholder}
 				required={required}
+				style={{ fontSize: "14px" }}
+				className="w-full border-b py-2 px-3 mb-4"
 			/>
 		</div>
 	);
