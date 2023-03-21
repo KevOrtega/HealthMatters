@@ -6,9 +6,9 @@ import useServices from "@/hooks/useServices";
 import { useEffect, useState } from "react";
 
 function Pagination() {
-	const { pages } = useServices();
 	const { order, search, specialties, page, dispatch } =
 		useServiceSearchContext();
+	const { pages } = useServices(search, specialties, order, page);
 	const [current_page, setCurrentPage] = useState<string>(page.toString());
 
 	useEffect(() => {
@@ -36,7 +36,7 @@ function Pagination() {
 
 	return (
 		<div className="flex justify-end items-center">
-			{page !== 1 && (
+			{page > 1 && (
 				<Button
 					onClick={() => setPage((Number(current_page) - 1).toString())}
 					className="m-3 h-5"
@@ -55,8 +55,8 @@ function Pagination() {
 				max={pages}
 				min={1}
 			/>
-			&nbsp; of {pages}
-			{page !== pages && (
+			&nbsp; of {pages || 1}
+			{!!pages && page < pages && (
 				<Button
 					onClick={() => setPage((Number(current_page) + 1).toString())}
 					className="m-3 h-5"

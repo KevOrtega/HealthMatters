@@ -8,7 +8,7 @@ export default function Input({ className, type, ...props }: InputProps) {
 		pagination: () => (
 			<input
 				type="number"
-				className={"px-5 outline-none " + className}
+				className={"outline-none w-12 " + className}
 				{...props}
 			/>
 		),
