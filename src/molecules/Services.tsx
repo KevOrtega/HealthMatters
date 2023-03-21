@@ -18,14 +18,14 @@ const Services: React.FC = () => {
 				Services
 			</Title>
 			<Pagination />
-			<div className="grid grid-cols-3 gap-4">
+			<div className="w-full flex justify-evenly items-start flex-wrap">
 				{services &&
 					services.map((service: iService, i: number) => (
-						<Link href={`/service/${service._id}`} key={"service--" + i}>
-							<div className="border-2 border-gray-300 rounded-lg overflow-hidden shadow-md">
-								<Service {...service} className="m-10 cursor-pointer" />
-							</div>
-						</Link>
+						<Service
+							{...service}
+							className="m-10 cursor-pointer"
+							key={"service--" + i}
+						/>
 					))}
 			</div>
 		</div>
