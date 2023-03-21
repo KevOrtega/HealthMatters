@@ -1,9 +1,9 @@
+import React, { useContext, useReducer } from "react";
 import {
 	service_search,
 	service_search_action,
 	service_search_context,
 } from "@/interface";
-import React, { useContext, useReducer } from "react";
 
 const initialState: service_search = {
 	search: "",

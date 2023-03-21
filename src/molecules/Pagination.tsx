@@ -1,7 +1,7 @@
 import Input from "@/atoms/Input";
 import Image from "@/atoms/Image";
 import Button from "@/atoms/Button";
-import { useServiceSearchContext } from "@/hooks/ServiceSearchProvider";
+import { useServiceSearchContext } from "@/context/ServiceSearchProvider";
 import useServices from "@/hooks/useServices";
 import { useEffect, useState } from "react";
 

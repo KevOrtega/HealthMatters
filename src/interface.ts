@@ -4,6 +4,20 @@ export type TitleProps = {
 	type?: "bigger" | "big" | "medium";
 };
 
+export type doctor_response = {
+	_id: string;
+	name: string;
+	lastname: string;
+	services: string[];
+	specialties: string[];
+	patients: string[];
+	registration: string;
+	phoneNumber: number;
+	email: string;
+	date: string[];
+	__v: number;
+};
+
 export type ButtonProps = {
 	children: React.ReactNode;
 	className?: string;
@@ -20,7 +34,8 @@ export type ImageProps = {
 		| "search"
 		| "tune"
 		| "arrow_back"
-		| "arrow_forward";
+		| "arrow_forward"
+		| "ascendant";
 	className?: string;
 };
 
@@ -49,11 +64,25 @@ export type MainProps = {
 };
 
 export type iService = {
-	title: string;
-	info: string;
+	name: string;
+	description: string;
 	price: number;
 	doctor: string;
 	rating: number;
+};
+
+export type services_response = {
+	services: iService[];
+	current_page: number;
+	pages: number;
+	count: number;
+};
+
+export type specialties_response = {
+	_id: string;
+	name: "string";
+	doctor: string[];
+	__v: number;
 };
 
 export interface serviceProps extends iService {

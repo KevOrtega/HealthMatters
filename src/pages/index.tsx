@@ -24,7 +24,9 @@ export default function Landing() {
 						</Link>
 					</div>
 				</div>
-				<Image className="w-1/2" type="medicine" />
+				<div className="self-center w-2/3">
+					<Image type="medicine" />
+				</div>
 			</section>
 			<section className="h-screen flex flex-col">
 				<div className="w-1/3 ml-auto mr-14">

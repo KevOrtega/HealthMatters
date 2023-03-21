@@ -61,12 +61,12 @@ const RegistrationForm = () => {
 			<div className="flex items-center justify-between">
 				<button
 					type="submit"
-					className="inline-block text-right mr-3 inline-block text-right underline"
+					className="inline-block mr-3 text-right underline"
 				>
 					Login
 				</button>
 			</div>
-			<div className="flex justify-center items-center my-4 bg-white px-2 inline-block text-gray-500 uppercase font-medium tracking-wide">
+			<div className="flex justify-center items-center my-4 bg-white px-2 text-gray-500 uppercase font-medium tracking-wide">
 				<hr className="border-t-1 border-gray-500 w-full" />
 				<p className="text-center ">Or</p>
 				<hr className="border-b-1 border-gray-500 w-full" />

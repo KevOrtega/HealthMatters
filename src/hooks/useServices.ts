@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { servicesFetcher, services_URL } from "@/services/services";
+import { servicesFetcher } from "@/requests";
 
 export default function useServices(
 	search?: string,
@@ -8,20 +8,20 @@ export default function useServices(
 	page?: number
 ) {
 	const { data, isLoading, mutate } = useSWR(
-		`${services_URL}/?search=${
+		`${process.env.services_url}/?search=${
 			search && search.length ? search : ""
 		}&specialties=${
 			specialties_to_search && specialties_to_search.length
 				? specialties_to_search.join(",")
 				: ""
-		}&order=${order && order.length && order !== "default" ? order : ""}&page=${
-			page || "1"
-		}`,
+		}&order=${
+			order && !!order.length && order !== "default" ? order : ""
+		}&page=${page || "1"}`,
 		servicesFetcher
 	);
 
 	return {
-		services: data?.results,
+		services: data?.services,
 		pages: data?.pages,
 		isLoading,
 		setServices: mutate,
