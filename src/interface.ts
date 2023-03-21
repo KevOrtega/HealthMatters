@@ -64,6 +64,7 @@ export type MainProps = {
 };
 
 export type iService = {
+	_id: string;
 	name: string;
 	description: string;
 	price: number;
