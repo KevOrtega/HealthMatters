@@ -29,30 +29,27 @@ export default function Landing() {
 				</div>
 			</section>
 			<section className="h-screen flex flex-col">
-				<div className="w-1/3 ml-auto mr-14">
-					<LandingNavbar />
-				</div>
-				<div className="px-10 h-1/3 w-max relative">
-					<Image className="h-full" type="map" />
-					<p className="w-max translate-x-full -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
-						find the best <span className="text-kaitoke-green">doctor</span> for
-						you
-					</p>
-				</div>
-				<div className="px-10 h-1/3 w-max justify-end self-end">
-					<Image className="h-full" type="choose" />
-					<p className="w-max -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
-						Choose the service{" "}
-						<span className="text-kaitoke-green">you want</span>
-					</p>
-				</div>
-			</section>
-			<section className="h-screen flex flex-col">
-				<div className="h-1/3 w-max mt-20 m-auto">
-					<Image className="h-full" type="pay" />
-					<p className="w-max -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
-						Pay the way <span className="text-kaitoke-green">you</span> prefer
-					</p>
+				<div className="h-full flex items-center justify-around">
+					<div className="flex flex-col items-center justify-center">
+						<Image className="w-80" type="map" />
+						<p className="w-max -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
+							find the best <span className="text-kaitoke-green">doctor</span>{" "}
+							for you
+						</p>
+					</div>
+					<div className="flex flex-col items-center justify-center">
+						<Image className="w-80" type="choose" />
+						<p className="w-max -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
+							Choose the service{" "}
+							<span className="text-kaitoke-green">you want</span>
+						</p>
+					</div>
+					<div className="flex flex-col items-center justify-center">
+						<Image className="w-80" type="pay" />
+						<p className="w-max -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
+							Pay the way <span className="text-kaitoke-green">you</span> prefer
+						</p>
+					</div>
 				</div>
 				<div className="self-end p-16 w-full bg-mine-shaft">
 					<Link className="text-white text-xl" href="/about">
