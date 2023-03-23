@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Link from "@/atoms/Link";
+import Link from "next/link";
 import Title from "@/atoms/Title";
 import Main from "@/atoms/Main";
 import LoginForm from "@/molecules/LoginForm";
@@ -18,8 +18,10 @@ function LoginPage() {
 	return (
 		<Main>
 			<div className="container mx-auto py-4">
-				<Link href="/">
-					<Title type="big">HealthMatters</Title>
+				<Link href="/" passHref>
+					<button className="text-blue-500 hover:text-blue-700 focus:outline-none">
+						<Title type="big">HealthMatters</Title>
+					</button>
 				</Link>
 				<div className="mt-8 flex justify-end">
 					<div className="w-1/2 text-center">
@@ -39,116 +41,18 @@ function LoginPage() {
 						</button>
 						{isLoginForm ? (
 							<form>
-								<div className="flex flex-col mb-4">
-									<label
-										htmlFor="email"
-										className="text-lg mb-2 text-left"
-										style={{ fontSize: "14px" }}
-									>
-										Name:
-									</label>
-									<input
-										type="text"
-										id="name"
-										name="name"
-										required
-										className="w-full border-b py-2 px-3 mb-4"
-									/>
-								</div>
-								<div className="flex flex-col mb-4">
-									<label
-										htmlFor="email"
-										className="text-lg mb-2 text-left"
-										style={{ fontSize: "14px" }}
-									>
-										Last Name:
-									</label>
-									<input
-										type="text"
-										id="last-name"
-										name="last-name"
-										required
-										className="w-full border-b py-2 px-3 mb-4"
-									/>
-								</div>
-								<div className="flex flex-col mb-4">
-									<label
-										htmlFor="email"
-										className="text-lg mb-2 text-left"
-										style={{ fontSize: "14px" }}
-									>
-										Email:
-									</label>
-									<input
-										type="email"
-										id="email"
-										name="email"
-										required
-										className="w-full border-b py-2 px-3 mb-4"
-									/>
-								</div>
-								<div className="flex flex-col mb-4">
-									<label
-										htmlFor="password"
-										className="text-lg mb-2 text-left"
-										style={{ fontSize: "14px" }}
-									>
-										Password:
-									</label>
-									<input
-										type="password"
-										id="password"
-										name="password"
-										required
-										className="w-full border-b py-2 px-3 mb-4"
-									/>
-								</div>
-								<div className="flex items-center justify-between">
-									<button
-										type="submit"
-										className="text-right mr-3 inline-block underline"
-									>
-										Sign up
-									</button>
-								</div>
-								<p className="text-center ">Or</p>
-
-								<div className="flex items-center justify-center my-4">
-									<div className="flex flex-col text-center">
-										<button
-											type="button"
-											onClick={handleToggleForm}
-											className="ml-2 text-sm text-gray-500 hover:text-gray-700 my-4 border-2 border-green-500 rounded-md py-2 px-4 text-green-700"
-										>
-											Login
-										</button>
-									</div>
-								</div>
-
-								<div>
-									<button
-										type="button"
-										onClick={handleToggleForm}
-										className="ml-2 text-sm text-gray-500 hover:text-gray-700 my-4"
-									>
-										<strong className="rounded-md border-4 border-green-700 py-2 px-4 text-green-700">
-											Login
-										</strong>
-									</button>
-								</div>
-								<div>
-									<button
-										type="button"
-										onClick={handleToggleForm}
-										className="ml-2 text-sm text-gray-500 hover:text-gray-700"
-									>
-										Are you a doctor?<strong> Click here</strong>
-									</button>
-								</div>
+								{/* Aquí va el contenido de tu formulario de registro */}
 							</form>
 						) : (
 							<LoginForm />
 						)}
+						<div>
+							<Link href="/doctor-register" passHref>
+								<button className="ml-2 text-sm text-gray-500 hover:text-gray-700 focus:outline-none">
+									Are you a doctor?<strong> Click here</strong>
+								</button>
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>

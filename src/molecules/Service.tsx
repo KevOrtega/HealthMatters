@@ -6,7 +6,7 @@ import Title from "@/atoms/Title";
 import useDoctorById from "@/hooks/useDoctorById";
 
 const Service: React.FC<serviceProps> = ({
-	_id, // Asegúrate de pasar el _id en las props
+	_id,
 	className,
 	name,
 	description,
