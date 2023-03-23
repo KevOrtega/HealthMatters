@@ -2,11 +2,12 @@ import React from "react";
 
 import { serviceProps } from "@/interface";
 
-import Button from "@/atoms/Button";
 import Title from "@/atoms/Title";
 import useDoctorById from "@/hooks/useDoctorById";
+import Link from "@/atoms/Link";
 
 const Service: React.FC<serviceProps> = ({
+	_id,
 	className,
 	name,
 	description,
@@ -17,11 +18,12 @@ const Service: React.FC<serviceProps> = ({
 	const { service_doctor } = useDoctorById(doctor);
 
 	return (
-		<Button
+		<Link
 			className={
 				"relative flex flex-col w-1/4 h-64 shadow-md rounded-xl py-2 px-6 transition-all hover:-translate-y-1 active:translate-y-0 overflow-visible hover:shadow-lg active:shadow-md " +
 				className
 			}
+			href={`/home/${_id}`}
 		>
 			<Title className="w-full text-center" type="medium">
 				{name}
@@ -34,7 +36,7 @@ const Service: React.FC<serviceProps> = ({
 					{service_doctor.name} {service_doctor.lastname}
 				</p>
 			)}
-		</Button>
+		</Link>
 	);
 };
 
