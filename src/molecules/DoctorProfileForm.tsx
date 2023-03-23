@@ -39,7 +39,7 @@ function DoctorProfile() {
 			style={{ gap: "1rem" }}
 		>
 			<div className="flex flex-col justify-center p-8">
-				<h1 className="text-3xl font-semibold mb-6 font-handwrite">
+				<h1 className="text-5xl font-semibold mb-6 font-handwrite text-white">
 					Doctor Profile Page
 				</h1>
 				{doctor && (
@@ -62,7 +62,9 @@ function DoctorProfile() {
 			)}
 			<div className="p-8">
 				<form onSubmit={handleSubmit}>
-					<label htmlFor="serviceName">Nombre del servicio:</label>
+					<label htmlFor="servicePrice" className="font-bold">
+						Precio del servicio:
+					</label>
 					<input
 						type="text"
 						id="serviceName"
@@ -70,7 +72,9 @@ function DoctorProfile() {
 						onChange={(e) => setServiceName(e.target.value)}
 					/>
 					<br />
-					<label htmlFor="serviceDescription">Descripción del servicio:</label>
+					<label htmlFor="serviceDescription" className="font-bold">
+						Descripción del servicio:
+					</label>
 					<input
 						type="text"
 						id="serviceDescription"
@@ -78,7 +82,9 @@ function DoctorProfile() {
 						onChange={(e) => setServiceDescription(e.target.value)}
 					/>
 					<br />
-					<label htmlFor="servicePrice">Precio del servicio:</label>
+					<label htmlFor="servicePrice" className="font-bold">
+						Precio del servicio:
+					</label>
 					<input
 						type="number"
 						id="servicePrice"
@@ -86,7 +92,9 @@ function DoctorProfile() {
 						onChange={(e) => setServicePrice(e.target.value)}
 					/>
 					<br />
-					<button type="submit">Crear servicio</button>
+					<button type="submit" className="font-bold">
+						Crear servicio
+					</button>
 				</form>
 			</div>
 		</div>
