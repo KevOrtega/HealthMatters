@@ -1,46 +1,24 @@
-// components/ServiceDetail.tsx
+import { useContext } from "react";
+import { useServicesById } from "@/hooks/useServicesById";
+import { useCartContext } from "@/context/CartProvider";
 
-import { useEffect, useState } from "react";
+export default function ServiceDetail({ serviceId }: { serviceId: string }) {
+	const { service } = useServicesById(serviceId);
+	const { addToCart } = useCartContext();
 
-interface Service {
-	_id: string;
-	name: string;
-	// ... (otros campos que desees mostrar)
-}
-
-interface Props {
-	serviceId: string;
-}
-
-const ServiceDetail = ({ serviceId }: Props) => {
-	const [service, setService] = useState<Service | null>(null);
-
-	useEffect(() => {
-		const fetchService = async () => {
-			try {
-				const response = await fetch(`your-api-url/services/${serviceId}`);
-				const data = await response.json();
-				setService(data);
-			} catch (error) {
-				console.error("Error fetching service:", error);
-			}
-		};
-
-		fetchService();
-	}, [serviceId]);
+	const handleClick: React.ReactEventHandler<HTMLButtonElement> = () =>
+		service && addToCart(service);
 
 	return (
 		<div>
 			{service ? (
 				<>
 					<h1>{service.name}</h1>
-					{/* ... (muestra el resto de los campos) */}
+					<button onClick={handleClick}>add service to my services</button>
 				</>
 			) : (
 				<p>Loading...</p>
 			)}
 		</div>
 	);
-};
-
-export default ServiceDetail;
+}

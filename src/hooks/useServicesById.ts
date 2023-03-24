@@ -1,27 +1,16 @@
 import useSWR from "swr";
-
-interface Service {
-	id: string;
-	name: string;
-	description: string;
-}
-
-const API_URL = "https://healthmattersapi-production.up.railway.app/services";
+import { serviceByIdFetcher } from "@/requests";
 
 export const useServicesById = (id: string) => {
-	const url = `${API_URL}?id=${id}`;
-	const { data: service, error } = useSWR<Service>(url, async (url) => {
-		const response = await fetch(url);
-		if (!response.ok) {
-			throw new Error("Error al obtener el servicio");
-		}
-		const data = await response.json();
-		return data[0];
-	});
+	const {
+		data: service,
+		isLoading,
+		error,
+	} = useSWR(`${process.env.services_url}/${id}`, serviceByIdFetcher);
 
 	return {
 		service,
-		isLoading: !service && !error,
+		isLoading: isLoading,
 		isError: error,
 	};
 };
