@@ -1,44 +1,52 @@
-// components/ServiceDetail.tsx
-
-import { useEffect, useState } from "react";
+import { useServicesById } from "@/hooks/useServicesById";
+import { useState } from "react";
 
 interface Service {
-	_id: string;
+	id: string;
 	name: string;
-	// ... (otros campos que desees mostrar)
+	description: string;
 }
 
 interface Props {
-	serviceId: string;
+	id: string;
 }
 
-const ServiceDetail = ({ serviceId }: Props) => {
-	const [service, setService] = useState<Service | null>(null);
+const ServiceDetail = ({ id }: Props) => {
+	const { service, isLoading, isError } = useServicesById(id);
+	const [isAddedToCart, setIsAddedToCart] = useState(false);
+	const [cart, setCart] = useState([]);
 
-	useEffect(() => {
-		const fetchService = async () => {
-			try {
-				const response = await fetch(`your-api-url/services/${serviceId}`);
-				const data = await response.json();
-				setService(data);
-			} catch (error) {
-				console.error("Error fetching service:", error);
-			}
-		};
+	if (isLoading) {
+		return <div>Loading...</div>;
+	}
 
-		fetchService();
-	}, [serviceId]);
+	if (isError) {
+		return <div>Error loading service details</div>;
+	}
+
+	if (!service) {
+		return <div>Service not found</div>;
+	}
+
+	const addToCart = (service: Service) => {
+		const [cart, setCart] = useState<Service[]>([]);
+	};
+
+	const handleAddToCart = () => {
+		addToCart(service);
+		setIsAddedToCart(true);
+	};
 
 	return (
 		<div>
-			{service ? (
-				<>
-					<h1>{service.name}</h1>
-					{/* ... (muestra el resto de los campos) */}
-				</>
+			<h1>{service.name}</h1>
+			<p>{service.description}</p>
+			{isAddedToCart ? (
+				<button disabled>Agregado al carrito</button>
 			) : (
-				<p>Loading...</p>
+				<button onClick={handleAddToCart}>Agregar al carrito</button>
 			)}
+			<p>Servicios en el carrito: {cart.length}</p>
 		</div>
 	);
 };
