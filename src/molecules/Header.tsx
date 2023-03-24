@@ -14,6 +14,9 @@ function Header() {
 					<li>
 						<Link href="/login">LogIn</Link>
 					</li>
+					<li>
+						<Link href="/myservices">My Services</Link>
+					</li>
 				</ul>
 			</nav>
 		</header>
