@@ -6,7 +6,7 @@ export default function SignUpPatient() {
 	};
 
 	return (
-		<form>
+		<form className="w-full p-10">
 			<button onClick={handleGoogleLogin}>
 				<img
 					src="https://th.bing.com/th/id/OIP.KEygYmezNxIdPeCrxbrQ6wHaD_?pid=ImgDet&rs=1"
@@ -71,30 +71,6 @@ export default function SignUpPatient() {
 					className="text-right mr-3 inline-block underline"
 				>
 					Sign up
-				</button>
-			</div>
-			<p className="text-center">Or</p>
-			<div className="flex flex-col">
-				<button
-					type="button"
-					className="ml-2 text-sm text-gray-500 hover:text-gray-700 my-4"
-				>
-					<Link href="/login">
-						<strong className="rounded-md border-4 border-green-700 py-2 px-4 text-green-700">
-							Login
-						</strong>
-					</Link>
-				</button>
-			</div>
-			<div>
-				<button
-					type="button"
-					className="ml-2 text-sm text-gray-500 hover:text-gray-700"
-				>
-					Are you a doctor?{" "}
-					<Link href="/doctor/signup">
-						<strong>Click here</strong>
-					</Link>
 				</button>
 			</div>
 		</form>
