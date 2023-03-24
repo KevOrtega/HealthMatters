@@ -1,54 +1,23 @@
+import { useContext } from "react";
 import { useServicesById } from "@/hooks/useServicesById";
-import { useState } from "react";
+import { useCartContext } from "@/context/CartProvider";
 
-interface Service {
-	id: string;
-	name: string;
-	description: string;
-}
+export default function ServiceDetail({ serviceId }: { serviceId: string }) {
+	const { service } = useServicesById(serviceId);
+	const { addToCart, cartItems } = useCartContext();
 
-interface Props {
-	id: string;
-}
-
-const ServiceDetail = ({ id }: Props) => {
-	const { service, isLoading, isError } = useServicesById(id);
-	const [isAddedToCart, setIsAddedToCart] = useState(false);
-	const [cart, setCart] = useState([]);
-
-	if (isLoading) {
-		return <div>Loading...</div>;
-	}
-
-	if (isError) {
-		return <div>Error loading service details</div>;
-	}
-
-	if (!service) {
-		return <div>Service not found</div>;
-	}
-
-	const addToCart = (service: Service) => {
-		const [cart, setCart] = useState<Service[]>([]);
-	};
-
-	const handleAddToCart = () => {
-		addToCart(service);
-		setIsAddedToCart(true);
-	};
+	const handleClick: React.ReactEventHandler<HTMLButtonElement> = () =>
+		service && addToCart(service);
 
 	return (
 		<div>
-			<h1>{service.name}</h1>
-			<p>{service.description}</p>
-			{isAddedToCart ? (
-				<button disabled>Agregado al carrito</button>
-			) : (
-				<button onClick={handleAddToCart}>Agregar al carrito</button>
+			{service && (
+				<>
+					<h1>{service.name}</h1>
+					<button onClick={handleClick}>add service to my services</button>
+				</>
 			)}
-			<p>Servicios en el carrito: {cart.length}</p>
+			<p>Servicios en el carrito: {cartItems.length}</p>
 		</div>
 	);
-};
-
-export default ServiceDetail;
+}

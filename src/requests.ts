@@ -1,5 +1,6 @@
 import {
 	doctor_response,
+	iService,
 	services_response,
 	specialties_response,
 } from "@/interface";
@@ -18,3 +19,6 @@ export const specialtiesFetcher: Fetcher<specialties_response[], string> = (
 
 export const doctorByIdFetcher: Fetcher<doctor_response, string> = (url) =>
 	axios.get(url).then(({ data }: AxiosResponse<doctor_response>) => data);
+
+export const serviceByIdFetcher: Fetcher<iService> = async (url: string) =>
+	axios.get(url).then(({ data }: AxiosResponse<iService>) => data);
