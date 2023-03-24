@@ -5,6 +5,8 @@ function DoctorProfile() {
 	const [serviceName, setServiceName] = useState("");
 	const [serviceDescription, setServiceDescription] = useState("");
 	const [servicePrice, setServicePrice] = useState("");
+	const [selectedImage, setSelectedImage] = useState<File | null>(null);
+	const [doctorImageUrl, setDoctorImageUrl] = useState<string | null>(null);
 
 	const getHardcodedDoctorData = (id: string) => {
 		if (id === "1") {
@@ -22,8 +24,46 @@ function DoctorProfile() {
 		}
 	};
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files && e.target.files[0]) {
+			setSelectedImage(e.target.files[0]);
+		}
+	};
+
+	const uploadImage = async () => {
+		if (!selectedImage) {
+			console.log("No image selected");
+			return;
+		}
+
+		const formData = new FormData();
+		formData.append("image", selectedImage);
+
+		try {
+			const response = await fetch("/api/images/upload", {
+				method: "POST",
+				body: formData,
+			});
+
+			if (!response.ok) {
+				throw new Error("Failed to upload image");
+			}
+
+			const data = await response.json();
+			console.log("Image uploaded successfully:", data.imageUrl);
+
+			// Update the doctor image URL after a successful upload
+			setDoctorImageUrl(data.imageUrl);
+		} catch (error) {
+			console.error("Image upload error:", error);
+		}
+	};
+
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+
+		await uploadImage();
+
 		console.log("Formulario enviado:", {
 			name: serviceName,
 			description: serviceDescription,
@@ -34,45 +74,42 @@ function DoctorProfile() {
 	const doctor = getHardcodedDoctorData(doctorId);
 
 	return (
-		<div
-			className="h-screen bg-gradient-to-t from-white to-viking grid grid-cols-2"
-			style={{ gap: "1rem" }}
-		>
-			<div className="flex flex-col justify-center p-8">
+		<div className="h-screen bg-gradient-to-t from-kaitoke-green to-viking grid grid-cols-2 gap-4 p-8">
+			<div className="flex flex-col justify-center">
 				<h1 className="text-5xl font-semibold mb-6 font-handwrite text-white">
 					Doctor Profile Page
 				</h1>
 				{doctor && (
 					<>
-						<h2>{doctor.name}</h2>
-						<p>Especialidad: {doctor.specialty}</p>
-						<p>Descripción: {doctor.description}</p>
-						<p>Valor: {doctor.price}</p>
+						<h2 className="text-2xl font-bold text-white">{doctor.name}</h2>
+						<p className="text-white">Especialidad: {doctor.specialty}</p>
+						<p className="text-white">Descripción: {doctor.description}</p>
+						<p className="text-white">Valor: {doctor.price}</p>
 					</>
 				)}
 			</div>
 			{doctor && (
 				<div className="flex justify-center items-center">
 					<img
-						src={doctor.image}
+						src={doctorImageUrl ? doctorImageUrl : doctor.image}
 						alt={`Imagen del ${doctor.name}`}
-						className="w-medium h-32 rounded-full object-cover"
+						className="w-32 h-32 rounded-full object-cover"
 					/>
 				</div>
 			)}
-			<div className="p-8">
-				<form onSubmit={handleSubmit}>
-					<label htmlFor="servicePrice" className="font-bold">
-						Precio del servicio:
+			<div className="col-span-2 p-8 bg-white rounded-lg shadow-md">
+				<form onSubmit={handleSubmit} className="space-y-4">
+					<label htmlFor="serviceName" className="block font-bold">
+						Nombre del servicio:
 					</label>
 					<input
 						type="text"
 						id="serviceName"
 						value={serviceName}
 						onChange={(e) => setServiceName(e.target.value)}
+						className="w-full p-2 border border-egg rounded"
 					/>
-					<br />
-					<label htmlFor="serviceDescription" className="font-bold">
+					<label htmlFor="serviceDescription" className="block font-bold">
 						Descripción del servicio:
 					</label>
 					<input
@@ -80,19 +117,32 @@ function DoctorProfile() {
 						id="serviceDescription"
 						value={serviceDescription}
 						onChange={(e) => setServiceDescription(e.target.value)}
+						className="w-full p-2 border border-egg rounded"
 					/>
-					<br />
-					<label htmlFor="servicePrice" className="font-bold">
+					<label htmlFor="servicePrice" className="block font-bold">
 						Precio del servicio:
 					</label>
 					<input
-						type="number"
+						type="text"
 						id="servicePrice"
 						value={servicePrice}
 						onChange={(e) => setServicePrice(e.target.value)}
+						className="w-full p-2 border border-egg rounded"
 					/>
-					<br />
-					<button type="submit" className="font-bold">
+					<label htmlFor="serviceImage" className="block font-bold">
+						Imagen del servicio:
+					</label>
+					<input
+						type="file"
+						id="serviceImage"
+						accept="image/*"
+						onChange={handleImageChange}
+						className="w-full p-2 border border-egg rounded cursor-pointer"
+					/>
+					<button
+						type="submit"
+						className="px-4 py-2 font-bold text-white bg-deep-sea rounded hover:bg-caribbean-green"
+					>
 						Crear servicio
 					</button>
 				</form>
