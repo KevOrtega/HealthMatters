@@ -4,8 +4,9 @@ import useServices from "@/hooks/useServices";
 import Title from "@/atoms/Title";
 import { useServiceSearchContext } from "@/context/ServiceSearchProvider";
 import Pagination from "@/molecules/Pagination";
+import { iService } from "@/interface";
 
-const Services: React.FC = () => {
+export default function Services() {
 	const { search, specialties, order, page } = useServiceSearchContext();
 	const { services } = useServices(search, specialties, order, page);
 
@@ -17,12 +18,14 @@ const Services: React.FC = () => {
 			<Pagination />
 			<div className="w-full flex justify-evenly items-start flex-wrap">
 				{services &&
-					services.map((service, i) => (
-						<Service {...service} className="m-10" key={"service--" + i} />
+					services.map((service: iService, i: number) => (
+						<Service
+							{...service}
+							className="m-10 cursor-pointer"
+							key={"service--" + i}
+						/>
 					))}
 			</div>
 		</div>
 	);
-};
-
-export default Services;
+}

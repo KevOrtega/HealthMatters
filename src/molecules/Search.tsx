@@ -1,7 +1,7 @@
 import Input from "@/atoms/Input";
 import { useServiceSearchContext } from "@/context/ServiceSearchProvider";
 
-function SearchBar() {
+export default function SearchBar() {
 	const { search, dispatch } = useServiceSearchContext();
 
 	const handleChange = ({
@@ -19,5 +19,3 @@ function SearchBar() {
 		/>
 	);
 }
-
-export default SearchBar;

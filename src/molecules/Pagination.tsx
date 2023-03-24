@@ -5,7 +5,7 @@ import { useServiceSearchContext } from "@/context/ServiceSearchProvider";
 import useServices from "@/hooks/useServices";
 import { useEffect, useState } from "react";
 
-function Pagination() {
+export default function Pagination() {
 	const { order, search, specialties, page, dispatch } =
 		useServiceSearchContext();
 	const { pages } = useServices(search, specialties, order, page);
@@ -68,5 +68,3 @@ function Pagination() {
 		</div>
 	);
 }
-
-export default Pagination;

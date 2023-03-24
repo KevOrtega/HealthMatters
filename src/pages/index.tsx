@@ -2,7 +2,6 @@ import Button from "@/atoms/Button";
 import Image from "@/atoms/Image";
 import Main from "@/atoms/Main";
 import Title from "@/atoms/Title";
-import LandingNavbar from "@/molecules/LandingNavbar";
 import Link from "@/atoms/Link";
 
 export default function Landing() {
