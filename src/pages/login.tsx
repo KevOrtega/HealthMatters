@@ -1,5 +1,10 @@
-import SignUpPatient from "@/molecules/SignUpPatient";
+import LogInForm from "@/molecules/LoginForm";
+import Main from "@/atoms/Main";
 
 export default function Home() {
-	return <SignUpPatient />;
+	return (
+		<Main>
+			<LogInForm />
+		</Main>
+	);
 }

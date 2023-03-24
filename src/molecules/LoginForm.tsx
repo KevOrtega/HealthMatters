@@ -1,43 +1,26 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { emailValidator, passwordValidator } from "@/validation";
+import Link from "@/atoms/Link";
 
-const RegistrationForm = () => {
+export default function LoginForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-
-	const router = useRouter();
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
-		const validateEmail = (email: string) => {
-			const emailRegex = /\S+@\S+\.\S+/;
-			return emailRegex.test(email);
-		};
-
-		const validatePassword = (password: string) => {
-			return password.length >= 6;
-		};
-
-		if (!validateEmail(email)) {
+		if (!emailValidator(email)) {
 			alert("Correo electrónico no válido");
 			return;
 		}
-		if (!validatePassword(password)) {
+		if (!passwordValidator(password)) {
 			alert("Contraseña no válida (debe tener al menos 6 caracteres)");
 			return;
 		}
 	};
 
-	const handleSignUp = () => {
-		router.push("/signup");
-	};
-
 	return (
-		<form
-			onSubmit={handleSubmit}
-			className="max-w-sm mx-auto p-6 bg-white rounded-lg shadow-md"
-		>
+		<form onSubmit={handleSubmit}>
 			<label htmlFor="email" className="block mb-2">
 				Email:
 			</label>
@@ -72,14 +55,14 @@ const RegistrationForm = () => {
 				<hr className="border-b-1 border-gray-500 w-full" />
 			</div>
 
-			<button
-				onClick={handleSignUp}
-				className="inline-block text-left ml-3 bg-green-500 text-black py-2 px-4 rounded-full "
-			>
-				Sign up
-			</button>
+			<Link href="/signup">
+				<button
+					// onClick={handleSignUp}
+					className="inline-block text-left ml-3 bg-green-500 text-black py-2 px-4 rounded-full "
+				>
+					Sign up
+				</button>
+			</Link>
 		</form>
 	);
-};
-
-export default RegistrationForm;
+}
