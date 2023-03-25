@@ -2,7 +2,7 @@ import Link from "@/atoms/Link";
 import Title from "@/atoms/Title";
 import SearchBar from "./Search";
 
-function Header() {
+export default function Header() {
 	return (
 		<header className="h-20 border-b-2 border-b-egg">
 			<nav className="container h-full mx-auto flex justify-between items-center py-4">
@@ -22,5 +22,3 @@ function Header() {
 		</header>
 	);
 }
-
-export default Header;

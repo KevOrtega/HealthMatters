@@ -4,12 +4,10 @@ import useServices from "@/hooks/useServices";
 import Title from "@/atoms/Title";
 import { useServiceSearchContext } from "@/context/ServiceSearchProvider";
 import Pagination from "@/molecules/Pagination";
-import Link from "next/link";
 import { iService } from "@/interface";
 
-const Services: React.FC = () => {
+export default function Services() {
 	const { search, specialties, order, page } = useServiceSearchContext();
-	const itemsPerPage = page === 1 ? 6 : 5;
 	const { services } = useServices(search, specialties, order, page);
 
 	return (
@@ -30,6 +28,4 @@ const Services: React.FC = () => {
 			</div>
 		</div>
 	);
-};
-
-export default Services;
+}
