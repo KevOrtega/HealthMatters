@@ -4,7 +4,8 @@ import { CreatePreferencePayload } from "mercadopago/models/preferences/create-p
 
 mercadopago.configure({
 	access_token:
-		"TEST-3013639755768747-031705-092990ca65687f403d3f4e5b763a309b-825711606",
+		//"TEST-3013639755768747-031705-092990ca65687f403d3f4e5b763a309b-825711606",
+		"TEST-5930443878939097-032316-10969431732ab08f256002effa02f9d6-659227063",
 });
 
 export default async function handlePayment(
@@ -43,9 +44,9 @@ export default async function handlePayment(
 			},
 			auto_return: "all",
 			back_urls: {
-				success: "http://localhost:3000/success",
-				pending: "http://localhost:3000/pending",
-				failure: "http://localhost:3000/failure",
+				success: "https://health-matters.vercel.app/",
+				pending: "https://health-matters.vercel.app/",
+				failure: "https://health-matters.vercel.app/",
 			},
 		};
 
