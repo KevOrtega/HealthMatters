@@ -2,6 +2,7 @@ import {
 	doctor_response,
 	iLoginCredentials,
 	iRegisterCredentials,
+	iService,
 	services_response,
 	specialties_response,
 } from "@/interface";
@@ -25,6 +26,9 @@ export const loginFetcher = (credentials: iLoginCredentials) =>
 	axios
 		.post(process.env.login_url || "", credentials)
 		.then(({ headers }: AxiosResponse) => headers.cookies.user);
+
+export const serviceByIdFetcher: Fetcher<iService> = async (url: string) =>
+	axios.get(url).then(({ data }: AxiosResponse<iService>) => data);
 
 export const registerFetcher = (credentials: iRegisterCredentials) =>
 	axios

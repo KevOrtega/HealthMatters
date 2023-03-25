@@ -1,44 +1,37 @@
-// components/ServiceDetail.tsx
+import { useServicesById } from "@/hooks/useServicesById";
+import { useCartContext } from "@/context/CartProvider";
+import axios from "axios";
 
-import { useEffect, useState } from "react";
+export default function ServiceDetail({ serviceId }: { serviceId: string }) {
+	const { service } = useServicesById(serviceId);
+	const { addToCart, cartItems } = useCartContext();
 
-interface Service {
-	_id: string;
-	name: string;
-	// ... (otros campos que desees mostrar)
-}
+	const handleClick: React.ReactEventHandler<HTMLButtonElement> = () =>
+		service && addToCart(service);
 
-interface Props {
-	serviceId: string;
-}
-
-export default function ServiceDetail({ serviceId }: Props) {
-	const [service, setService] = useState<Service | null>(null);
-
-	useEffect(() => {
-		const fetchService = async () => {
-			try {
-				const response = await fetch(`your-api-url/services/${serviceId}`);
-				const data = await response.json();
-				setService(data);
-			} catch (error) {
-				console.error("Error fetching service:", error);
-			}
-		};
-
-		fetchService();
-	}, [serviceId]);
+	const handleBought: React.ReactEventHandler<HTMLButtonElement> = async () => {
+		await axios.post(process.env.checkout_url || "", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				price: cartItems[0].services.price,
+				patient: "paciente",
+			}),
+		});
+	};
 
 	return (
 		<div>
-			{service ? (
+			{service && (
 				<>
 					<h1>{service.name}</h1>
-					{/* ... (muestra el resto de los campos) */}
+					<button onClick={handleClick}>add service to my services</button>
+					<button onClick={handleBought}>buy</button>
 				</>
-			) : (
-				<p>Loading...</p>
 			)}
+			<p>Servicios en el carrito: {cartItems.length}</p>
 		</div>
 	);
 }
