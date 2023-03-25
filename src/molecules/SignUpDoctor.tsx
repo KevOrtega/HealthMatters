@@ -3,6 +3,7 @@ import { iRegisterCredentials } from "@/interface";
 import { registerFetcher } from "@/requests";
 import {
 	emailValidator,
+	medicalLicenseValidator,
 	nameOrLastNameValidator,
 	passwordValidator,
 } from "@/validation";
@@ -14,15 +15,12 @@ export default function SignUpPatient() {
 		lastname: "",
 		email: "",
 		password: "",
+		medicalLicense: "",
 	});
 
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({
 		target: { name, value },
 	}) => setCredentials({ ...credentials, [name]: value });
-
-	const handleGoogleLogin = () => {
-		window.location.href = "https://accounts.google.com/login";
-	};
 
 	const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
 		event.preventDefault();
@@ -46,9 +44,18 @@ export default function SignUpPatient() {
 			return;
 		}
 
+		if (!medicalLicenseValidator(credentials.medicalLicense || "")) {
+			alert("la licencia no es valida");
+			return;
+		}
+
 		const token = registerFetcher(credentials);
 
 		console.log(token);
+	};
+
+	const handleGoogleLogin = () => {
+		window.location.href = "https://accounts.google.com/login";
 	};
 
 	return (
@@ -72,8 +79,8 @@ export default function SignUpPatient() {
 				</label>
 				<Input
 					type="text"
-					name="name"
 					value={credentials.name}
+					name="name"
 					onChange={handleChange}
 					required
 				/>
@@ -84,8 +91,8 @@ export default function SignUpPatient() {
 				</label>
 				<Input
 					type="text"
-					name="lastname"
 					value={credentials.lastname}
+					name="lastname"
 					onChange={handleChange}
 					required
 				/>
@@ -96,8 +103,8 @@ export default function SignUpPatient() {
 				</label>
 				<Input
 					type="email"
-					name="email"
 					value={credentials.email}
+					name="email"
 					onChange={handleChange}
 					required
 				/>
@@ -109,7 +116,18 @@ export default function SignUpPatient() {
 				<Input
 					type="password"
 					name="password"
-					value={credentials.password}
+					value={credentials.email}
+					onChange={handleChange}
+					required
+				/>
+			</fieldset>
+			<fieldset className="flex flex-col my-4">
+				<label htmlFor="medicalLicense" className="text-lg mb-2 text-left">
+					Medical License:
+				</label>
+				<Input
+					name="medicalLicense"
+					value={credentials.medicalLicense}
 					onChange={handleChange}
 					required
 				/>

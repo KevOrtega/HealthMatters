@@ -8,3 +8,6 @@ export const passwordValidator = (password: string) =>
 
 export const nameOrLastNameValidator = (name: string) =>
 	RegExp(/^[A-Za-z][A-Za-z0-9_]{1,29}$/g).test(name);
+
+export const medicalLicenseValidator = (license: string) =>
+	RegExp(/^[A-Za-z][A-Za-z]{8}$/g).test(license);

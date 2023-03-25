@@ -1,5 +1,7 @@
 import {
 	doctor_response,
+	iLoginCredentials,
+	iRegisterCredentials,
 	services_response,
 	specialties_response,
 } from "@/interface";
@@ -18,3 +20,13 @@ export const specialtiesFetcher: Fetcher<specialties_response[], string> = (
 
 export const doctorByIdFetcher: Fetcher<doctor_response, string> = (url) =>
 	axios.get(url).then(({ data }: AxiosResponse<doctor_response>) => data);
+
+export const loginFetcher = (credentials: iLoginCredentials) =>
+	axios
+		.post(process.env.login_url || "", credentials)
+		.then(({ headers }: AxiosResponse) => headers.cookies.user);
+
+export const registerFetcher = (credentials: iRegisterCredentials) =>
+	axios
+		.post(process.env.login_url || "", credentials)
+		.then(({ headers }: AxiosResponse) => headers.cookies.user);

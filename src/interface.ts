@@ -35,14 +35,16 @@ export type ImageProps = {
 		| "tune"
 		| "arrow_back"
 		| "arrow_forward"
-		| "ascendant";
+		| "ascendant"
+		| "doctor";
 	className?: string;
 };
 
 export type InputProps = {
+	name?: string;
 	className?: string;
 	placeholder?: string;
-	type: "search" | "pagination";
+	type?: "search" | "pagination" | "email" | "password" | "text";
 	value?: string;
 	onChange?: React.ChangeEventHandler<HTMLInputElement>;
 	onClick?: React.MouseEventHandler<HTMLInputElement>;
@@ -50,6 +52,7 @@ export type InputProps = {
 	onBlur?: React.FocusEventHandler<HTMLInputElement>;
 	min?: number;
 	max?: number;
+	required?: boolean;
 };
 
 export type LinkProps = {
@@ -104,4 +107,17 @@ export interface service_search_context extends service_search {
 export type service_search_action = {
 	type: "SET_SEARCH" | "SET_SPECIALTIES" | "SET_ORDER" | "SET_PAGE";
 	payload: string;
+};
+
+export type iLoginCredentials = {
+	email: string;
+	password: string;
+};
+
+export type iRegisterCredentials = {
+	name: string;
+	lastname: string;
+	email: string;
+	password: string;
+	medicalLicense?: string;
 };
