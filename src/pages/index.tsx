@@ -32,7 +32,7 @@ export default function Landing() {
 					<div className="flex flex-col items-center justify-center w-1/5">
 						<Image type="map" />
 						<p className="w-max -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
-							find the best <span className="text-kaitoke-green">doctor</span>{" "}
+							Find the best <span className="text-kaitoke-green">doctor</span>{" "}
 							for you
 						</p>
 					</div>
