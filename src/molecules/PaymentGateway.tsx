@@ -35,7 +35,7 @@ export default function MPButton() {
 
 					const mp = new window.MercadoPago(
 						process.env.NEXT_PUBLIC_MP_PUBLIC_KEY,
-						{
+						-{
 							locale: "es-AR",
 						}
 					);

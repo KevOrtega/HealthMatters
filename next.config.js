@@ -7,6 +7,9 @@ const nextConfig = {
 			"https://healthmattersapi-production.up.railway.app/specialties",
 		doctors_url: "https://healthmattersapi-production.up.railway.app/doctors",
 		checkout_url: "https://healthmattersapi-production.up.railway.app/checkout",
+		NEXT_PUBLIC_MP_PUBLIC_KEY: "TEST-ff31ab94-73af-43dd-94db-cf6f60d7fcc5",
+		MERCADO_PAGO_ACCESS_TOKEN:
+			"TEST-5930443878939097-032316-10969431732ab08f256002effa02f9d6-659227063",
 	},
 };
 

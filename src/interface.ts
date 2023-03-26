@@ -64,6 +64,7 @@ export type MainProps = {
 };
 
 export type iService = {
+	preferenceId(arg0: string, preferenceId: any): unknown;
 	_id: string;
 	name: string;
 	description: string;
