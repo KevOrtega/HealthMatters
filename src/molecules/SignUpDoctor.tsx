@@ -5,23 +5,30 @@ import { iRegisterCredentials } from "@/interface";
 import { registerFetcher } from "@/requests";
 import {
 	emailValidator,
+	medicalLicenseValidator,
 	nameOrLastNameValidator,
 	passwordValidator,
 } from "@/validation";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function SignUpPatient() {
+export default function SignUpDoctor() {
 	const router = useRouter();
 	const initial_credentials = {
 		name: "",
 		lastname: "",
 		email: "",
 		password: "",
+		medicalLicense: "",
 	};
-	const [credentials, setCredentials] =
-		useState<iRegisterCredentials>(initial_credentials);
-	const { setUser } = useUserContext();
+
+	const [credentials, setCredentials] = useState<iRegisterCredentials>({
+		name: "",
+		lastname: "",
+		email: "",
+		password: "",
+		medicalLicense: "",
+	});
 
 	const valid_credentials = {
 		name: {
@@ -45,15 +52,18 @@ export default function SignUpPatient() {
 			error:
 				"password is not valid (must have 8 characters, 1 capital letter, 1 lowercase and 1 number)",
 		},
+		medicalLicense: {
+			isValid:
+				!credentials.medicalLicense?.length ||
+				medicalLicenseValidator(credentials.medicalLicense || ""),
+			error: "license is not valid",
+		},
 	};
 
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({
 		target: { name, value },
 	}) => setCredentials({ ...credentials, [name]: value });
-
-	const handleGoogleLogin = () => {
-		window.location.href = "https://accounts.google.com/login";
-	};
+	const { setUser } = useUserContext();
 
 	const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
 		event
@@ -73,11 +83,14 @@ export default function SignUpPatient() {
 			setUser(logged);
 
 			setCredentials(initial_credentials);
-
 			router.push("/home");
 		} catch (error) {
 			alert(error);
 		}
+	};
+
+	const handleGoogleLogin = () => {
+		window.location.href = "https://accounts.google.com/login";
 	};
 
 	return (
@@ -164,6 +177,22 @@ export default function SignUpPatient() {
 						!valid_credentials["password"].isValid ? "border-b-deep-blush" : ""
 					}
 					value={credentials.password}
+					onChange={handleChange}
+					required
+				/>
+			</fieldset>
+			<fieldset className="flex flex-col my-4">
+				<label htmlFor="medicalLicense" className="text-lg mb-2 text-left">
+					Medical License:
+				</label>
+				<Input
+					name="medicalLicense"
+					className={
+						!valid_credentials["medicalLicense"].isValid
+							? "border-b-deep-blush"
+							: ""
+					}
+					value={credentials.medicalLicense}
 					onChange={handleChange}
 					required
 				/>

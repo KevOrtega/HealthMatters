@@ -6,7 +6,7 @@ import Title from "@/atoms/Title";
 import useDoctorById from "@/hooks/useDoctorById";
 import Link from "@/atoms/Link";
 
-const Service: React.FC<serviceProps> = ({
+export default function Services({
 	_id,
 	className,
 	name,
@@ -14,7 +14,7 @@ const Service: React.FC<serviceProps> = ({
 	price,
 	doctor,
 	rating,
-}) => {
+}: serviceProps) {
 	const { service_doctor } = useDoctorById(doctor);
 
 	return (
@@ -38,6 +38,4 @@ const Service: React.FC<serviceProps> = ({
 			)}
 		</Link>
 	);
-};
-
-export default Service;
+}

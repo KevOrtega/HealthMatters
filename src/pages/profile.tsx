@@ -1,12 +1,10 @@
 import React from "react";
 import DoctorProfile from "@/molecules/DoctorProfileForm";
 
-const DoctorRegisterPage: React.FC = () => {
+export default function DoctorRegisterPage() {
 	return (
 		<div>
 			<DoctorProfile />
 		</div>
 	);
-};
-
-export default DoctorRegisterPage;
+}

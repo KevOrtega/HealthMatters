@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const PaymentPage = () => {
+export default function PaymentPage() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 	const [paymentUrl, setPaymentUrl] = useState(null);
@@ -72,6 +72,4 @@ const PaymentPage = () => {
 			)}
 		</div>
 	);
-};
-
-export default PaymentPage;
+}

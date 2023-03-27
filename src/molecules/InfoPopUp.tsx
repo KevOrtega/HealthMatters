@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "@/atoms/Button";
 
-const InfoPopup = () => {
+export default function infoPopUp() {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 	const handlePopupToggle = () => {
@@ -18,6 +18,4 @@ const InfoPopup = () => {
 			)}
 		</div>
 	);
-};
-
-export default InfoPopup;
+}
