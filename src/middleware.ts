@@ -8,10 +8,10 @@ export async function middleware(request: NextRequest) {
 		await validateDoctorFetcher(token || "");
 		return NextResponse.next();
 	} catch (error) {
-		return NextResponse.redirect("/home");
+		return NextResponse.redirect(new URL("/home", request.url));
 	}
 }
 
 export const config = {
-	matcher: "/profile",
+	matcher: ["/profile"],
 };
