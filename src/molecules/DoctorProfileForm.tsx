@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function DoctorProfile() {
+export default function DoctorProfile() {
 	const [doctorId, setDoctorId] = useState("1");
 	const [serviceName, setServiceName] = useState("");
 	const [serviceDescription, setServiceDescription] = useState("");
@@ -150,5 +150,3 @@ function DoctorProfile() {
 		</div>
 	);
 }
-
-export default DoctorProfile;

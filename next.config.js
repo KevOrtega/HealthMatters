@@ -6,6 +6,10 @@ const nextConfig = {
 		specialties_url:
 			"https://healthmattersapi-production.up.railway.app/specialties",
 		doctors_url: "https://healthmattersapi-production.up.railway.app/doctors",
+		login_url: "https://healthmattersapi-production.up.railway.app/auth/login",
+		register_url:
+			"https://healthmattersapi-production.up.railway.app/auth/register",
+		checkout_url: "https://healthmattersapi-production.up.railway.app/checkout",
 	},
 };
 

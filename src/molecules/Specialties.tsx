@@ -7,7 +7,7 @@ import { useState } from "react";
 import { specialties_response } from "@/interface";
 import { motion } from "framer-motion";
 
-const Specialities = () => {
+export default function Specialities() {
 	const { specialties } = useSpecialties();
 	const { specialties: specialties_choosen, dispatch } =
 		useServiceSearchContext();
@@ -95,6 +95,4 @@ const Specialities = () => {
 			</li>
 		</ul>
 	);
-};
-
-export default Specialities;
+}
