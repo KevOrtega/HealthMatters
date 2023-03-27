@@ -8,7 +8,7 @@ export default function Home() {
 		<Main>
 			<section className="flex w-full h-screen items-center justify-center">
 				<div className="w-1/2 flex items-center justify-center">
-					<Image type="choose" />
+					<Image priority type="choose" />
 				</div>
 				<div className="w-1/2">
 					<LoginForm />
@@ -20,7 +20,10 @@ export default function Home() {
 
 					<div className="flex flex-col">
 						<button type="button" className="text-sm my-4">
-							<Link className="rounded-md border-4 py-2 px-4" href="/signup">
+							<Link
+								className="rounded-md border-4 border-deep-sea text-deep-sea py-2 px-4"
+								href="/signup"
+							>
 								Sign Up
 							</Link>
 						</button>

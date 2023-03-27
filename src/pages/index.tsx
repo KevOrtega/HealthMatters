@@ -24,27 +24,27 @@ export default function Landing() {
 					</div>
 				</div>
 				<div className="self-center w-2/3">
-					<Image type="medicine" />
+					<Image priority type="medicine" />
 				</div>
 			</section>
 			<section className="h-screen flex flex-col">
 				<div className="h-full flex items-center justify-around">
-					<div className="flex flex-col items-center justify-center">
-						<Image className="w-80" type="map" />
+					<div className="flex flex-col items-center justify-center w-1/5">
+						<Image type="map" />
 						<p className="w-max -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
-							find the best <span className="text-kaitoke-green">doctor</span>{" "}
+							Find the best <span className="text-kaitoke-green">doctor</span>{" "}
 							for you
 						</p>
 					</div>
-					<div className="flex flex-col items-center justify-center">
-						<Image className="w-80" type="choose" />
+					<div className="flex flex-col items-center justify-center w-1/5">
+						<Image type="choose" />
 						<p className="w-max -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
 							Choose the service{" "}
 							<span className="text-kaitoke-green">you want</span>
 						</p>
 					</div>
-					<div className="flex flex-col items-center justify-center">
-						<Image className="w-80" type="pay" />
+					<div className="flex flex-col items-center justify-center w-1/5">
+						<Image type="pay" />
 						<p className="w-max -translate-y-1/2 bg-white rounded-xl shadow-lg p-5 text-xl font-bold">
 							Pay the way <span className="text-kaitoke-green">you</span> prefer
 						</p>
