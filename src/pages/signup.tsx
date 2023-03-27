@@ -8,7 +8,7 @@ export default function SignUp() {
 		<Main>
 			<section className="flex w-full h-screen items-center justify-center">
 				<div className="w-1/2 flex items-center justify-center">
-					<Image type="choose" />
+					<Image priority type="choose" />
 				</div>
 				<div className="w-1/2">
 					<SignUpPatient />
@@ -19,15 +19,18 @@ export default function SignUp() {
 					</div>
 					<div className="flex flex-col">
 						<button type="button" className="ml-2 text-sm my-4">
-							<Link className="rounded-md border-4 py-2 px-4" href="/login">
+							<Link
+								className="rounded-md border-4 border-deep-sea text-deep-sea py-2 px-4"
+								href="/login"
+							>
 								Login
 							</Link>
 						</button>
 					</div>
-					<p>
+					<p className="text-egg">
 						Are you a doctor?{" "}
 						<Link
-							className="ml-2 text-sm font-bold transition-opacity hover:opacity-50"
+							className="ml-2 text-sm text-mine-shaft font-bold transition-opacity hover:opacity-50"
 							href="/doctor/signup"
 						>
 							Click here

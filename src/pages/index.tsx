@@ -24,7 +24,7 @@ export default function Landing() {
 					</div>
 				</div>
 				<div className="self-center w-2/3">
-					<Image type="medicine" />
+					<Image priority type="medicine" />
 				</div>
 			</section>
 			<section className="h-screen flex flex-col">

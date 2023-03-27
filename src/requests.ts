@@ -5,6 +5,7 @@ import {
 	iService,
 	services_response,
 	specialties_response,
+	user_state,
 } from "@/interface";
 import { Fetcher } from "swr";
 import axios, { AxiosResponse } from "axios";
@@ -25,12 +26,17 @@ export const doctorByIdFetcher: Fetcher<doctor_response, string> = (url) =>
 export const serviceByIdFetcher: Fetcher<iService> = async (url: string) =>
 	axios.get(url).then(({ data }: AxiosResponse<iService>) => data);
 
-export const loginFetcher = (credentials: iLoginCredentials) =>
-	axios
-		.post(process.env.login_url || "", credentials)
-		.then(({ headers }: AxiosResponse) => headers.cookies.user);
+export const loginFetcher = (
+	credentials: iLoginCredentials
+): Promise<user_state> =>
+	axios.post(process.env.login_url || "", credentials).then(({ data }) => data);
 
-export const registerFetcher = (credentials: iRegisterCredentials) =>
+export const registerFetcher = (
+	credentials: iRegisterCredentials
+): Promise<user_state> =>
 	axios
 		.post(process.env.register_url || "", credentials)
-		.then(({ headers }: AxiosResponse) => headers.cookies.user);
+		.then(({ data }) => data);
+
+export const validateDoctorFetcher = (token: string): Promise<void> =>
+	axios.post(process.env.register_url || "", token);

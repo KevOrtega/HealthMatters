@@ -25,7 +25,15 @@ export default function Button({
 			/>
 		),
 		pagination: () => <button className={className} {...props} />,
-		submit: () => <button className={className} {...props} />,
+		submit: () => (
+			<button
+				className={
+					"p-2 mr-3 inline-block border-b border-kaitoke-green text-kaitoke-green " +
+					className
+				}
+				{...props}
+			/>
+		),
 		default: () => <button className={className} {...props} />,
 	};
 	return button_types[type]();

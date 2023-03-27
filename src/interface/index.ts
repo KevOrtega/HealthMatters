@@ -38,6 +38,7 @@ export type ImageProps = {
 		| "ascendant"
 		| "doctor";
 	className?: string;
+	priority?: boolean;
 };
 
 export type InputProps = {
@@ -84,7 +85,7 @@ export type services_response = {
 
 export type specialties_response = {
 	_id: string;
-	name: "string";
+	name: string;
 	doctor: string[];
 	__v: number;
 };
@@ -121,3 +122,5 @@ export type iRegisterCredentials = {
 	password: string;
 	medicalLicense?: string;
 };
+
+export * from "./user";

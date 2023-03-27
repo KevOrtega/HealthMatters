@@ -1,4 +1,6 @@
+import Button from "@/atoms/Button";
 import Input from "@/atoms/Input";
+import { useUserContext } from "@/context/UserProvider";
 import { iRegisterCredentials } from "@/interface";
 import { registerFetcher } from "@/requests";
 import {
@@ -6,15 +8,44 @@ import {
 	nameOrLastNameValidator,
 	passwordValidator,
 } from "@/validation";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function SignUpPatient() {
-	const [credentials, setCredentials] = useState<iRegisterCredentials>({
+	const router = useRouter();
+	const initial_credentials = {
 		name: "",
 		lastname: "",
 		email: "",
 		password: "",
-	});
+	};
+	const [credentials, setCredentials] =
+		useState<iRegisterCredentials>(initial_credentials);
+	const { setUser } = useUserContext();
+
+	const valid_credentials = {
+		name: {
+			isValid:
+				!credentials.name.length || nameOrLastNameValidator(credentials.name),
+			error: "name is not valid (must have between 2 and 29 carácteres)",
+		},
+		lastname: {
+			isValid:
+				!credentials.lastname.length ||
+				nameOrLastNameValidator(credentials.lastname),
+			error: "lastname is not valid (must have between 2 and 29 characters)",
+		},
+		email: {
+			isValid: !credentials.email.length || emailValidator(credentials.email),
+			error: "email is not valid",
+		},
+		password: {
+			isValid:
+				!credentials.password.length || passwordValidator(credentials.password),
+			error:
+				"password is not valid (must have 8 characters, 1 capital letter, 1 lowercase and 1 number)",
+		},
+	};
 
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({
 		target: { name, value },
@@ -24,35 +55,45 @@ export default function SignUpPatient() {
 		window.location.href = "https://accounts.google.com/login";
 	};
 
-	const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+	const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
+		event
+	) => {
 		event.preventDefault();
+		try {
+			if (Object.values(credentials).includes(""))
+				throw new Error("Fill every input");
 
-		if (!emailValidator(credentials.email)) {
-			alert("Correo electrónico no válido");
-			return;
-		}
-		if (!passwordValidator(credentials.password)) {
-			alert(
-				"Contraseña no válida (debe tener al menos 8 caracteres, una mayúscula, una minuscula y un número)"
-			);
-			return;
-		}
-		if (!nameOrLastNameValidator(credentials.name)) {
-			alert("nombre no válido (solo admite 29 carácteres)");
-			return;
-		}
-		if (!nameOrLastNameValidator(credentials.lastname)) {
-			alert("apellido no válido (solo admite 29 carácteres)");
-			return;
-		}
+			for (const [_credential, { isValid, error }] of Object.entries(
+				valid_credentials
+			)) {
+				if (!isValid) throw new Error(error);
+			}
 
-		const token = registerFetcher(credentials);
+			const logged = await registerFetcher(credentials);
+			setUser(logged);
 
-		console.log(token);
+			setCredentials(initial_credentials);
+
+			router.push("/home");
+		} catch (error) {
+			alert(error);
+		}
 	};
 
 	return (
 		<form onSubmit={handleSubmit} className="w-full p-10">
+			<p
+				className={`border-deep-blush border-2 transition-opacity opacity-0 ${
+					!!Object.values(valid_credentials).find(({ isValid }) => !isValid) &&
+					"opacity-100"
+				} text-deep-blush capitalize flex items-center justify-center w-full px-5 text-center h-16 mb-2`}
+			>
+				{
+					Object.values(valid_credentials).find(({ isValid }) => !isValid)
+						?.error
+				}
+			</p>
+
 			<button
 				className="my-3 p-5 w-full text-left shadow-lg rounded-lg"
 				onClick={handleGoogleLogin}
@@ -66,6 +107,7 @@ export default function SignUpPatient() {
 				/>
 				Continue with Google
 			</button>
+
 			<fieldset className="flex flex-col my-4">
 				<label htmlFor="name" className="text-lg mb-2 text-left">
 					Name:
@@ -73,6 +115,9 @@ export default function SignUpPatient() {
 				<Input
 					type="text"
 					name="name"
+					className={
+						!valid_credentials["name"].isValid ? "border-b-deep-blush" : ""
+					}
 					value={credentials.name}
 					onChange={handleChange}
 					required
@@ -85,6 +130,9 @@ export default function SignUpPatient() {
 				<Input
 					type="text"
 					name="lastname"
+					className={
+						!valid_credentials["lastname"].isValid ? "border-b-deep-blush" : ""
+					}
 					value={credentials.lastname}
 					onChange={handleChange}
 					required
@@ -97,6 +145,9 @@ export default function SignUpPatient() {
 				<Input
 					type="email"
 					name="email"
+					className={
+						!valid_credentials["email"].isValid ? "border-b-deep-blush" : ""
+					}
 					value={credentials.email}
 					onChange={handleChange}
 					required
@@ -109,15 +160,16 @@ export default function SignUpPatient() {
 				<Input
 					type="password"
 					name="password"
+					className={
+						!valid_credentials["password"].isValid ? "border-b-deep-blush" : ""
+					}
 					value={credentials.password}
 					onChange={handleChange}
 					required
 				/>
 			</fieldset>
 			<div className="flex items-center justify-between">
-				<button type="submit" className="p-2 mr-3 inline-block border-b">
-					Sign up
-				</button>
+				<Button type="submit">Sign up</Button>
 			</div>
 		</form>
 	);
