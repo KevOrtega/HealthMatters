@@ -39,4 +39,4 @@ export const registerFetcher = (
 		.then(({ data }) => data);
 
 export const validateDoctorFetcher = (token: string): Promise<void> =>
-	axios.get(process.env.register_url || "", { headers: { token } });
+	axios.get(process.env.validate_doctor_url || "", { headers: { token } });

@@ -5,8 +5,10 @@ import { emailValidator, passwordValidator } from "@/validation";
 import Input from "@/atoms/Input";
 import { iLoginCredentials } from "@/interface";
 import Button from "@/atoms/Button";
+import { useUserContext } from "@/context/UserProvider";
 
 export default function LoginForm() {
+	const { setUser } = useUserContext();
 	const router = useRouter();
 	const initial_credentials = {
 		email: "",
@@ -51,7 +53,9 @@ export default function LoginForm() {
 				if (!isValid) throw new Error(error);
 			}
 
-			await loginFetcher(credentials);
+			const logged = await loginFetcher(credentials);
+			setUser(logged);
+
 			setCredentials(initial_credentials);
 			router.push("/home");
 		} catch (error) {

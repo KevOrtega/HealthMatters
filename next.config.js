@@ -10,6 +10,8 @@ const nextConfig = {
 		register_url:
 			"https://healthmattersapi-production.up.railway.app/auth/register",
 		checkout_url: "https://healthmattersapi-production.up.railway.app/checkout",
+		validate_doctor_url:
+			"https://healthmattersapi-production.up.railway.app/order",
 	},
 };
 
