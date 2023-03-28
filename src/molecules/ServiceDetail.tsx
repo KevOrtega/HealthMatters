@@ -1,110 +1,4 @@
-// import { useContext, useEffect, useState } from "react";
-// import { useServicesById } from "@/hooks/useServicesById";
-// import { useCartContext } from "@/context/CartProvider";
-// import axios from "axios";
-// import getConfig from "next/config";
-
-// const { publicRuntimeConfig } = getConfig();
-
-// declare global {
-// 	interface Window {
-// 		MercadoPago: any;
-// 	}
-// }
-// export default function ServiceDetail({ serviceId }: { serviceId: string }) {
-// 	const { service } = useServicesById(serviceId);
-// 	const { addToCart, cartItems } = useCartContext();
-
-//   const [mercadopago,setMercadoPago] = useState(window.MercadoPago)
-
-// 	const mp = mercadopago && new mercadopago(
-// 		publicRuntimeConfig.NEXT_PUBLIC_MP_PUBLIC_KEY,
-// 		{
-// 			locale: "es-AR",
-// 		}
-// 	);
-
-// 	// useEffect(() => {
-// 	// 	if (service) {
-// 	// 		const script = document.createElement("script");
-// 	// 		script.type = "text/javascript";
-// 	// 		script.src = "https://sdk.mercadopago.com/js/v2";
-// 	// 		script.setAttribute(
-// 	// 			"data-preference-id",
-// 	// 			service._id
-// 	// 		);
-// 	// 		document.body.appendChild(script);
-
-// 	// 		script.onload = () => {
-// 	// 			const mp = new window.MercadoPago(
-// 	// 				publicRuntimeConfig.NEXT_PUBLIC_MP_PUBLIC_KEY,
-// 	// 				{
-// 	// 					locale: "es-AR",
-// 	// 				}
-// 	// 			);
-
-// 	// 			const checkoutButton = document.getElementById("checkout-button");
-// 	// 			if (checkoutButton) {
-// 	// 				checkoutButton.addEventListener("click", () => {
-// 	// 					mp.checkout({
-// 	// 						preference: {
-// 	// 							id: service._id,
-// 	// 						},
-// 	// 						render: {
-// 	// 							container: ".cho-container",
-// 	// 							label: "Pagar",
-// 	// 						},
-// 	// 					});
-// 	// 				});
-// 	// 			}
-// 	// 		};
-// 	// 	}
-// 	// }, [service]);
-
-// 	const handleClick: React.ReactEventHandler<HTMLButtonElement> = () =>
-// 		service && addToCart(service);
-
-// 	const handleBought: React.ReactEventHandler<HTMLButtonElement> = async () => {
-// 		if (service && mp) {
-// 			mp.checkout({
-// 			preference: {
-// 				id: service._id,
-// 			},
-// 			render: {
-// 				container: ".cho-container",
-// 				label: "Pagar",
-// 			},
-// 		});
-// 			await axios.post(publicRuntimeConfig.checkout_url || "", {
-// 				method: "POST",
-// 				headers: {
-// 					"Content-Type": "application/json",
-// 				},
-// 				body: JSON.stringify({
-// 					price: service.price,
-// 					patient: "paciente",
-// 				}),
-// 			});
-// 		}
-// 	};
-
-// 	return (
-// 		<div>
-// 			<script type="text/javascript" src="https://sdk.mercadopago.com/js/v2" data-preference-id={service?._id}>
-
-// 			</script>
-// 			{service && (
-// 				<>
-// 					<h1>{service.name}</h1>
-// 					<button onClick={handleClick}>add service to my services</button>
-// 					<button  onClick={handleBought} id="checkout-button">buy</button>
-// 				</>
-// 			)}
-// 			<p>Servicios en el carrito: {cartItems.length}</p>
-// 		</div>
-// 	);
-// }
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NextPage } from "next";
 import axios from "axios";
 import { loadMercadoPago } from "@mercadopago/sdk-js";
@@ -124,7 +18,11 @@ interface CheckoutResponse {
 	global: string;
 }
 
-const ServiceDetail = (serviceId: string) => {
+interface ServiceDetailProps {
+	serviceId: string;
+}
+
+const ServiceDetail: NextPage<ServiceDetailProps> = ({ serviceId }) => {
 	const { service } = useServicesById(serviceId);
 	const [patient, setPatient] = useState<Patient>({
 		name: "",
@@ -154,108 +52,93 @@ const ServiceDetail = (serviceId: string) => {
 		try {
 			if (!service) throw new Error("no service");
 			// Crear la instancia de MercadoPagoCheckout con las credenciales de Mercado Pago
+			// Load the MercadoPago SDK
 			await loadMercadoPago();
-			const mpCheckout = new window.MercadoPago("YOUR_PUBLIC_KEY", {
-				locale: "es-AR",
-				id: service._id,
-			});
+
+			// Check if the SDK has been loaded successfully
+			if (!window.MercadoPago) {
+				throw new Error("MercadoPago SDK not loaded");
+			}
+			const mpCheckout = new window.MercadoPago(
+				"TEST-ff31ab94-73af-43dd-94db-cf6f60d7fcc5",
+				{
+					locale: "es-AR",
+					id: service._id,
+				}
+			);
 			// Crear el token de pago
 			const token = await mpCheckout.createToken({
 				cardNumber: "4509953566233704",
 				securityCode: "123",
 				cardExpirationMonth: "11",
-				cardExpirationYear: "25",
-				cardholderName: "APRO",
-				docType: "DNI",
-				docNumber: "12345678",
+				cardExpirationYear: "2025",
+				cardholderName: "APRO firstname",
+				identification: {
+					number: "32432432",
+					type: "DNI",
+				},
 			});
 
-			// Confirmar la transaccion
-			const payment = await mpCheckout.confirmPayment({
-				paymentMethodId: "visa",
-				paymentMethodIssuerId: 3,
+			// Crear el objeto de pago
+			const paymentData = {
 				token: token.id,
-				payerEmail: patient.email,
-				description: date.service,
-				amount: date.price,
+				description: service.name,
+				transaction_amount: service.price,
 				installments: 1,
+				payment_method_id: token.card.payment_method_id,
 				payer: {
-					name: patient.name,
 					email: patient.email,
 				},
-			});
-			await axios.post(process.env.checkout_url || "", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					price: service.price,
-					patient: "paciente",
-				}),
-			});
+			};
+
+			// Procesar el pago
+			const response = await axios.post<CheckoutResponse>(
+				"/api/checkout",
+				paymentData
+			);
+			if (response.data.global === "approved") {
+				setCheckoutId(response.data.global);
+			}
 		} catch (error) {
 			console.log(error);
 		}
 	};
+
 	return (
 		<div>
-			<h1>Service Detail</h1>
+			<h1>{service?.name}</h1>
 			<form>
-				<label>
-					Patient Name:
-					<input
-						type="text"
-						name="name"
-						value={patient.name}
-						onChange={handlePatientChange}
-					/>
-				</label>
-				<br />
-				<label>
-					Patient Email:
-					<input
-						type="email"
-						name="email"
-						value={patient.email}
-						onChange={handlePatientChange}
-					/>
-				</label>
-				<br />
-				<label>
-					Service:
-					<input
-						type="text"
-						name="service"
-						value={date.service}
-						onChange={handleDateChange}
-					/>
-				</label>
-				<br />
-				<label>
-					Price:
-					<input
-						type="number"
-						name="price"
-						value={date.price}
-						onChange={handleDateChange}
-					/>
-				</label>
-				<br />
+				<input
+					type="text"
+					name="name"
+					placeholder="Name"
+					onChange={handlePatientChange}
+				/>
+				<input
+					type="text"
+					name="email"
+					placeholder="Email"
+					onChange={handlePatientChange}
+				/>
+				<input
+					type="text"
+					name="service"
+					placeholder="Service"
+					onChange={handleDateChange}
+				/>
+				<input
+					type="number"
+					name="price"
+					placeholder="Price"
+					onChange={handleDateChange}
+				/>
 				<button type="button" onClick={handleCheckout}>
 					Checkout
 				</button>
 			</form>
-			{checkoutId && (
-				<div>
-					<p>Checkout ID: {checkoutId}</p>
-					<p>Scan this QR Code to complete the payment:</p>
-					<img
-						src={`https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js?checkout-id=${checkoutId}`}
-					/>
-				</div>
-			)}
+			{checkoutId && <p>Checkout approved: {checkoutId}</p>}
 		</div>
 	);
 };
+
 export default ServiceDetail;
