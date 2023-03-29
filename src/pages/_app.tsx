@@ -1,7 +1,7 @@
 import { AppProps } from "next/app";
-import Router from "next/router";
 import Head from "next/head";
 import "@/styles/globals.css";
+import { UserProvider } from "@/context/UserProvider";
 
 export default function _app({ Component, pageProps }: AppProps) {
 	return (
@@ -10,7 +10,9 @@ export default function _app({ Component, pageProps }: AppProps) {
 				<title>HealthMatters</title>
 				{/* <link rel="icon" href="/favicon.ico" /> */}
 			</Head>
-			<Component {...pageProps} />
+			<UserProvider>
+				<Component {...pageProps} />
+			</UserProvider>
 		</div>
 	);
 }

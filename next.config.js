@@ -6,6 +6,9 @@ const nextConfig = {
 		specialties_url:
 			"https://healthmattersapi-production.up.railway.app/specialties",
 		doctors_url: "https://healthmattersapi-production.up.railway.app/doctors",
+		login_url: "https://healthmattersapi-production.up.railway.app/auth/login",
+		register_url:
+			"https://healthmattersapi-production.up.railway.app/auth/register",
 		checkout_url: "https://healthmattersapi-production.up.railway.app/checkout",
 		NEXT_PUBLIC_MP_PUBLIC_KEY: "TEST-ff31ab94-73af-43dd-94db-cf6f60d7fcc5",
 		MERCADO_PAGO_ACCESS_TOKEN:

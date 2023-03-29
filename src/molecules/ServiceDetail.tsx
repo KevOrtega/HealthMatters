@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { NextPage } from "next";
+import { useCartContext } from "@/context/CartProvider";
 import axios from "axios";
 import { loadMercadoPago } from "@mercadopago/sdk-js";
 import { useServicesById } from "@/hooks/useServicesById";

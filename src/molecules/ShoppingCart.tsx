@@ -1,7 +1,7 @@
 import { useCartContext } from "@/context/CartProvider";
 import React from "react";
 
-const ShoppingCart: React.FC = () => {
+export default function ShoppingCart() {
 	const { cartItems, removeFromCart } = useCartContext();
 
 	const total = cartItems.reduce(
@@ -27,6 +27,4 @@ const ShoppingCart: React.FC = () => {
 			<h2>Total: ${total}</h2>
 		</div>
 	);
-};
-
-export default ShoppingCart;
+}
