@@ -1,6 +1,6 @@
 import { useServicesById } from "@/hooks/useServicesById";
 import { useCartContext } from "@/context/CartProvider";
-import axios from "axios";
+import Link from "@/atoms/Link";
 
 export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 	const { service } = useServicesById(serviceId);
@@ -9,29 +9,22 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 	const handleClick: React.ReactEventHandler<HTMLButtonElement> = () =>
 		service && addToCart(service);
 
-	const handleBought: React.ReactEventHandler<HTMLButtonElement> = async () => {
-		await axios.post(process.env.checkout_url || "", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				price: cartItems[0].services.price,
-				patient: "paciente",
-			}),
-		});
-	};
-
 	return (
 		<div>
 			{service && (
 				<>
 					<h1>{service.name}</h1>
 					<button onClick={handleClick}>add service to my services</button>
-					<button onClick={handleBought}>buy</button>
+					<Link href={`/buyservice?id=${service._id}`}>
+						<button>buy</button>
+					</Link>
 				</>
 			)}
-			<p>Servicios en el carrito: {cartItems.length}</p>
+			{cartItems.length ? (
+				<p>Tus servicios: {cartItems.length}</p>
+			) : (
+				<p>No tienes servicios guardados</p>
+			)}
 		</div>
 	);
 }

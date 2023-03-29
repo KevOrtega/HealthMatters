@@ -1,5 +1,6 @@
 export type iUser = {
 	name: string;
+	lastname: string;
 	email: string;
 	password: string;
 	medicalLicense?: string;
