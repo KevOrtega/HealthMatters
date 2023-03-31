@@ -49,7 +49,11 @@ export const buyService = (
 ) =>
 	axios
 		.post<buyServiceRequest, buyServiceResponse>(
-			`${process.env.buyservice_url}/${id}`,
-			patient
+			`${process.env.checkout_url}/${id}`,
+			{
+				patient,
+				path_success: "https://health-matters.vercel.app/",
+				path_error: "https://health-matters.vercel.app/",
+			}
 		)
-		.then(({ global }) => global);
+		.then(({ data }) => data);

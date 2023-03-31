@@ -12,8 +12,13 @@ const nextConfig = {
 		checkout_url: "https://healthmattersapi-production.up.railway.app/checkout",
 		validate_doctor_url:
 			"https://healthmattersapi-production.up.railway.app/order",
-		buyservice_url:
-			"https://healthmattersapi-production.up.railway.app/checkout",
+		// services_url: "http://localhost:3001/services",
+		// specialties_url: "http://localhost:3001/specialties",
+		// doctors_url: "http://localhost:3001/doctors",
+		// login_url: "http://localhost:3001/auth/login",
+		// register_url: "http://localhost:3001/auth/register",
+		// checkout_url: "http://localhost:3001/checkout",
+		// validate_doctor_url: "http://localhost:3001/order",
 	},
 };
 

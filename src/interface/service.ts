@@ -30,9 +30,11 @@ export type service_search_action = {
 };
 
 export type buyServiceResponse = {
-	global: string;
+	data: {
+		global: string;
+	};
 };
 
 export type buyServiceRequest = {
-	productId: string;
+	patient: { name: string; surname: string; email: string };
 };
