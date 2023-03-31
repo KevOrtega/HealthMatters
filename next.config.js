@@ -10,9 +10,15 @@ const nextConfig = {
 		register_url:
 			"https://healthmattersapi-production.up.railway.app/auth/register",
 		checkout_url: "https://healthmattersapi-production.up.railway.app/checkout",
-		NEXT_PUBLIC_MP_PUBLIC_KEY: "TEST-ff31ab94-73af-43dd-94db-cf6f60d7fcc5",
-		MERCADO_PAGO_ACCESS_TOKEN:
-			"TEST-5930443878939097-032316-10969431732ab08f256002effa02f9d6-659227063",
+		validate_doctor_url:
+			"https://healthmattersapi-production.up.railway.app/order",
+		// services_url: "http://localhost:3001/services",
+		// specialties_url: "http://localhost:3001/specialties",
+		// doctors_url: "http://localhost:3001/doctors",
+		// login_url: "http://localhost:3001/auth/login",
+		// register_url: "http://localhost:3001/auth/register",
+		// checkout_url: "http://localhost:3001/checkout",
+		// validate_doctor_url: "http://localhost:3001/order",
 	},
 };
 

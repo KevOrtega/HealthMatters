@@ -8,7 +8,7 @@ export default function SignUp() {
 		<Main>
 			<section className="flex w-full h-screen items-center justify-center">
 				<div className="w-1/2 flex items-center justify-center">
-					<Image priority type="choose" />
+					<Image priority type="doctor" />
 				</div>
 				<div className="w-1/2">
 					<SignUpDoctor />
