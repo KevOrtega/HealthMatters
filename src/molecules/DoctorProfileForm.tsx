@@ -13,53 +13,90 @@ export default function DoctorProfile() {
 	const [doctorImageUrl, setDoctorImageUrl] = useState<string | null>(null);
 	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 	const [showMessage, setShowMessage] = useState(false);
+	const [serviceCreated, setServiceCreated] = useState(false);
 
-	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files[0]) {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				setDoctorImageUrl(e.target?.result as string);
+			};
+			reader.readAsDataURL(e.target.files[0]);
 			setSelectedImage(e.target.files[0]);
-		}
-	};
-	const uploadImage = async () => {
-		if (!selectedImage) {
-			console.log("No image selected");
-			return;
-		}
 
-		const formData = new FormData();
-		formData.append("image", selectedImage);
+			// Sube la imagen seleccionada
+			const formData = new FormData();
+			formData.append("file", e.target.files[0]);
+			formData.append("upload_preset", "ml_default");
 
-		try {
-			const response = await fetch("/api/images/upload", {
-				method: "POST",
-				body: formData,
-			});
+			try {
+				const response = await fetch(
+					"https://api.cloudinary.com/v1_1/dpxtnowdp/image/upload",
+					{
+						method: "POST",
+						body: formData,
+					}
+				);
 
-			if (!response.ok) {
-				throw new Error("Failed to upload image");
+				if (!response.ok) {
+					throw new Error("Failed to upload image");
+				}
+
+				const data = await response.json();
+				console.log("Image uploaded successfully:", data.secure_url);
+
+				// Actualiza la URL de la imagen del médico después de una carga exitosa
+				setDoctorImageUrl(data.secure_url);
+			} catch (error) {
+				console.error("Image upload error:", error);
 			}
-
-			const data = await response.json();
-			console.log("Image uploaded successfully:", data.imageUrl);
-
-			// Update the doctor image URL after a successful upload
-			setDoctorImageUrl(data.imageUrl);
-		} catch (error) {
-			console.error("Image upload error:", error);
 		}
 	};
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-
 		setShowMessage(true);
+	};
 
-		await uploadImage();
+	const clearFields = () => {
+		setServiceName("");
+		setServiceDescription("");
+		setServicePrice("");
+		setSelectedDate(null);
+	};
 
-		console.log("Formulario enviado:", {
+	const createService = async () => {
+		setShowMessage(false);
+
+		const serviceData = {
 			name: serviceName,
 			description: serviceDescription,
 			price: servicePrice,
-		});
+			date: selectedDate,
+		};
+
+		// Envía una solicitud POST para crear un nuevo servicio
+		try {
+			const response = await fetch("/api/services", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(serviceData),
+			});
+
+			if (!response.ok) {
+				throw new Error("Failed to create service");
+			}
+
+			console.log("Service created successfully");
+			clearFields();
+			setServiceCreated(true);
+		} catch (error) {
+			console.error("Error creating service:", error);
+		}
+
+		console.log("Formulario enviado:", serviceData);
 	};
 
 	return (
@@ -80,7 +117,7 @@ export default function DoctorProfile() {
 				)}
 			</div>
 			<div className="col-span-2 p-8 bg-white rounded-lg shadow-md">
-				<form onSubmit={handleSubmit} className="space-y-4">
+				<form id="service-form" onSubmit={handleSubmit} className="space-y-4">
 					<div className="mt-4">
 						<label htmlFor="doctorImage" className="block font-bold">
 							Imagen del médico:
@@ -105,12 +142,6 @@ export default function DoctorProfile() {
 							onChange={handleImageChange}
 							className="w-full p-2 border border-egg rounded cursor-pointer mb-4"
 						/>
-						<button
-							onClick={uploadImage}
-							className="px-4 py-2 font-bold text-white bg-deep-sea rounded hover:bg-caribbean-green"
-						>
-							Cambiar imagen
-						</button>
 					</div>
 					<label htmlFor="serviceName" className="block font-bold">
 						Nombre del servicio:
@@ -161,12 +192,17 @@ export default function DoctorProfile() {
 					>
 						Crear servicio
 					</button>
+					{serviceCreated && (
+						<p className="mt-4 text-center text-green-600">
+							El servicio ha sido creado exitosamen te
+						</p>
+					)}
 				</form>
 				{showMessage && (
 					<div className="fixed inset-0 z-10 flex items-center justify-center">
 						<div
 							className="absolute inset-0 bg-black opacity-50"
-							onClick={() => setShowMessage(false)}
+							onClick={createService}
 						></div>
 						<motion.div
 							initial={{ scale: 0 }}
