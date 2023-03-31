@@ -123,5 +123,11 @@ export type iRegisterCredentials = {
 	password: string;
 	medicalLicense?: string;
 };
+export interface Date {
+	id: number;
+	date: string;
+	customer: string;
+	amount: number;
+}
 
 export * from "./user";

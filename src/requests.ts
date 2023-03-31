@@ -1,8 +1,10 @@
 import {
+	Date,
 	doctor_response,
 	iLoginCredentials,
 	iRegisterCredentials,
 	iService,
+	iUser,
 	services_response,
 	specialties_response,
 	user_state,
@@ -40,3 +42,9 @@ export const registerFetcher = (
 
 export const validateDoctorFetcher = (token: string): Promise<void> =>
 	axios.get(process.env.register_url || "", { headers: { token } });
+
+export const usersFetcher = (url: string): Promise<iUser[]> =>
+	axios(url).then((res) => res.data);
+
+export const datesFetcher = (url: string): Promise<Date[]> =>
+	axios.get(url).then((res) => res.data);
