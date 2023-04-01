@@ -1,3 +1,5 @@
+// import { useUserContext } from "@/context/UserProvider";
+// import { validateDoctorFetcher } from "@/requests";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
