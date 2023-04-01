@@ -22,13 +22,13 @@ export default function Specialities() {
 			opacity: 1,
 			scale: 1,
 			translateY: "0%",
-			transition: { duration: 0.3, overflowY: "unset" },
+			transition: { duration: 0.2, overflowY: "unset" },
 		},
 		closed: {
 			opacity: 0,
 			scale: 0.5,
 			translateY: "-50%",
-			transition: { duration: 0.3 },
+			transition: { duration: 0.2 },
 		},
 	};
 
