@@ -4,6 +4,7 @@ export type iUser = {
 	email: string;
 	password: string;
 	medicalLicense?: string;
+	image?: string;
 };
 
 export type user_state = {
