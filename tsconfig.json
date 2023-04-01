@@ -18,6 +18,6 @@
 			"@/*": ["./src/*"]
 		}
 	},
-	"include": ["src/**/*.ts", "src/**/*.tsx", "src/types/**/*.d.ts"],
+	"include": ["src/**/*.ts", "src/**/*.tsx", "src/types/**/*.d.ts", "*.d.ts"],
 	"exclude": ["node_modules"]
 }
