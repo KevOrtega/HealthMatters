@@ -9,22 +9,6 @@ import { iService } from "@/interface";
 export default function Services() {
 	const { search, specialties, order, page } = useServiceSearchContext();
 	const { services } = useServices(search, specialties, order, page);
-	const [refreshKey, setRefreshKey] = useState(0);
-
-	useEffect(() => {
-		const handleStorageChange = (e: StorageEvent) => {
-			if (e.key === "serviceCreated" && e.newValue === "true") {
-				setRefreshKey((prev) => prev + 1);
-				window.localStorage.removeItem("serviceCreated");
-			}
-		};
-
-		window.addEventListener("storage", handleStorageChange);
-
-		return () => {
-			window.removeEventListener("storage", handleStorageChange);
-		};
-	}, []);
 
 	return (
 		<div className="w-full px-20">
