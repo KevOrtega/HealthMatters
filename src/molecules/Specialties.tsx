@@ -5,8 +5,9 @@ import { useServiceSearchContext } from "@/context/ServiceSearchProvider";
 import useSpecialties from "@/hooks/useSpecialties";
 import { useState } from "react";
 import { specialties_response } from "@/interface";
+import { motion } from "framer-motion";
 
-const Specialities = () => {
+export default function Specialities() {
 	const { specialties } = useSpecialties();
 	const { specialties: specialties_choosen, dispatch } =
 		useServiceSearchContext();
@@ -15,6 +16,21 @@ const Specialities = () => {
 
 	const getSpecialtiesSliced = (specialties: specialties_response[]) =>
 		specialties?.slice(5 * (specialties_section - 1), 5 * specialties_section);
+
+	const popupVariants = {
+		open: {
+			opacity: 1,
+			scale: 1,
+			translateY: "0%",
+			transition: { duration: 0.3, overflowY: "unset" },
+		},
+		closed: {
+			opacity: 0,
+			scale: 0.5,
+			translateY: "-50%",
+			transition: { duration: 0.3 },
+		},
+	};
 
 	return (
 		<ul className="w-full py-5 px-10 flex items-center justify-around text-egg">
@@ -62,14 +78,21 @@ const Specialities = () => {
 				>
 					Order <Image className="h-full ml-4" type="tune" />
 				</Button>
-				{isOrderOpen && (
-					<div className="z-10 absolute top-full mt-2 right-0">
-						<Order />
-					</div>
-				)}
+				<motion.div
+					style={{
+						backgroundColor: "#cefcd5",
+						width: "100%",
+						height: "100%",
+						left: "-50%",
+					}}
+					className="z-10 absolute top-full mt-2 right-0"
+					variants={popupVariants}
+					initial="closed"
+					animate={isOrderOpen ? "open" : "closed"}
+				>
+					<Order />
+				</motion.div>
 			</li>
 		</ul>
 	);
-};
-
-export default Specialities;
+}

@@ -10,7 +10,7 @@ export default function Order() {
 	const dispatchOrder = (order_selected: string) =>
 		dispatch({ type: "SET_ORDER", payload: order_selected });
 
-	const setOrder = (order_selected: "price" | "rating") => {
+	const setOrder = (order_selected: "price" | "rating" | "alphabetically") => {
 		const change_order_methods = {
 			price: () =>
 				order !== "priceASC" && order !== "priceDESC"
@@ -24,19 +24,25 @@ export default function Order() {
 					: order === "ratingASC"
 					? dispatchOrder("ratingDESC")
 					: dispatchOrder("default"),
+			alphabetically: () =>
+				order !== "alphabeticallyASC" && order !== "alphabeticallyDESC"
+					? dispatchOrder("alphabeticallyASC")
+					: order === "alphabeticallyASC"
+					? dispatchOrder("alphabeticallyDESC")
+					: dispatchOrder("default"),
 		};
 
 		change_order_methods[order_selected]();
 	};
 
 	return (
-		<div className="text-mine-shaft bg-white shadow-xl min-w-max rounded-lg w-72 overflow-hidden">
+		<div className="text-mine-shaft bg-white shadow-xl rounded-lg w-72 overflow-hidden">
 			<Title className="p-5" type="medium">
 				Order by
 			</Title>
 			<Button
 				onClick={() => setOrder("price")}
-				className={`inline-flex justify-center items-center w-1/2 h-16 p-5 rounded-tr-lg rounded-bl-lg font-bold capitalize transition-colors ${
+				className={`inline-flex justify-center items-center w-1/2 h-16 p-5 rounded-tr-lg font-bold capitalize transition-colors ${
 					order.includes("price") && "bg-anakiwa text-white"
 				}`}
 			>
@@ -52,7 +58,7 @@ export default function Order() {
 			</Button>
 			<Button
 				onClick={() => setOrder("rating")}
-				className={`inline-flex justify-center items-center w-1/2 h-16 p-5 rounded-tl-lg rounded-br-lg font-bold capitalize transition-colors ${
+				className={`inline-flex justify-center items-center w-1/2 h-16 p-5 rounded-tl-lg font-bold capitalize transition-colors ${
 					order.includes("rating") && "bg-anakiwa text-white"
 				}`}
 			>
@@ -61,6 +67,22 @@ export default function Order() {
 					<Image
 						className={`text-white h-7 ${
 							order === "ratingDESC" && "rotate-180"
+						} `}
+						type="ascendant"
+					/>
+				)}
+			</Button>
+			<Button
+				onClick={() => setOrder("alphabetically")}
+				className={`inline-flex justify-center items-center w-full h-16 p-5 rounded-tl-lg rounded-tr-lg font-bold capitalize transition-colors ${
+					order.includes("alphabetical") && "bg-anakiwa text-white"
+				}`}
+			>
+				alphabetical
+				{order.includes("alphabetically") && (
+					<Image
+						className={`text-white h-7 ${
+							order === "alphabeticallyDESC" && "rotate-180"
 						} `}
 						type="ascendant"
 					/>

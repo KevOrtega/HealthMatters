@@ -1,23 +1,47 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { loginFetcher } from "@/requests";
-import { emailValidator, passwordValidator } from "@/validation";
-import Input from "@/atoms/Input";
-import { iLoginCredentials } from "@/interface";
 import Button from "@/atoms/Button";
+import Input from "@/atoms/Input";
 import { useUserContext } from "@/context/UserProvider";
+import { iRegisterCredentials } from "@/interface";
+import { registerFetcher } from "@/requests";
+import {
+	emailValidator,
+	medicalLicenseValidator,
+	nameOrLastNameValidator,
+	passwordValidator,
+} from "@/validation";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
-export default function LoginForm() {
-	const { setUser } = useUserContext();
+export default function SignUpDoctor() {
 	const router = useRouter();
 	const initial_credentials = {
+		name: "",
+		lastname: "",
 		email: "",
 		password: "",
+		medicalLicense: "",
 	};
-	const [credentials, setCredentials] =
-		useState<iLoginCredentials>(initial_credentials);
+
+	const [credentials, setCredentials] = useState<iRegisterCredentials>({
+		name: "",
+		lastname: "",
+		email: "",
+		password: "",
+		medicalLicense: "",
+	});
 
 	const valid_credentials = {
+		name: {
+			isValid:
+				!credentials.name.length || nameOrLastNameValidator(credentials.name),
+			error: "name is not valid (must have between 2 and 29 carácteres)",
+		},
+		lastname: {
+			isValid:
+				!credentials.lastname.length ||
+				nameOrLastNameValidator(credentials.lastname),
+			error: "lastname is not valid (must have between 2 and 29 characters)",
+		},
 		email: {
 			isValid: !credentials.email.length || emailValidator(credentials.email),
 			error: "email is not valid",
@@ -28,21 +52,23 @@ export default function LoginForm() {
 			error:
 				"password is not valid (must have 8 characters, 1 capital letter, 1 lowercase and 1 number)",
 		},
+		medicalLicense: {
+			isValid:
+				!credentials.medicalLicense?.length ||
+				medicalLicenseValidator(credentials.medicalLicense || ""),
+			error: "license is not valid",
+		},
 	};
 
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({
 		target: { name, value },
 	}) => setCredentials({ ...credentials, [name]: value });
-
-	const handleGoogleLogin = () => {
-		window.location.href = "https://accounts.google.com/login";
-	};
+	const { setUser } = useUserContext();
 
 	const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
 		event
 	) => {
 		event.preventDefault();
-
 		try {
 			if (Object.values(credentials).includes(""))
 				throw new Error("Fill every input");
@@ -53,7 +79,7 @@ export default function LoginForm() {
 				if (!isValid) throw new Error(error);
 			}
 
-			const logged = await loginFetcher(credentials);
+			const logged = await registerFetcher(credentials);
 			setUser(logged);
 
 			setCredentials(initial_credentials);
@@ -61,6 +87,10 @@ export default function LoginForm() {
 		} catch (error) {
 			alert(error);
 		}
+	};
+
+	const handleGoogleLogin = () => {
+		window.location.href = "https://accounts.google.com/login";
 	};
 
 	return (
@@ -92,6 +122,36 @@ export default function LoginForm() {
 			</button>
 
 			<fieldset className="flex flex-col my-4">
+				<label htmlFor="name" className="text-lg mb-2 text-left">
+					Name:
+				</label>
+				<Input
+					type="text"
+					name="name"
+					className={
+						!valid_credentials["name"].isValid ? "border-b-deep-blush" : ""
+					}
+					value={credentials.name}
+					onChange={handleChange}
+					required
+				/>
+			</fieldset>
+			<fieldset className="flex flex-col my-4">
+				<label htmlFor="lastname" className="text-lg mb-2 text-left">
+					Last Name:
+				</label>
+				<Input
+					type="text"
+					name="lastname"
+					className={
+						!valid_credentials["lastname"].isValid ? "border-b-deep-blush" : ""
+					}
+					value={credentials.lastname}
+					onChange={handleChange}
+					required
+				/>
+			</fieldset>
+			<fieldset className="flex flex-col my-4">
 				<label htmlFor="email" className="text-lg mb-2 text-left">
 					Email:
 				</label>
@@ -103,9 +163,9 @@ export default function LoginForm() {
 					}
 					value={credentials.email}
 					onChange={handleChange}
+					required
 				/>
 			</fieldset>
-
 			<fieldset className="flex flex-col my-4">
 				<label htmlFor="password" className="text-lg mb-2 text-left">
 					Password:
@@ -118,9 +178,28 @@ export default function LoginForm() {
 					}
 					value={credentials.password}
 					onChange={handleChange}
+					required
 				/>
 			</fieldset>
-			<Button type="submit">Login</Button>
+			<fieldset className="flex flex-col my-4">
+				<label htmlFor="medicalLicense" className="text-lg mb-2 text-left">
+					Medical License:
+				</label>
+				<Input
+					name="medicalLicense"
+					className={
+						!valid_credentials["medicalLicense"].isValid
+							? "border-b-deep-blush"
+							: ""
+					}
+					value={credentials.medicalLicense}
+					onChange={handleChange}
+					required
+				/>
+			</fieldset>
+			<div className="flex items-center justify-between">
+				<Button type="submit">Sign up</Button>
+			</div>
 		</form>
 	);
 }

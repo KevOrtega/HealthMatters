@@ -11,6 +11,7 @@ module.exports = {
 	theme: {
 		colors: {
 			transparent: "transparent",
+			"deep-blush": "#DE7389",
 			"kaitoke-green": "#005227",
 			"deep-sea": "#038554",
 			"caribbean-green": "#03BB85",

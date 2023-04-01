@@ -1,148 +1,176 @@
+import Button from "@/atoms/Button";
+import Input from "@/atoms/Input";
+import { useUserContext } from "@/context/UserProvider";
+import { iRegisterCredentials } from "@/interface";
+import { registerFetcher } from "@/requests";
+import {
+	emailValidator,
+	nameOrLastNameValidator,
+	passwordValidator,
+} from "@/validation";
+import { useRouter } from "next/router";
 import { useState } from "react";
-import Link from "@/atoms/Link";
-import Title from "@/atoms/Title";
-import Main from "@/atoms/Main";
-import LoginForm from "@/molecules/LoginForm";
 
-function LoginPage() {
-	const [isLoginForm, setIsLoginForm] = useState(true);
-
-	const handleToggleForm = () => {
-		setIsLoginForm((prevValue) => !prevValue);
+export default function SignUpPatient() {
+	const router = useRouter();
+	const initial_credentials = {
+		name: "",
+		lastname: "",
+		email: "",
+		password: "",
 	};
+	const [credentials, setCredentials] =
+		useState<iRegisterCredentials>(initial_credentials);
+	const { setUser } = useUserContext();
+
+	const valid_credentials = {
+		name: {
+			isValid:
+				!credentials.name.length || nameOrLastNameValidator(credentials.name),
+			error: "name is not valid (must have between 2 and 29 carácteres)",
+		},
+		lastname: {
+			isValid:
+				!credentials.lastname.length ||
+				nameOrLastNameValidator(credentials.lastname),
+			error: "lastname is not valid (must have between 2 and 29 characters)",
+		},
+		email: {
+			isValid: !credentials.email.length || emailValidator(credentials.email),
+			error: "email is not valid",
+		},
+		password: {
+			isValid:
+				!credentials.password.length || passwordValidator(credentials.password),
+			error:
+				"password is not valid (must have 8 characters, 1 capital letter, 1 lowercase and 1 number)",
+		},
+	};
+
+	const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({
+		target: { name, value },
+	}) => setCredentials({ ...credentials, [name]: value });
 
 	const handleGoogleLogin = () => {
 		window.location.href = "https://accounts.google.com/login";
 	};
 
-	return (
-		<Main>
-			<div className="container mx-auto py-4">
-				<Link href="/">
-					<Title type="big">HealthMatters</Title>
-				</Link>
-				<div className="mt-8 flex justify-end">
-					<div className="w-1/2 text-center">
-						<h2 className="text-2xl font-bold mb-4">
-							Welcome to HealthMatters
-						</h2>
-						<div className="my-4" />
-						<button onClick={handleGoogleLogin}>
-							<img
-								src="https://th.bing.com/th/id/OIP.KEygYmezNxIdPeCrxbrQ6wHaD_?pid=ImgDet&rs=1"
-								alt="Google Logo"
-								width="50"
-								height="50"
-								className="inline-block mr-2"
-							/>
-							Continue with Google
-						</button>
-						{isLoginForm ? (
-							<form>
-								<div className="flex flex-col mb-4">
-									<label
-										htmlFor="email"
-										className="text-lg mb-2 text-left"
-										style={{ fontSize: "14px" }}
-									>
-										Name:
-									</label>
-									<input
-										type="text"
-										id="name"
-										name="name"
-										required
-										className="w-full border-b py-2 px-3 mb-4"
-									/>
-								</div>
-								<div className="flex flex-col mb-4">
-									<label
-										htmlFor="email"
-										className="text-lg mb-2 text-left"
-										style={{ fontSize: "14px" }}
-									>
-										Last Name:
-									</label>
-									<input
-										type="text"
-										id="last-name"
-										name="last-name"
-										required
-										className="w-full border-b py-2 px-3 mb-4"
-									/>
-								</div>
-								<div className="flex flex-col mb-4">
-									<label
-										htmlFor="email"
-										className="text-lg mb-2 text-left"
-										style={{ fontSize: "14px" }}
-									>
-										Email:
-									</label>
-									<input
-										type="email"
-										id="email"
-										name="email"
-										required
-										className="w-full border-b py-2 px-3 mb-4"
-									/>
-								</div>
-								<div className="flex flex-col mb-4">
-									<label
-										htmlFor="password"
-										className="text-lg mb-2 text-left"
-										style={{ fontSize: "14px" }}
-									>
-										Password:
-									</label>
-									<input
-										type="password"
-										id="password"
-										name="password"
-										required
-										className="w-full border-b py-2 px-3 mb-4"
-									/>
-								</div>
-								<div className="flex items-center justify-between">
-									<button
-										type="submit"
-										className="text-right mr-3 inline-block underline"
-									>
-										Sign up
-									</button>
-								</div>
-								<p className="text-center ">Or</p>
+	const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
+		event
+	) => {
+		event.preventDefault();
+		try {
+			if (Object.values(credentials).includes(""))
+				throw new Error("Fill every input");
 
-								<div className="flex items-center justify-between my-4"></div>
-								<div className="flex flex-col">
-									<button
-										type="button"
-										onClick={handleToggleForm}
-										className="ml-2 text-sm text-gray-500 hover:text-gray-700 my-4"
-									>
-										<strong className="rounded-md border-4 border-green-700 py-2 px-4 text-green-700">
-											Login
-										</strong>
-									</button>
-								</div>
-								<div>
-									<button
-										type="button"
-										onClick={handleToggleForm}
-										className="ml-2 text-sm text-gray-500 hover:text-gray-700"
-									>
-										Are you a doctor?<strong> Click here</strong>
-									</button>
-								</div>
-							</form>
-						) : (
-							<LoginForm />
-						)}
-					</div>
-				</div>
+			for (const [_credential, { isValid, error }] of Object.entries(
+				valid_credentials
+			)) {
+				if (!isValid) throw new Error(error);
+			}
+
+			const logged = await registerFetcher(credentials);
+			setUser(logged);
+
+			setCredentials(initial_credentials);
+
+			router.push("/home");
+		} catch (error) {
+			alert(error);
+		}
+	};
+
+	return (
+		<form onSubmit={handleSubmit} className="w-full p-10">
+			<p
+				className={`border-deep-blush border-2 transition-opacity opacity-0 ${
+					!!Object.values(valid_credentials).find(({ isValid }) => !isValid) &&
+					"opacity-100"
+				} text-deep-blush capitalize flex items-center justify-center w-full px-5 text-center h-16 mb-2`}
+			>
+				{
+					Object.values(valid_credentials).find(({ isValid }) => !isValid)
+						?.error
+				}
+			</p>
+
+			<button
+				className="my-3 p-5 w-full text-left shadow-lg rounded-lg"
+				onClick={handleGoogleLogin}
+			>
+				<img
+					src="https://th.bing.com/th/id/OIP.KEygYmezNxIdPeCrxbrQ6wHaD_?pid=ImgDet&rs=1"
+					alt="Google Logo"
+					width="50rem"
+					height="50rem"
+					className="inline-block mr-2"
+				/>
+				Continue with Google
+			</button>
+
+			<fieldset className="flex flex-col my-4">
+				<label htmlFor="name" className="text-lg mb-2 text-left">
+					Name:
+				</label>
+				<Input
+					type="text"
+					name="name"
+					className={
+						!valid_credentials["name"].isValid ? "border-b-deep-blush" : ""
+					}
+					value={credentials.name}
+					onChange={handleChange}
+					required
+				/>
+			</fieldset>
+			<fieldset className="flex flex-col my-4">
+				<label htmlFor="lastname" className="text-lg mb-2 text-left">
+					Last Name:
+				</label>
+				<Input
+					type="text"
+					name="lastname"
+					className={
+						!valid_credentials["lastname"].isValid ? "border-b-deep-blush" : ""
+					}
+					value={credentials.lastname}
+					onChange={handleChange}
+					required
+				/>
+			</fieldset>
+			<fieldset className="flex flex-col my-4">
+				<label htmlFor="email" className="text-lg mb-2 text-left">
+					Email:
+				</label>
+				<Input
+					type="email"
+					name="email"
+					className={
+						!valid_credentials["email"].isValid ? "border-b-deep-blush" : ""
+					}
+					value={credentials.email}
+					onChange={handleChange}
+					required
+				/>
+			</fieldset>
+			<fieldset className="flex flex-col my-4">
+				<label htmlFor="password" className="text-lg mb-2 text-left">
+					Password:
+				</label>
+				<Input
+					type="password"
+					name="password"
+					className={
+						!valid_credentials["password"].isValid ? "border-b-deep-blush" : ""
+					}
+					value={credentials.password}
+					onChange={handleChange}
+					required
+				/>
+			</fieldset>
+			<div className="flex items-center justify-between">
+				<Button type="submit">Sign up</Button>
 			</div>
-		</Main>
+		</form>
 	);
 }
-
-export default LoginPage;

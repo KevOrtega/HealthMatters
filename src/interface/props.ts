@@ -1,21 +1,9 @@
+import { iService } from "./service";
+
 export type TitleProps = {
 	children: React.ReactNode;
 	className?: string;
 	type?: "bigger" | "big" | "medium";
-};
-
-export type doctor_response = {
-	_id: string;
-	name: string;
-	lastname: string;
-	services: string[];
-	specialties: string[];
-	patients: string[];
-	registration: string;
-	phoneNumber: number;
-	email: string;
-	date: string[];
-	__v: number;
 };
 
 export type ButtonProps = {
@@ -35,14 +23,18 @@ export type ImageProps = {
 		| "tune"
 		| "arrow_back"
 		| "arrow_forward"
-		| "ascendant";
+		| "ascendant"
+		| "doctor"
+		| "error";
 	className?: string;
+	priority?: boolean;
 };
 
 export type InputProps = {
+	name?: string;
 	className?: string;
 	placeholder?: string;
-	type: "search" | "pagination";
+	type?: "search" | "pagination" | "email" | "password" | "text";
 	value?: string;
 	onChange?: React.ChangeEventHandler<HTMLInputElement>;
 	onClick?: React.MouseEventHandler<HTMLInputElement>;
@@ -50,6 +42,7 @@ export type InputProps = {
 	onBlur?: React.FocusEventHandler<HTMLInputElement>;
 	min?: number;
 	max?: number;
+	required?: boolean;
 };
 
 export type LinkProps = {
@@ -62,45 +55,6 @@ export type MainProps = {
 	children: React.ReactNode;
 	className?: string;
 };
-
-export type iService = {
-	name: string;
-	description: string;
-	price: number;
-	doctor: string;
-	rating: number;
-};
-
-export type services_response = {
-	services: iService[];
-	current_page: number;
-	pages: number;
-	count: number;
-};
-
-export type specialties_response = {
-	_id: string;
-	name: "string";
-	doctor: string[];
-	__v: number;
-};
-
 export interface serviceProps extends iService {
 	className?: string;
 }
-
-export type service_search = {
-	search: string;
-	specialties: string[];
-	order: string;
-	page: number;
-};
-
-export interface service_search_context extends service_search {
-	dispatch: React.Dispatch<service_search_action>;
-}
-
-export type service_search_action = {
-	type: "SET_SEARCH" | "SET_SPECIALTIES" | "SET_ORDER" | "SET_PAGE";
-	payload: string;
-};
