@@ -1,7 +1,7 @@
 import { useCartContext } from "@/context/CartProvider";
 import React from "react";
 
-export default function ShoppingCart() {
+export default function ServicesCart() {
 	const { services, quantity, removeFromCart } = useCartContext();
 
 	const total = services.reduce((prev, { price }) => prev + price, 0);
