@@ -24,7 +24,8 @@ export type ImageProps = {
 		| "arrow_back"
 		| "arrow_forward"
 		| "ascendant"
-		| "doctor";
+		| "doctor"
+		| "error";
 	className?: string;
 	priority?: boolean;
 };

@@ -10,6 +10,7 @@ import ArrowBack from "../assets/arrow_back.svg";
 import ArrowForward from "../assets/arrow_forward.svg";
 import Ascendant from "../assets/ascendant.svg";
 import Doctor from "../assets/doctor.svg";
+import Error from "../assets/error.svg";
 
 export default function Image({
 	priority = false,
@@ -97,6 +98,7 @@ export default function Image({
 				alt="doctor"
 			/>
 		),
+		error: () => <ImageNext className={className} src={Error} alt="error" />,
 	};
 
 	return image_types[type]();
