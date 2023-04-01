@@ -6,6 +6,8 @@ import {
 	services_response,
 	specialties_response,
 	user_state,
+	buyServiceRequest,
+	buyServiceResponse,
 } from "@/interface";
 import { Fetcher } from "swr";
 import axios, { AxiosResponse } from "axios";
@@ -39,4 +41,19 @@ export const registerFetcher = (
 		.then(({ data }) => data);
 
 export const validateDoctorFetcher = (token: string): Promise<void> =>
-	axios.get(process.env.register_url || "", { headers: { token } });
+	axios.get(process.env.validate_doctor_url || "", { headers: { token } });
+
+export const buyService = (
+	id: string,
+	patient: { name: string; surname: string; email: string }
+) =>
+	axios
+		.post<buyServiceRequest, buyServiceResponse>(
+			`${process.env.checkout_url}/${id}`,
+			{
+				patient,
+				path_success: "https://health-matters.vercel.app/",
+				path_error: "https://health-matters.vercel.app/",
+			}
+		)
+		.then(({ data }) => data);
