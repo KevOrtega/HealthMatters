@@ -5,7 +5,6 @@ import SearchBar from "./Search";
 
 export default function Header() {
 	const { user } = useUserContext();
-	console.log(user);
 
 	return (
 		<header className="h-20 border-b-2 border-b-egg">

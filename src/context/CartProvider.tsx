@@ -86,6 +86,7 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [state, dispatch] = useReducer(cartReducer, initialCartState);
 
 	const addToCart = (services: iService) => {
+		console.log(services);
 		dispatch({ type: "ADD_TO_CART", payload: { services } });
 	};
 
