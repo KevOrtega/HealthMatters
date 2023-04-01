@@ -5,7 +5,8 @@ export default function useServices(
 	search?: string,
 	specialties_to_search?: string[],
 	order?: string,
-	page?: number
+	page?: number,
+	refreshKey?: number
 ) {
 	const { data, isLoading, mutate } = useSWR(
 		`${process.env.services_url}/?search=${
@@ -16,7 +17,7 @@ export default function useServices(
 				: ""
 		}&order=${
 			order && !!order.length && order !== "default" ? order : ""
-		}&page=${page || "1"}`,
+		}&page=${page || "1"}&refreshKey=${refreshKey}`,
 		servicesFetcher
 	);
 
