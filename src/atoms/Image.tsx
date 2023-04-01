@@ -10,6 +10,7 @@ import ArrowBack from "../assets/arrow_back.svg";
 import ArrowForward from "../assets/arrow_forward.svg";
 import Ascendant from "../assets/ascendant.svg";
 import Doctor from "../assets/doctor.svg";
+import Error from "../assets/error.svg";
 
 export default function Image({
 	priority = false,
@@ -95,6 +96,14 @@ export default function Image({
 				className={"w-auto h-auto " + className}
 				src={Doctor}
 				alt="doctor"
+			/>
+		),
+		error: () => (
+			<ImageNext
+				priority={priority}
+				className={"w-auto h-auto " + className}
+				src={Error}
+				alt="error"
 			/>
 		),
 	};
