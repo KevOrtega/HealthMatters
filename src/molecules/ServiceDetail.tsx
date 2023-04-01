@@ -1,11 +1,11 @@
 import { useServicesById } from "@/hooks/useServicesById";
 import { useCartContext } from "@/context/CartProvider";
-import Link from "@/atoms/Link";
 import { useUserContext } from "@/context/UserProvider";
 import { buyService } from "@/requests";
 import Title from "@/atoms/Title";
 import Button from "@/atoms/Button";
 import Select from "@/molecules/Select";
+import Link from "@/atoms/Link";
 
 export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 	const { user } = useUserContext();

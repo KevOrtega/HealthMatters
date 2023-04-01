@@ -1,8 +1,10 @@
 import {
+	Date,
 	doctor_response,
 	iLoginCredentials,
 	iRegisterCredentials,
 	iService,
+	iUser,
 	services_response,
 	specialties_response,
 	user_state,
@@ -57,3 +59,9 @@ export const buyService = (
 			}
 		)
 		.then(({ data }) => data);
+
+export const usersFetcher = (url: string): Promise<iUser[]> =>
+	axios(url).then((res) => res.data);
+
+export const datesFetcher = (url: string): Promise<Date[]> =>
+	axios.get(url).then((res) => res.data);
