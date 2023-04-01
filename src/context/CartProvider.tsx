@@ -1,16 +1,6 @@
-import { iService } from "@/interface";
+import { CartContextProps, CartState, cartAction, iService } from "@/interface";
 import React, { createContext, useContext, useReducer } from "react";
 import Swal from "sweetalert2";
-
-interface CartState {
-	services: iService[];
-	quantity: number;
-}
-
-interface CartContextProps extends CartState {
-	addToCart: (services: iService) => void;
-	removeFromCart: (services: iService) => void;
-}
 
 const initialCartState: CartState = {
 	quantity: 0,
@@ -25,43 +15,66 @@ const CartContext = createContext<CartContextProps>({
 
 export const useCartContext = () => useContext(CartContext);
 
-const cartReducer = (state: CartState, action: any) => {
+const cartReducer = (state: CartState, action: cartAction) => {
 	switch (action.type) {
 		case "ADD_TO_CART":
 			const cart_item_exists = state.services.find(
-				(item) => item._id === action.payload.service.id
+				(service) => service._id === action.payload.service._id
 			);
+
+			if (cart_item_exists) {
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "The service you are trying to add was already added",
+				});
+				return { ...state };
+			}
 
 			Swal.fire({
-				icon: "error",
-				title: "Oops...",
-				text: "The service you are trying to add was already added",
+				position: "top-end",
+				icon: "success",
+				title: "Your service has been added successfully",
+				showConfirmButton: false,
+				timer: 1500,
 			});
 
-			return cart_item_exists
-				? {
-						...state,
-				  }
-				: {
-						...state,
-						quantity: state.quantity + 1,
-						services: [...state.services, action.payload.service],
-				  };
+			return {
+				...state,
+				quantity: state.quantity + 1,
+				services: [...state.services, action.payload.service],
+			};
 		case "REMOVE_FROM_CART":
 			const existingCartItemIndex = state.services.findIndex(
-				(service) => service._id === action.payload.service.id
+				(service) => service._id === action.payload.service._id
 			);
-			return existingCartItemIndex !== -1
-				? {
-						...state,
-						quantity: state.quantity - 1,
-						services: [
-							...state.services.filter(
-								(service) => service._id !== action.payload.service.id
-							),
-						],
-				  }
-				: { ...state };
+
+			if (existingCartItemIndex === -1) {
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "The service you are trying to delete does not exist",
+				});
+				return { ...state };
+			}
+
+			Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title: "Your service has been deleted successfully",
+				showConfirmButton: false,
+				timer: 1500,
+			});
+
+			return {
+				...state,
+				quantity: state.quantity - 1,
+				services: [
+					...state.services.filter(
+						(service) => service._id !== action.payload.service._id
+					),
+				],
+			};
 		default:
 			return { ...state };
 	}

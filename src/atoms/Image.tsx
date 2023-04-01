@@ -98,7 +98,14 @@ export default function Image({
 				alt="doctor"
 			/>
 		),
-		error: () => <ImageNext className={className} src={Error} alt="error" />,
+		error: () => (
+			<ImageNext
+				priority={priority}
+				className={"w-auto h-auto " + className}
+				src={Error}
+				alt="error"
+			/>
+		),
 	};
 
 	return image_types[type]();

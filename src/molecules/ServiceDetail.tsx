@@ -1,11 +1,11 @@
 import { useServicesById } from "@/hooks/useServicesById";
 import { useCartContext } from "@/context/CartProvider";
-import Link from "@/atoms/Link";
 import { useUserContext } from "@/context/UserProvider";
 import { buyService } from "@/requests";
 import Title from "@/atoms/Title";
 import Button from "@/atoms/Button";
 import Select from "@/molecules/Select";
+import Link from "@/atoms/Link";
 
 export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 	const { user } = useUserContext();
@@ -47,8 +47,15 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 							<Title type="medium">Where you want your service?</Title>
 							<Select
 								options={[
-									`at consultory ($${service.price})`,
-									`at home ($${service.price})`,
+									...`${
+										service.prices.atConsultory
+											? `at consultory: ${service.prices.atConsultory}`
+											: ""
+									} ${
+										service.prices.atHome
+											? `at home: ${service.prices.atHome}`
+											: ""
+									}`.split(" "),
 								]}
 							/>
 						</div>
@@ -63,7 +70,7 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 
 					<div className="flex self-end mt-auto">
 						<Button className="m-3" type="primary" onClick={buyServiceHandler}>
-							buy ${service.price}
+							buy ${service.prices.atConsultory}
 						</Button>
 						<Button className="m-3" type="secondary" onClick={addToCartHandler}>
 							add to my services

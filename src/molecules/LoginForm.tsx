@@ -6,6 +6,7 @@ import Input from "@/atoms/Input";
 import { iLoginCredentials } from "@/interface";
 import Button from "@/atoms/Button";
 import { useUserContext } from "@/context/UserProvider";
+import Swal from "sweetalert2";
 
 export default function LoginForm() {
 	const { setUser } = useUserContext();
@@ -57,9 +58,22 @@ export default function LoginForm() {
 			setUser(logged);
 
 			setCredentials(initial_credentials);
+
+			Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title: "You were successfully registered",
+				showConfirmButton: false,
+				timer: 1500,
+			});
+
 			router.push("/home");
 		} catch (error) {
-			alert(error);
+			Swal.fire({
+				icon: "error",
+				title: "Oops...",
+				text: `${error}`,
+			});
 		}
 	};
 
