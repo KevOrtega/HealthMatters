@@ -32,6 +32,17 @@ export type service_search_action = {
 	payload: string;
 };
 
+export type iServiceToBuy = {
+	id: string;
+	patient: {
+		name: string;
+		surname: string;
+		email: string;
+	};
+	price: number;
+	date: Date;
+};
+
 export type buyServiceResponse = {
 	data: {
 		global: string;

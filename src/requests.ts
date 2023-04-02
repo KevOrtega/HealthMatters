@@ -9,6 +9,7 @@ import {
 	user_state,
 	buyServiceRequest,
 	buyServiceResponse,
+	iServiceToBuy,
 } from "@/interface";
 import { Fetcher } from "swr";
 import axios, { AxiosResponse } from "axios";
@@ -44,18 +45,7 @@ export const registerFetcher = (
 export const validateDoctorFetcher = (token: string): Promise<void> =>
 	axios.get(process.env.validate_doctor_url || "", { headers: { token } });
 
-export const buyService = (
-	services: {
-		id: string;
-		patient: {
-			name: string;
-			surname: string;
-			email: string;
-		};
-		price: number;
-		date: Date;
-	}[]
-) =>
+export const buyService = (services: iServiceToBuy[]) =>
 	axios
 		.post<buyServiceRequest, buyServiceResponse>(
 			`${process.env.checkout_url}`,
