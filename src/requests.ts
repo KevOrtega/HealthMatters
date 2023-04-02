@@ -7,8 +7,6 @@ import {
 	services_response,
 	specialties_response,
 	user_state,
-	buyServiceRequest,
-	buyServiceResponse,
 	iServiceToBuy,
 } from "@/interface";
 import { Fetcher } from "swr";
@@ -47,14 +45,11 @@ export const validateDoctorFetcher = (token: string): Promise<void> =>
 
 export const buyService = (services: iServiceToBuy[]) =>
 	axios
-		.post<buyServiceRequest, buyServiceResponse>(
-			`${process.env.checkout_url}`,
-			{
-				services,
-				path_success: "https://health-matters.vercel.app/",
-				path_error: "https://health-matters.vercel.app/",
-			}
-		)
+		.post(`${process.env.checkout_url}`, {
+			services,
+			path_success: "https://health-matters.vercel.app/",
+			path_error: "https://health-matters.vercel.app/",
+		})
 		.then(({ data }) => data);
 
 export const usersFetcher = (url: string): Promise<iUser[]> =>

@@ -43,16 +43,6 @@ export type iServiceToBuy = {
 	date: Date;
 };
 
-export type buyServiceResponse = {
-	data: {
-		global: string;
-	};
-};
-
-export type buyServiceRequest = {
-	patient: { name: string; surname: string; email: string };
-};
-
 export interface CartState {
 	services: iService[];
 	quantity: number;
