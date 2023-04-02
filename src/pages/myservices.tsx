@@ -1,13 +1,10 @@
 import Main from "@/atoms/Main";
-import CartProvider from "@/context/CartProvider";
-import ShoppingCart from "@/molecules/ShoppingCart";
+import ServicesCart from "@/molecules/ServicesCart";
 
 export default function MyServices() {
 	return (
 		<Main>
-			<CartProvider>
-				<ShoppingCart />
-			</CartProvider>
+			<ServicesCart />
 		</Main>
 	);
 }
