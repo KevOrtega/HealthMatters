@@ -11,6 +11,7 @@ import {
 } from "@/validation";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 export default function SignUpDoctor() {
 	const router = useRouter();
@@ -83,9 +84,22 @@ export default function SignUpDoctor() {
 			setUser(logged);
 
 			setCredentials(initial_credentials);
+
+			Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title: "You were successfully registered",
+				showConfirmButton: false,
+				timer: 1500,
+			});
+
 			router.push("/home");
 		} catch (error) {
-			alert(error);
+			Swal.fire({
+				icon: "error",
+				title: "Oops...",
+				text: `${error}`,
+			});
 		}
 	};
 

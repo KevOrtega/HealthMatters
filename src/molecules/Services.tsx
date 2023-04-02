@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import useSWR from "swr";
+import React from "react";
 import Service from "@/molecules/Service";
 import Title from "@/atoms/Title";
 import { useServiceSearchContext } from "@/context/ServiceSearchProvider";
@@ -10,7 +9,12 @@ import Image from "@/atoms/Image";
 
 export default function Services() {
 	const { search, specialties, order, page } = useServiceSearchContext();
-	const { services, isLoading } = useServices(search, specialties, order, page);
+	const { services, isLoading, error } = useServices(
+		search,
+		specialties,
+		order,
+		page
+	);
 
 	if (isLoading) {
 		return (
@@ -20,7 +24,7 @@ export default function Services() {
 		);
 	}
 
-	if (!services || services.length === 0) {
+	if (error) {
 		return (
 			<div className="flex items-center justify-center h-screen">
 				<h1 className="text-3xl font-bold text-gray-900">

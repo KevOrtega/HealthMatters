@@ -2,7 +2,10 @@ export type iService = {
 	_id: string;
 	name: string;
 	description: string;
-	price: number;
+	prices: {
+		atHome?: string;
+		atConsultory?: string;
+	};
 	doctor: string;
 	rating: number;
 };
@@ -38,3 +41,25 @@ export type buyServiceResponse = {
 export type buyServiceRequest = {
 	patient: { name: string; surname: string; email: string };
 };
+
+export interface CartState {
+	services: iService[];
+	quantity: number;
+}
+
+type addToCartAction = {
+	type: "ADD_TO_CART";
+	payload: { service: iService };
+};
+
+type removeFromCartAction = {
+	type: "REMOVE_FROM_CART";
+	payload: { service: iService };
+};
+
+export type cartAction = addToCartAction | removeFromCartAction;
+
+export interface CartContextProps extends CartState {
+	addToCart: (services: iService) => void;
+	removeFromCart: (services: iService) => void;
+}
