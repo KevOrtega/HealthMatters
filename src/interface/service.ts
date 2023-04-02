@@ -3,8 +3,8 @@ export type iService = {
 	name: string;
 	description: string;
 	prices: {
-		atHome?: string;
-		atConsultory?: string;
+		atHome?: number;
+		atConsultory?: number;
 	};
 	doctor: string;
 	rating: number;

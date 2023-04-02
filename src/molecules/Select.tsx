@@ -1,10 +1,18 @@
 import Button from "@/atoms/Button";
 import Image from "@/atoms/Image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function Select({ options }: { options?: string[] }) {
+export default function Select({
+	options,
+	onChange,
+}: {
+	options?: string[];
+	onChange: Function;
+}) {
 	const [selection_open, setSelectionOpen] = useState(false);
 	const [selected, setSelected] = useState(`${options ? options[0] : ""}`);
+
+	useEffect(() => onChange(selected), [selected, onChange]);
 
 	const switchSelectionOpen = () => setSelectionOpen(!selection_open);
 

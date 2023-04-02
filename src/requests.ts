@@ -1,5 +1,4 @@
 import {
-	Date,
 	doctor_response,
 	iLoginCredentials,
 	iRegisterCredentials,
@@ -46,14 +45,22 @@ export const validateDoctorFetcher = (token: string): Promise<void> =>
 	axios.get(process.env.validate_doctor_url || "", { headers: { token } });
 
 export const buyService = (
-	id: string,
-	patient: { name: string; surname: string; email: string }
+	services: {
+		id: string;
+		patient: {
+			name: string;
+			surname: string;
+			email: string;
+		};
+		price: number;
+		date: Date;
+	}[]
 ) =>
 	axios
 		.post<buyServiceRequest, buyServiceResponse>(
-			`${process.env.checkout_url}/${id}`,
+			`${process.env.checkout_url}`,
 			{
-				patient,
+				services,
 				path_success: "https://health-matters.vercel.app/",
 				path_error: "https://health-matters.vercel.app/",
 			}

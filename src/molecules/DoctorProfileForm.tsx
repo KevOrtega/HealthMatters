@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { useUserContext } from "@/context/UserProvider";
-import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { motion } from "framer-motion";
 
@@ -188,14 +187,13 @@ export default function DoctorProfile() {
 						Fecha de la cita:
 					</label>
 					<DatePicker
-						id="appointmentDate"
-						selected={selectedDate}
-						onChange={(date) => setSelectedDate(date)}
+						className="shadow-md transition-shadow hover:shadow-lg active:shadow-md border border-egg outline-none min-w-max w-72 h-20 flex items-center justify-center my-5 p-5 rounded-lg"
+						dateFormat="dd-MMM-yyyy hh:mm a"
 						showTimeSelect
-						timeFormat="HH:mm"
+						showTimeInput
 						timeIntervals={30}
-						dateFormat="MMMM d, yyyy h:mm aa"
-						className="w-full p-2 border border-y-deep-sea rounded"
+						selected={selectedDate}
+						onChange={(date) => date && setSelectedDate(date)}
 					/>
 					<button
 						type="submit"

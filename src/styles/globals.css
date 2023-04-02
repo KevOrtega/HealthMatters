@@ -3,6 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "react-datepicker/dist/react-datepicker.css";
+
 * {
 	@apply box-border p-0 m-0;
 }
