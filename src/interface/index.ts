@@ -1,3 +1,9 @@
+export interface Date {
+	id: number;
+	date: string;
+	customer: string;
+	amount: number;
+}
 export * from "./props";
 export * from "./service";
 export * from "./credentials";

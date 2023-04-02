@@ -1,16 +1,18 @@
 import { useServicesById } from "@/hooks/useServicesById";
 import { useCartContext } from "@/context/CartProvider";
-import Link from "@/atoms/Link";
 import { useUserContext } from "@/context/UserProvider";
 import { buyService } from "@/requests";
+import Title from "@/atoms/Title";
+import Button from "@/atoms/Button";
+import Select from "@/molecules/Select";
+import Link from "@/atoms/Link";
 
 export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 	const { user } = useUserContext();
 	const { service } = useServicesById(serviceId);
-	const { addToCart, cartItems } = useCartContext();
+	const { addToCart } = useCartContext();
 
-	const addToCartHandler: React.ReactEventHandler<HTMLButtonElement> = () =>
-		service && addToCart(service);
+	const addToCartHandler = () => service && addToCart(service);
 
 	const buyServiceHandler: React.ReactEventHandler<HTMLButtonElement> = () =>
 		service &&
@@ -24,18 +26,57 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 		});
 
 	return (
-		<div>
+		<div className="z-10 top-0 absolute w-full h-full flex bg-viking bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-25">
 			{service && (
-				<>
-					<h1>{service.name}</h1>
-					<button onClick={addToCartHandler}>add service to my services</button>
-					<button onClick={buyServiceHandler}>buy</button>
-				</>
-			)}
-			{cartItems.length ? (
-				<p>Tus servicios: {cartItems.length}</p>
-			) : (
-				<p>No tienes servicios guardados</p>
+				<div className="m-auto w-5/6 h-5/6 flex flex-col shadow-xl bg-white p-5 rounded-xl">
+					<Link
+						href="/home"
+						className="absolute right-0 top-0 px-2 py-1 text-2xl font-bold text-caribbean-green"
+					>
+						X
+					</Link>
+					<p className="text-right">{service.rating}⭐</p>
+					<Title className="text-4xl" type="medium">
+						{service.name}
+					</Title>
+					<p className="mx-3 mb-5 text-egg">Doctor Gutierrez</p>
+					<p className="text-xl indent-1">{service.description}</p>
+
+					<div className="flex items-start m-auto">
+						<div className="p-10 w-max flex flex-col items-center justify-center">
+							<Title type="medium">Where you want your service?</Title>
+							<Select
+								options={[
+									...`${
+										service.prices.atConsultory
+											? `at consultory: ${service.prices.atConsultory}`
+											: ""
+									} ${
+										service.prices.atHome
+											? `at home: ${service.prices.atHome}`
+											: ""
+									}`.split(" "),
+								]}
+							/>
+						</div>
+						<div className="p-10 w-max flex flex-col items-center justify-center">
+							<Title type="medium">When is right for you?</Title>
+							<input
+								className="shadow-md transition-shadow hover:shadow-lg active:shadow-md border border-egg min-w-max w-72 h-20 flex items-center justify-center my-5 p-5 rounded-lg"
+								type="date"
+							/>
+						</div>
+					</div>
+
+					<div className="flex self-end mt-auto">
+						<Button className="m-3" type="primary" onClick={buyServiceHandler}>
+							buy ${service.prices.atConsultory}
+						</Button>
+						<Button className="m-3" type="secondary" onClick={addToCartHandler}>
+							add to my services
+						</Button>
+					</div>
+				</div>
 			)}
 		</div>
 	);
