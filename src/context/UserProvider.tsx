@@ -2,14 +2,8 @@ import { user_action, user_context, user_state } from "@/interface";
 import React, { Reducer, useContext, useReducer } from "react";
 
 const initialState: user_state = {
-	user: {
-		email: "asdfsad@gmail.com",
-		name: "fdsafasd",
-		lastname: "fsdafsdds",
-		medicalLicense: "sddddddd",
-		password: "sdfsdfweraA1",
-	},
-	token: "asdfsafsdafs",
+	user: null,
+	token: null,
 };
 
 const userContext = React.createContext<user_context>({
