@@ -1,4 +1,10 @@
-import { CartContextProps, CartState, cartAction, iService } from "@/interface";
+import {
+	CartContextProps,
+	CartService,
+	CartState,
+	cartAction,
+	iService,
+} from "@/interface";
 import React, { createContext, useContext, useReducer } from "react";
 import Swal from "sweetalert2";
 
@@ -88,10 +94,10 @@ const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 		initialCartState
 	);
 
-	const addToCart = (service: iService) =>
+	const addToCart = (service: CartService) =>
 		dispatch({ type: "ADD_TO_CART", payload: { service } });
 
-	const removeFromCart = (service: iService) =>
+	const removeFromCart = (service: CartService) =>
 		dispatch({ type: "REMOVE_FROM_CART", payload: { service } });
 
 	return (

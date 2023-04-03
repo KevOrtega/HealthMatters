@@ -1,5 +1,5 @@
 import {
-	Date,
+	Date as iDate,
 	doctor_response,
 	iLoginCredentials,
 	iRegisterCredentials,
@@ -8,8 +8,8 @@ import {
 	services_response,
 	specialties_response,
 	user_state,
-	buyServiceRequest,
-	buyServiceResponse,
+	iServiceToBuy,
+	iPatient,
 } from "@/interface";
 import { Fetcher } from "swr";
 import axios, { AxiosResponse } from "axios";
@@ -45,23 +45,18 @@ export const registerFetcher = (
 export const validateDoctorFetcher = (token: string): Promise<void> =>
 	axios.get(process.env.validate_doctor_url || "", { headers: { token } });
 
-export const buyService = (
-	id: string,
-	patient: { name: string; surname: string; email: string }
-) =>
+export const buyService = (services: iServiceToBuy[], patient: iPatient) =>
 	axios
-		.post<buyServiceRequest, buyServiceResponse>(
-			`${process.env.checkout_url}/${id}`,
-			{
-				patient,
-				path_success: "https://health-matters.vercel.app/",
-				path_error: "https://health-matters.vercel.app/",
-			}
-		)
+		.post(`${process.env.checkout_url}`, {
+			services,
+			patient,
+			path_success: "https://health-matters.vercel.app/",
+			path_error: "https://health-matters.vercel.app/",
+		})
 		.then(({ data }) => data);
 
 export const usersFetcher = (url: string): Promise<iUser[]> =>
 	axios(url).then((res) => res.data);
 
-export const datesFetcher = (url: string): Promise<Date[]> =>
+export const datesFetcher = (url: string): Promise<iDate[]> =>
 	axios.get(url).then((res) => res.data);
