@@ -8,6 +8,7 @@ import {
 	specialties_response,
 	user_state,
 	iServiceToBuy,
+	iPatient,
 } from "@/interface";
 import { Fetcher } from "swr";
 import axios, { AxiosResponse } from "axios";
@@ -43,10 +44,11 @@ export const registerFetcher = (
 export const validateDoctorFetcher = (token: string): Promise<void> =>
 	axios.get(process.env.validate_doctor_url || "", { headers: { token } });
 
-export const buyService = (services: iServiceToBuy[]) =>
+export const buyService = (services: iServiceToBuy[], patient: iPatient) =>
 	axios
 		.post(`${process.env.checkout_url}`, {
 			services,
+			patient,
 			path_success: "https://health-matters.vercel.app/",
 			path_error: "https://health-matters.vercel.app/",
 		})

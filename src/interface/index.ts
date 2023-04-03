@@ -4,6 +4,13 @@ export interface Date {
 	customer: string;
 	amount: number;
 }
+
+export type iPatient = {
+	name: string;
+	surname: string;
+	email: string;
+};
+
 export * from "./props";
 export * from "./service";
 export * from "./credentials";

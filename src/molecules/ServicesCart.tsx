@@ -4,7 +4,7 @@ import React from "react";
 export default function ServicesCart() {
 	const { services, quantity, removeFromCart } = useCartContext();
 
-	// const total = services.reduce((prev, { price }) => prev + price, 0);
+	const total = services.reduce((prev, { price }) => prev + price, 0);
 
 	return (
 		<div>
@@ -13,8 +13,8 @@ export default function ServicesCart() {
 				{services.map((service) => (
 					<li key={service._id}>
 						{service.name}
-						{/* {service.name} - ${service.price} x {quantity} = $
-						{quantity * service.price} */}
+						{service.name} - ${service.price} x {quantity} = $
+						{quantity * service.price}
 						<button onClick={() => removeFromCart(service)}>
 							Remove from cart
 						</button>
@@ -22,7 +22,7 @@ export default function ServicesCart() {
 				))}
 			</ul>
 
-			{/* <h2>Total: ${total}</h2> */}
+			<h2>Total: ${total}</h2>
 		</div>
 	);
 }

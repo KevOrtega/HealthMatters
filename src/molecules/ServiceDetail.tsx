@@ -27,7 +27,15 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 
 	const addToCartHandler = () =>
 		user && price_selected && date
-			? addToCart(service)
+			? addToCart({
+					_id: service._id,
+					name: service.name,
+					description: service.description,
+					price: price_selected,
+					rating: service.rating,
+					doctor: service.doctor,
+					date: date,
+			  })
 			: Swal.fire({
 					icon: "error",
 					title: "Oops...",
@@ -45,18 +53,20 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 
 	const buyServiceHandler: React.ReactEventHandler<HTMLButtonElement> = () =>
 		user && price_selected && date
-			? buyService([
-					{
-						id: service._id,
-						patient: {
-							name: user.name,
-							surname: user.lastname,
-							email: user.email,
+			? buyService(
+					[
+						{
+							id: service._id,
+							price: price_selected,
+							date: date,
 						},
-						price: price_selected,
-						date: date,
-					},
-			  ]).then(({ global }) => {
+					],
+					{
+						name: user.name,
+						surname: user.lastname,
+						email: user.email,
+					}
+			  ).then(({ global }) => {
 					location.href = global;
 			  })
 			: Swal.fire({
