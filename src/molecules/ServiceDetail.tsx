@@ -18,7 +18,7 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 	const [date, setDate] = useState(new Date());
 	const [price_selected, setPriceSelected] = useState<number | null>();
 
-	if (!service) return;
+	if (!service) return <></>;
 
 	service.prices.atConsultory &&
 		select_options.push(`at consultory $${service.prices.atConsultory}`);
