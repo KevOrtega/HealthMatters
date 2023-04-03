@@ -3,6 +3,8 @@ import { useUserContext } from "@/context/UserProvider";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { motion } from "framer-motion";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function DoctorProfile() {
 	const { user } = useUserContext();
@@ -14,10 +16,18 @@ export default function DoctorProfile() {
 	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 	const [showMessage, setShowMessage] = useState(false);
 	const [serviceCreated, setServiceCreated] = useState(false);
-	const [serviceCreationError, setServiceCreationError] = useState(false);
+
+	const clearFields = () => {
+		setServiceName("");
+		setServiceDescription("");
+		setServicePrice("");
+		setSelectedDate(null);
+	};
 
 	const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.files && e.target.files[0]) {
+		try {
+			if (!user) throw new Error("User not found");
+			if (!e.target.files || !e.target.files[0]) return;
 			const reader = new FileReader();
 			reader.onload = (e) => {
 				setDoctorImageUrl(e.target?.result as string);
@@ -30,73 +40,54 @@ export default function DoctorProfile() {
 			formData.append("file", e.target.files[0]);
 			formData.append("upload_preset", "ml_default");
 
-			try {
-				const response = await fetch(
-					"https://api.cloudinary.com/v1_1/dpxtnowdp/image/upload", // va la ruta de back
-					{
-						method: "POST",
-						body: formData,
-					}
-				);
+			const response = await axios.post(
+				"https://api.cloudinary.com/v1_1/dpxtnowdp/image/upload",
+				formData
+			);
 
-				if (!response.ok) {
-					throw new Error("Failed to upload image");
-				}
+			console.log("Image uploaded successfully:", response.data.secure_url);
 
-				const data = await response.json();
-				console.log("Image uploaded successfully:", data.secure_url);
+			await axios.put(process.env.doctors_url || "", {
+				image: response.data.secure_url,
+				doctorEmail: user.email,
+			});
 
-				// Actualiza la URL de la imagen del médico después de una carga exitosa
-				setDoctorImageUrl(data.secure_url);
-			} catch (error) {
-				console.error("Image upload error:", error);
-			}
+			// Actualiza la URL de la imagen del médico después de una carga exitosa
+			setDoctorImageUrl(response.data.secure_url);
+		} catch (error) {
+			Swal.fire({
+				icon: "error",
+				title: "Oops...",
+				text: `${error}`,
+			});
 		}
 	};
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+
 		setShowMessage(true);
-	};
-
-	const clearFields = () => {
-		setServiceName("");
-		setServiceDescription("");
-		setServicePrice("");
-		setSelectedDate(null);
-	};
-
-	const createService = async () => {
-		setShowMessage(false);
+		setServiceCreated(false);
 
 		const serviceData = {
 			name: serviceName,
 			description: serviceDescription,
 			price: servicePrice,
-			date: selectedDate,
+			image: doctorImageUrl || user?.image,
 		};
 
 		// Envía una solicitud POST para crear un nuevo servicio
 		try {
-			const response = await fetch("/api/services", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(serviceData),
-			});
-
-			if (!response.ok) {
-				throw new Error("Failed to create service");
-			}
+			await axios.post(
+				`https://healthmattersapi-production.up.railway.app/services`,
+				serviceData
+			);
 
 			console.log("Service created successfully");
 			clearFields();
 			setServiceCreated(true);
 		} catch (error) {
 			console.error("Error creating service:", error);
-			setServiceCreationError(true);
-			clearFields();
 		}
 
 		console.log("Formulario enviado:", serviceData);
@@ -110,7 +101,7 @@ export default function DoctorProfile() {
 				</h1>
 				{user && (
 					<div className="mt-6">
-						<h2 className="text-2xl font-medium text-white">
+						<h2 className="text-2xl font-bold text-white">
 							Información del usuario registrado:
 						</h2>
 						<p className="text-white">Nombre: {user.name}</p>
@@ -120,51 +111,45 @@ export default function DoctorProfile() {
 				)}
 			</div>
 			<div className="col-span-2 p-8 bg-white rounded-lg shadow-md">
-				<form id="service-form" onSubmit={handleSubmit} className="space-y-4">
+				<form onSubmit={handleSubmit} className="space-y-4">
 					<div className="mt-4">
-						<label htmlFor="doctorImage" className="block font-medium mb-8">
-							Imagen del Doctor:
+						<label htmlFor="doctorImage" className="block font-bold">
+							Imagen del médico:
 						</label>
-						{doctorImageUrl || user?.image ? (
-							<label htmlFor="doctorImage">
+						<div className="relative">
+							{doctorImageUrl || user?.image ? (
 								<img
 									src={doctorImageUrl ? doctorImageUrl : user?.image}
 									alt={`Imagen del ${user?.name}`}
 									className="w-32 h-32 rounded-full object-cover mb-4 cursor-pointer"
 								/>
-							</label>
-						) : (
-							<label htmlFor="doctorImage">
-								<div className="w-32 h-32 mb-4">
-									<div className="h-full w-full rounded-full border border-l-kaitoke-green bg-viking bg-opacity-20 flex items-center justify-center cursor-pointer">
-										<span className="text-mine-shaft"></span>
+							) : (
+								<div className="w-32 h-32 mb-4 cursor-pointer">
+									<div className="h-full w-full rounded-full border border-kaitoke-green bg-kaitoke-green bg-opacity-20 flex items-center justify-center">
+										<span className="text-gray-500"></span>
 									</div>
 								</div>
-							</label>
-						)}
-						<input
-							type="file"
-							id="doctorImage"
-							accept="image/*"
-							onChange={handleImageChange}
-							className="w-full p-2 border border-y-deep-sea rounded cursor-pointer mb-4"
-							style={{ display: "none" }}
-						/>
+							)}
+							<input
+								type="file"
+								id="doctorImage"
+								accept="image/*"
+								onChange={handleImageChange}
+								className="absolute inset-0 opacity-0 cursor-pointer"
+							/>
+						</div>
 					</div>
-					<div className="mb-6">
-						<label htmlFor="serviceName" className="block font-medium">
-							Nombre del servicio:
-						</label>
-						<input
-							type="text"
-							id="serviceName"
-							value={serviceName}
-							onChange={(e) => setServiceName(e.target.value)}
-							className="w-full p-2 border border-y-deep-sea rounded"
-						/>
-					</div>
-
-					<label htmlFor="serviceDescription" className="block font-medium">
+					<label htmlFor="serviceName" className="block font-bold">
+						Nombre del servicio:
+					</label>
+					<input
+						type="text"
+						id="serviceName"
+						value={serviceName}
+						onChange={(e) => setServiceName(e.target.value)}
+						className="w-full p-2 border border-egg rounded"
+					/>
+					<label htmlFor="serviceDescription" className="block font-bold">
 						Descripción del servicio:
 					</label>
 					<input
@@ -172,9 +157,9 @@ export default function DoctorProfile() {
 						id="serviceDescription"
 						value={serviceDescription}
 						onChange={(e) => setServiceDescription(e.target.value)}
-						className="w-full p-2 border border-y-deep-sea rounded"
+						className="w-full p-2 border border-egg rounded"
 					/>
-					<label htmlFor="servicePrice" className="block font-medium">
+					<label htmlFor="servicePrice" className="block font-bold">
 						Precio del servicio:
 					</label>
 					<input
@@ -182,9 +167,9 @@ export default function DoctorProfile() {
 						id="servicePrice"
 						value={servicePrice}
 						onChange={(e) => setServicePrice(e.target.value)}
-						className="w-full p-2 border border-y-deep-sea rounded"
+						className="w-full p-2 border border-egg rounded"
 					/>
-					<label htmlFor="appointmentDate" className="block font-medium">
+					<label htmlFor="appointmentDate" className="block font-bold">
 						Fecha de la cita:
 					</label>
 					<DatePicker
@@ -195,11 +180,11 @@ export default function DoctorProfile() {
 						timeFormat="HH:mm"
 						timeIntervals={30}
 						dateFormat="MMMM d, yyyy h:mm aa"
-						className="w-full p-2 border border-y-deep-sea rounded"
+						className="w-full p-2 border border-egg rounded"
 					/>
 					<button
 						type="submit"
-						className="px-4 py-2 font-medium text-white bg-deep-sea rounded hover:bg-caribbean-green"
+						className="px-4 py-2 font-bold text-white bg-deep-sea rounded hover:bg-caribbean-green"
 					>
 						Crear servicio
 					</button>
@@ -213,7 +198,7 @@ export default function DoctorProfile() {
 					<div className="fixed inset-0 z-10 flex items-center justify-center">
 						<div
 							className="absolute inset-0 bg-black opacity-50"
-							onClick={createService}
+							onClick={() => setShowMessage(false)}
 						></div>
 						<motion.div
 							initial={{ scale: 0 }}
@@ -221,14 +206,14 @@ export default function DoctorProfile() {
 							exit={{ scale: 0 }}
 							className="bg-deep-sea p-8 rounded shadow-md"
 						>
-							<h2 className="text-xl font-medium mb-4 text-white">Error</h2>
+							<h2 className="text-xl font-bold mb-4 text-white">Aviso</h2>
 							<p className="mb-4 text-white">
-								Hubo un error al crear el servicio. Por favor, inténtalo de
-								nuevo.
+								Al crear el servicio, acepta que el 10% de sus honorarios serán
+								destinados al mantenimiento de la página.
 							</p>
 							<button
-								onClick={() => setServiceCreationError(false)}
-								className="px-4 py-2 font-medium text-white bg-caribbean-green rounded hover:bg-kaitoke-green"
+								onClick={() => setShowMessage(false)}
+								className="px-4 py-2 font-bold text-white bg-caribbean-green rounded hover:bg-kaitoke-green"
 							>
 								Aceptar
 							</button>
