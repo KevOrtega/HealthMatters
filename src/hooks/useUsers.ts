@@ -6,6 +6,7 @@ export default function useUsers() {
 		data: usersData,
 		error,
 		mutate,
+		isLoading,
 	} = useSWR(
 		"https://healthmattersapi-production.up.railway.app/users",
 		usersFetcher
@@ -18,5 +19,6 @@ export default function useUsers() {
 		usersData,
 		error,
 		deleteUser,
+		isLoading,
 	};
 }
