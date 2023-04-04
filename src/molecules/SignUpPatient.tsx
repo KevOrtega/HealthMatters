@@ -1,6 +1,7 @@
 import Button from "@/atoms/Button";
 import Input from "@/atoms/Input";
 import { useUserContext } from "@/context/UserProvider";
+import useGoogleLogin from "@/hooks/useGoogleLogin";
 import { iRegisterCredentials } from "@/interface";
 import { registerFetcher } from "@/requests";
 import {
@@ -14,6 +15,8 @@ import Swal from "sweetalert2";
 
 export default function SignUpPatient() {
 	const router = useRouter();
+	const { google_login_url } = useGoogleLogin();
+	const { setUser } = useUserContext();
 	const initial_credentials = {
 		name: "",
 		lastname: "",
@@ -22,7 +25,6 @@ export default function SignUpPatient() {
 	};
 	const [credentials, setCredentials] =
 		useState<iRegisterCredentials>(initial_credentials);
-	const { setUser } = useUserContext();
 
 	const valid_credentials = {
 		name: {
@@ -53,7 +55,12 @@ export default function SignUpPatient() {
 	}) => setCredentials({ ...credentials, [name]: value });
 
 	const handleGoogleLogin = () => {
-		window.location.href = "https://accounts.google.com/login";
+		if (google_login_url) return (window.location.href = google_login_url);
+		Swal.fire({
+			icon: "error",
+			title: "Oops...",
+			text: `An error occurred. Try again later`,
+		});
 	};
 
 	const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
@@ -108,6 +115,7 @@ export default function SignUpPatient() {
 			</p>
 
 			<button
+				type="button"
 				className="my-3 p-5 w-full text-left shadow-lg rounded-lg"
 				onClick={handleGoogleLogin}
 			>

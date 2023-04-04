@@ -7,9 +7,11 @@ import { iLoginCredentials } from "@/interface";
 import Button from "@/atoms/Button";
 import { useUserContext } from "@/context/UserProvider";
 import Swal from "sweetalert2";
+import useGoogleLogin from "@/hooks/useGoogleLogin";
 
 export default function LoginForm() {
 	const { setUser } = useUserContext();
+	const { google_login_url } = useGoogleLogin();
 	const router = useRouter();
 	const initial_credentials = {
 		email: "",
@@ -36,7 +38,12 @@ export default function LoginForm() {
 	}) => setCredentials({ ...credentials, [name]: value });
 
 	const handleGoogleLogin = () => {
-		window.location.href = "https://accounts.google.com/login";
+		if (google_login_url) return (window.location.href = google_login_url);
+		Swal.fire({
+			icon: "error",
+			title: "Oops...",
+			text: `An error occurred. Try again later`,
+		});
 	};
 
 	const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
@@ -62,7 +69,7 @@ export default function LoginForm() {
 			Swal.fire({
 				position: "top-end",
 				icon: "success",
-				title: "You were successfully registered",
+				title: "You were successfully logged",
 				showConfirmButton: false,
 				timer: 1500,
 			});
@@ -72,7 +79,7 @@ export default function LoginForm() {
 			Swal.fire({
 				icon: "error",
 				title: "Oops...",
-				text: `${error}`,
+				text: `Email or password incorrect`,
 			});
 		}
 	};
@@ -92,6 +99,7 @@ export default function LoginForm() {
 			</p>
 
 			<button
+				type="button"
 				className="my-3 p-5 w-full text-left shadow-lg rounded-lg"
 				onClick={handleGoogleLogin}
 			>
