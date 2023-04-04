@@ -6,24 +6,74 @@ import Title from "@/atoms/Title";
 import Button from "@/atoms/Button";
 import Select from "@/molecules/Select";
 import Link from "@/atoms/Link";
+import { useState } from "react";
+import ReactDatePicker from "react-datepicker";
+import Swal from "sweetalert2";
 
 export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 	const { user } = useUserContext();
 	const { service } = useServicesById(serviceId);
 	const { addToCart } = useCartContext();
+	const select_options: string[] = [];
+	const [date, setDate] = useState(new Date());
+	const [price_selected, setPriceSelected] = useState<number | null>();
 
-	const addToCartHandler = () => service && addToCart(service);
+	if (!service) return <></>;
+
+	service.prices.atConsultory &&
+		select_options.push(`at consultory $${service.prices.atConsultory}`);
+	service.prices.atHome &&
+		select_options.push(`at home $${service.prices.atHome}`);
+
+	const addToCartHandler = () =>
+		user && price_selected && date
+			? addToCart({
+					_id: service._id,
+					name: service.name,
+					description: service.description,
+					price: price_selected,
+					rating: service.rating,
+					doctor: service.doctor,
+					date: date,
+			  })
+			: Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "You should login first and fulfill all inputs",
+			  });
+
+	const handlePriceSelected = (price: string) => {
+		price.includes("at consultory") &&
+			service.prices.atConsultory &&
+			setPriceSelected(service.prices.atConsultory);
+		price.includes("at home") &&
+			service.prices.atHome &&
+			setPriceSelected(service.prices.atHome);
+	};
 
 	const buyServiceHandler: React.ReactEventHandler<HTMLButtonElement> = () =>
-		service &&
-		user &&
-		buyService(service._id, {
-			name: user.name,
-			surname: user.lastname,
-			email: user.email,
-		}).then(({ global }) => {
-			location.href = global;
-		});
+		user && price_selected && date
+			? buyService(
+					[
+						{
+							id: service._id,
+							price: price_selected,
+							date: date,
+						},
+					],
+					{
+						name: user.name,
+						surname: user.lastname,
+						email: user.email,
+					}
+			  ).then(({ global }) => {
+					location.href = global;
+			  })
+			: Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "You should login first and fulfill all inputs",
+			  });
 
 	return (
 		<div className="z-10 top-0 absolute w-full h-full flex bg-viking bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-25">
@@ -45,32 +95,25 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 					<div className="flex items-start m-auto">
 						<div className="p-10 w-max flex flex-col items-center justify-center">
 							<Title type="medium">Where you want your service?</Title>
-							<Select
-								options={[
-									...`${
-										service.prices.atConsultory
-											? `at consultory: ${service.prices.atConsultory}`
-											: ""
-									} ${
-										service.prices.atHome
-											? `at home: ${service.prices.atHome}`
-											: ""
-									}`.split(" "),
-								]}
-							/>
+							<Select onChange={handlePriceSelected} options={select_options} />
 						</div>
 						<div className="p-10 w-max flex flex-col items-center justify-center">
 							<Title type="medium">When is right for you?</Title>
-							<input
-								className="shadow-md transition-shadow hover:shadow-lg active:shadow-md border border-egg min-w-max w-72 h-20 flex items-center justify-center my-5 p-5 rounded-lg"
-								type="date"
+							<ReactDatePicker
+								className="shadow-md transition-shadow hover:shadow-lg active:shadow-md border border-egg outline-none min-w-max w-72 h-20 flex items-center justify-center my-5 p-5 rounded-lg"
+								dateFormat="dd-MMM-yyyy hh:mm a"
+								showTimeSelect
+								showTimeInput
+								timeIntervals={30}
+								selected={date}
+								onChange={(date) => date && setDate(date)}
 							/>
 						</div>
 					</div>
 
 					<div className="flex self-end mt-auto">
 						<Button className="m-3" type="primary" onClick={buyServiceHandler}>
-							buy ${service.prices.atConsultory}
+							buy ${price_selected}
 						</Button>
 						<Button className="m-3" type="secondary" onClick={addToCartHandler}>
 							add to my services

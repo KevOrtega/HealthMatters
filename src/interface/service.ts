@@ -3,8 +3,8 @@ export type iService = {
 	name: string;
 	description: string;
 	prices: {
-		atHome?: string;
-		atConsultory?: string;
+		atHome?: number;
+		atConsultory?: number;
 	};
 	doctor: string;
 	rating: number;
@@ -32,34 +32,40 @@ export type service_search_action = {
 	payload: string;
 };
 
-export type buyServiceResponse = {
-	data: {
-		global: string;
-	};
+export type iServiceToBuy = {
+	id: string;
+	price: number;
+	date: Date;
 };
 
-export type buyServiceRequest = {
-	patient: { name: string; surname: string; email: string };
+export type CartService = {
+	_id: string;
+	name: string;
+	description: string;
+	doctor: string;
+	rating: number;
+	price: number;
+	date: Date;
 };
 
-export interface CartState {
-	services: iService[];
+export type CartState = {
+	services: CartService[];
 	quantity: number;
-}
+};
 
 type addToCartAction = {
 	type: "ADD_TO_CART";
-	payload: { service: iService };
+	payload: { service: CartService };
 };
 
 type removeFromCartAction = {
 	type: "REMOVE_FROM_CART";
-	payload: { service: iService };
+	payload: { service: CartService };
 };
 
 export type cartAction = addToCartAction | removeFromCartAction;
 
 export interface CartContextProps extends CartState {
-	addToCart: (services: iService) => void;
-	removeFromCart: (services: iService) => void;
+	addToCart: (services: CartService) => void;
+	removeFromCart: (services: CartService) => void;
 }

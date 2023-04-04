@@ -36,7 +36,7 @@ export default function Order() {
 	};
 
 	return (
-		<div className="text-mine-shaft bg-white shadow-xl min-w-max rounded-lg w-72 overflow-hidden">
+		<div className="text-mine-shaft bg-white shadow-xl rounded-lg w-72 overflow-hidden">
 			<Title className="p-5" type="medium">
 				Order by
 			</Title>

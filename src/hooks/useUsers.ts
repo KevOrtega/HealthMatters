@@ -7,14 +7,12 @@ export default function useUsers() {
 		error,
 		mutate,
 		isLoading,
-	} = useSWR(
-		"https://healthmattersapi-production.up.railway.app/users",
-		usersFetcher
-	);
+	} = useSWR(process.env.users_url || "", usersFetcher);
 
 	const deleteUser = async (email_to_delete: string) => {
 		mutate(usersData?.filter(({ email }) => email === email_to_delete));
 	};
+
 	return {
 		usersData,
 		error,
