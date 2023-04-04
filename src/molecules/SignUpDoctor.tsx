@@ -1,6 +1,7 @@
 import Button from "@/atoms/Button";
 import Input from "@/atoms/Input";
 import { useUserContext } from "@/context/UserProvider";
+import useGoogleLogin from "@/hooks/useGoogleLogin";
 import { iRegisterCredentials } from "@/interface";
 import { registerFetcher } from "@/requests";
 import {
@@ -15,6 +16,8 @@ import Swal from "sweetalert2";
 
 export default function SignUpDoctor() {
 	const router = useRouter();
+	const { setUser } = useUserContext();
+	const { google_login_url } = useGoogleLogin();
 	const initial_credentials = {
 		name: "",
 		lastname: "",
@@ -64,7 +67,15 @@ export default function SignUpDoctor() {
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({
 		target: { name, value },
 	}) => setCredentials({ ...credentials, [name]: value });
-	const { setUser } = useUserContext();
+
+	const handleGoogleLogin = () => {
+		if (google_login_url) return (window.location.href = google_login_url);
+		Swal.fire({
+			icon: "error",
+			title: "Oops...",
+			text: `An error occurred. Try again later`,
+		});
+	};
 
 	const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
 		event
@@ -103,10 +114,6 @@ export default function SignUpDoctor() {
 		}
 	};
 
-	const handleGoogleLogin = () => {
-		window.location.href = "https://accounts.google.com/login";
-	};
-
 	return (
 		<form onSubmit={handleSubmit} className="w-full p-10">
 			<p
@@ -122,6 +129,7 @@ export default function SignUpDoctor() {
 			</p>
 
 			<button
+				type="button"
 				className="my-3 p-5 w-full text-left shadow-lg rounded-lg"
 				onClick={handleGoogleLogin}
 			>
