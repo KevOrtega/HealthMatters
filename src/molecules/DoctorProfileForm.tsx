@@ -10,18 +10,22 @@ export default function DoctorProfile() {
 	const { user } = useUserContext();
 	const [serviceName, setServiceName] = useState("");
 	const [serviceDescription, setServiceDescription] = useState("");
-	const [servicePrice, setServicePrice] = useState("");
+	const [atConsultory, setAtConsultory] = useState<number | null>(null);
+	const [atHome, setAtHome] = useState<number | null>(null);
 	const [selectedImage, setSelectedImage] = useState<File | null>(null);
 	const [doctorImageUrl, setDoctorImageUrl] = useState<string | null>(null);
 	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 	const [showMessage, setShowMessage] = useState(false);
 	const [serviceCreated, setServiceCreated] = useState(false);
+	const [serviceError, setServiceError] = useState(false);
 
 	const clearFields = () => {
 		setServiceName("");
 		setServiceDescription("");
-		setServicePrice("");
+		setAtConsultory(null);
+		setAtHome(null);
 		setSelectedDate(null);
+		setServiceCreated(false);
 	};
 
 	const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,32 +69,35 @@ export default function DoctorProfile() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-
-		setShowMessage(true);
-		setServiceCreated(false);
-
-		const serviceData = {
-			name: serviceName,
-			description: serviceDescription,
-			price: servicePrice,
-			image: doctorImageUrl || user?.image,
-		};
-
-		// Envía una solicitud POST para crear un nuevo servicio
 		try {
-			await axios.post(
-				`https://healthmattersapi-production.up.railway.app/services`,
-				serviceData
-			);
+			if (!user) throw new Error("user should logged");
+
+			setShowMessage(false);
+			setServiceCreated(false);
+			setServiceError(false);
+
+			const serviceData = {
+				name: serviceName,
+				description: serviceDescription,
+				prices: { atConsultory, atHome },
+				image: doctorImageUrl || user.image,
+				specialties: "",
+				doctor: user.email,
+			};
+
+			// Envía una solicitud POST para crear un nuevo servicio
+
+			setShowMessage(true);
+			await axios.post(process.env.services_url || "", serviceData);
 
 			console.log("Service created successfully");
 			clearFields();
+
 			setServiceCreated(true);
 		} catch (error) {
 			console.error("Error creating service:", error);
+			setServiceError(true);
 		}
-
-		console.log("Formulario enviado:", serviceData);
 	};
 
 	return (
@@ -159,14 +166,24 @@ export default function DoctorProfile() {
 						onChange={(e) => setServiceDescription(e.target.value)}
 						className="w-full p-2 border border-egg rounded"
 					/>
-					<label htmlFor="servicePrice" className="block font-bold">
-						Precio del servicio:
+					<label htmlFor="atConsultory" className="block font-bold">
+						Precio de Consultoria:
 					</label>
 					<input
-						type="text"
-						id="servicePrice"
-						value={servicePrice}
-						onChange={(e) => setServicePrice(e.target.value)}
+						name="atConsultory"
+						type="number"
+						value={atConsultory || 0}
+						onChange={(e) => setAtConsultory(Number(e.target.value))}
+						className="w-full p-2 border border-egg rounded"
+					/>
+					<label htmlFor="atHome" className="block font-bold">
+						Precio de Consultoria:
+					</label>
+					<input
+						name="atHome"
+						type="number"
+						value={atHome || 0}
+						onChange={(e) => setAtHome(Number(e.target.value))}
 						className="w-full p-2 border border-egg rounded"
 					/>
 					<label htmlFor="appointmentDate" className="block font-bold">
@@ -188,18 +205,17 @@ export default function DoctorProfile() {
 					>
 						Crear servicio
 					</button>
-					{serviceCreated && (
-						<p className="mt-4 text-center text-green-600">
-							El servicio ha sido creado exitosamente
-						</p>
-					)}
 				</form>
 				{showMessage && (
 					<div className="fixed inset-0 z-10 flex items-center justify-center">
 						<div
 							className="absolute inset-0 bg-black opacity-50"
-							onClick={() => setShowMessage(false)}
+							onClick={() => {
+								setShowMessage(false);
+								setServiceCreated(false);
+							}}
 						></div>
+
 						<motion.div
 							initial={{ scale: 0 }}
 							animate={{ scale: 1 }}
@@ -207,18 +223,32 @@ export default function DoctorProfile() {
 							className="bg-deep-sea p-8 rounded shadow-md"
 						>
 							<h2 className="text-xl font-bold mb-4 text-white">Aviso</h2>
-							<p className="mb-4 text-white">
-								Al crear el servicio, acepta que el 10% de sus honorarios serán
-								destinados al mantenimiento de la página.
-							</p>
+							{serviceError ? (
+								<p className="mb-4 text-red-600">
+									Hubo un error al crear el servicio
+								</p>
+							) : (
+								<p className="mb-4 text-white">
+									Al crear el servicio, acepta que el 10% de sus honorarios
+									serán destinados al mantenimiento de la página.
+								</p>
+							)}
 							<button
-								onClick={() => setShowMessage(false)}
+								onClick={() => {
+									setShowMessage(false);
+									setServiceCreated(false);
+								}}
 								className="px-4 py-2 font-bold text-white bg-caribbean-green rounded hover:bg-kaitoke-green"
 							>
 								Aceptar
 							</button>
 						</motion.div>
 					</div>
+				)}
+				{serviceCreated && (
+					<p className="mt-4 text-center text-green-600">
+						El servicio ha sido creado exitosamente
+					</p>
 				)}
 			</div>
 		</div>
