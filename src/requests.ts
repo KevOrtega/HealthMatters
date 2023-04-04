@@ -60,3 +60,6 @@ export const usersFetcher = (url: string): Promise<iUser[]> =>
 
 export const datesFetcher = (url: string): Promise<iDate[]> =>
 	axios.get(url).then((res) => res.data);
+
+export const googleLoginFetcher = (url: string): Promise<string> =>
+	axios.get(url).then(({ data }) => data);
