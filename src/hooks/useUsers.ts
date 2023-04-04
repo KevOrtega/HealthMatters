@@ -6,6 +6,7 @@ export default function useUsers() {
 		data: usersData,
 		error,
 		mutate,
+		isLoading,
 	} = useSWR(process.env.users_url || "", usersFetcher);
 
 	const deleteUser = async (email_to_delete: string) => {
@@ -16,5 +17,6 @@ export default function useUsers() {
 		usersData,
 		error,
 		deleteUser,
+		isLoading,
 	};
 }
