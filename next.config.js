@@ -14,8 +14,8 @@ const nextConfig = {
 			"https://healthmattersapi-production.up.railway.app/order",
 		dates_url: "https://healthmattersapi-production.up.railway.app/dates",
 		users_url: "https://healthmattersapi-production.up.railway.app/users",
-		// google_login_url:
-		// 	"https://healthmattersapi-production.up.railway.app/auth/google",
+		google_login_url:
+			"https://healthmattersapi-production.up.railway.app/auth/google",
 		// services_url: "http://localhost:3001/services",
 		// specialties_url: "http://localhost:3001/specialties",
 		// doctors_url: "http://localhost:3001/doctors",
@@ -25,7 +25,7 @@ const nextConfig = {
 		// validate_doctor_url: "http://localhost:3001/order",
 		// dates_url: "http://localhost:3001/dates",
 		// users_url: "http://localhost:3001/users",
-		google_login_url: "http://localhost:3001/auth/google",
+		// google_login_url: "http://localhost:3001/auth/google",
 	},
 };
 
