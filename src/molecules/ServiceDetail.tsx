@@ -1,6 +1,5 @@
 import { useServicesById } from "@/hooks/useServicesById";
 import { useCartContext } from "@/context/CartProvider";
-import { useUserContext } from "@/context/UserProvider";
 import { buyService } from "@/requests";
 import Title from "@/atoms/Title";
 import Button from "@/atoms/Button";
@@ -9,9 +8,10 @@ import Link from "@/atoms/Link";
 import { useState } from "react";
 import ReactDatePicker from "react-datepicker";
 import Swal from "sweetalert2";
+import useUser from "@/hooks/useUser";
 
 export default function ServiceDetail({ serviceId }: { serviceId: string }) {
-	const { user } = useUserContext();
+	const { user } = useUser();
 	const { service } = useServicesById(serviceId);
 	const { addToCart } = useCartContext();
 	const select_options: string[] = [];
