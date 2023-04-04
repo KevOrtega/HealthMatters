@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import { useUserContext } from "@/context/UserProvider";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import { motion } from "framer-motion";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useUser from "@/hooks/useUser";
 
 export default function DoctorProfile() {
-	const { user } = useUserContext();
+	const { user } = useUser();
 	const [serviceName, setServiceName] = useState("");
 	const [serviceDescription, setServiceDescription] = useState("");
 	const [atConsultory, setAtConsultory] = useState<number | null>(null);

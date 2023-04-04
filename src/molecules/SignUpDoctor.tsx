@@ -1,6 +1,5 @@
 import Button from "@/atoms/Button";
 import Input from "@/atoms/Input";
-import { useUserContext } from "@/context/UserProvider";
 import useGoogleLogin from "@/hooks/useGoogleLogin";
 import { iRegisterCredentials } from "@/interface";
 import { registerFetcher } from "@/requests";
@@ -16,7 +15,6 @@ import Swal from "sweetalert2";
 
 export default function SignUpDoctor() {
 	const router = useRouter();
-	const { setUser } = useUserContext();
 	const { google_login_url } = useGoogleLogin();
 	const initial_credentials = {
 		name: "",
@@ -92,7 +90,7 @@ export default function SignUpDoctor() {
 			}
 
 			const logged = await registerFetcher(credentials);
-			setUser(logged);
+			localStorage.setItem("login_token", logged.token);
 
 			setCredentials(initial_credentials);
 
