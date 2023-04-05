@@ -53,7 +53,7 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 			setPriceSelected(service.prices.atHome);
 	};
 
-	const buyServiceHandler: React.ReactEventHandler<HTMLButtonElement> = () =>
+	const buyServiceHandler = () =>
 		user && price_selected && date
 			? buyService(
 					[
