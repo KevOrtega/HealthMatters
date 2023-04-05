@@ -36,12 +36,12 @@ export default function Specialties() {
 		<ul className="w-full py-5 px-10 flex items-center justify-around text-egg">
 			{specialties_section !== 1 && (
 				<li>
-					<button
+					<Button
 						onClick={() => setSpecialtiesSection(specialties_section - 1)}
 						className="w-6 -rotate-90 rounded-full bg-viking transition-transform hover:scale-105 active:scale-100"
 					>
 						<Image type="ascendant" />
-					</button>
+					</Button>
 				</li>
 			)}
 			{specialties &&
@@ -63,12 +63,12 @@ export default function Specialties() {
 				))}
 			{specialties?.length && specialties.length / 5 > specialties_section && (
 				<li>
-					<button
+					<Button
 						onClick={() => setSpecialtiesSection(specialties_section + 1)}
 						className="w-6 rotate-90 rounded-full bg-viking transition-transform hover:scale-105 active:scale-100"
 					>
 						<Image type="ascendant" />
-					</button>
+					</Button>
 				</li>
 			)}
 			<li className="relative">

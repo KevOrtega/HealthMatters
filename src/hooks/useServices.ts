@@ -1,5 +1,7 @@
 import useSWR from "swr";
 import { servicesFetcher } from "@/requests";
+import { iService } from "@/interface";
+import axios from "axios";
 
 export default function useServices(
 	search?: string,
@@ -21,11 +23,17 @@ export default function useServices(
 		servicesFetcher
 	);
 
+	const addService = async (new_service: iService) => {
+		if (data) mutate({ ...data, services: [...data.services, new_service] });
+		await axios.post(`${process.env.services_url}`, new_service);
+		mutate();
+	};
+
 	return {
 		services: data?.services,
 		pages: data?.pages,
 		isLoading,
 		error,
-		setServices: mutate,
+		addService,
 	};
 }
