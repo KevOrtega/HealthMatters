@@ -42,7 +42,7 @@ export default function Services() {
 					services.map((service: iService, i: number) => (
 						<Service
 							{...service}
-							className="m-4 sm:m-6 lg:m-10 cursor-pointer"
+							className="m-10 cursor-pointer"
 							key={"service--" + i}
 						/>
 					))
