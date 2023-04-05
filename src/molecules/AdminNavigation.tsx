@@ -1,26 +1,29 @@
-import Link from "@/atoms/Link";
+import Link from "next/link";
+import React from "react";
 
-export default function AdminSideBar() {
+const AdminNavigation = () => {
 	return (
 		<div className="bg-viking h-full w-1/2 md:w-1/4 lg:w-1/5 rounded-lg">
 			<Link
 				href="/admin"
 				className="block px-4 py-2 text-caribbean-green font-bold"
 			>
-				Admin
+				admin
 			</Link>
 			<Link
 				href="/admin/dates"
 				className="block px-4 py-2 text-caribbean-green font-bold"
 			>
-				Dates
+				dates
 			</Link>
 			<Link
 				href="/admin/services"
 				className="block px-4 py-2 text-caribbean-green font-bold"
 			>
-				Services
+				services
 			</Link>
 		</div>
 	);
-}
+};
+
+export default AdminNavigation;

@@ -2,7 +2,7 @@ import React from "react";
 import useUsers from "@/hooks/useUsers";
 import { iUser } from "@/interface";
 import Button from "@/atoms/Button";
-import AdminSideBar from "@/molecules/AdminSideBar";
+import AdminNavigation from "@/molecules/AdminNavigation";
 
 export default function Admin() {
 	const { usersData, error, deleteUser, isLoading } = useUsers();
@@ -22,7 +22,7 @@ export default function Admin() {
 
 	return (
 		<div className="h-full bg-viking bg-opacity-25">
-			<AdminSideBar />
+			<AdminNavigation />
 			<div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
 				<div className="px-4 py-6 sm:px-0">
 					<div className="bg-white shadow-lg rounded-xl overflow-hidden">
@@ -44,14 +44,22 @@ export default function Admin() {
 										<tr key={"user-" + i} className="hover:bg-gray-50">
 											<td className="py-4 px-6">{i}</td>
 											<td className="py-4 px-6">{user.name}</td>
-											<td className="py-4 px-6 sm:w-1/4">{/*Role field*/}</td>
+											<td className="py-4 px-6 sm:w-1/4">
+												{user.medicalLicense ? "doctor" : "patient"}
+											</td>
 											<td className="py-4 px-6">
-												<Button
-													className="py-2 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-red-200"
-													onClick={() => deleteUser(user.email)}
-												>
-													Delete
-												</Button>
+												{!user.deleted ? (
+													<Button
+														className="py-2 px-4 bg-red-600 hover:bg-red-700 text-black font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-red-200"
+														onClick={() => deleteUser(user._id)}
+													>
+														Delete
+													</Button>
+												) : (
+													<Button className="py-2 px-4 rounded-lg shadow-md bg-viking">
+														Reactive
+													</Button>
+												)}
 											</td>
 										</tr>
 									))}
@@ -63,9 +71,7 @@ export default function Admin() {
 			</div>
 			<div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
 				<div className="px-4 py-6 sm:px-0">
-					<div className="bg-white shadow-lg rounded-xl overflow-hidden">
-						<h1 className="text-4xl font-bold text-caribbean-green px-6 py-4"></h1>
-					</div>
+					<h1 className="text-4xl font-bold text-caribbean-green px-6 py-4"></h1>
 				</div>
 			</div>
 		</div>

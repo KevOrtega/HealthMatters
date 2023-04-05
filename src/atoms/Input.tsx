@@ -12,7 +12,9 @@ export default function Input({
 		pagination: () => (
 			<input
 				type="number"
-				className={"outline-none w-12 " + className}
+				className={
+					"outline-none w-12 sm:w-20 border-egg text-center " + className
+				}
 				{...props}
 			/>
 		),

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Main from "@/atoms/Main";
-import Services from "@/molecules/Services";
+import ServicesList from "@/molecules/ServicesList";
 import Header from "@/molecules/Header";
 import Specialties from "@/molecules/Specialties";
 import ServiceDetail from "@/molecules/ServiceDetail";
@@ -12,7 +12,7 @@ export default function home() {
 		<Main>
 			<Header />
 			<Specialties />
-			<Services />
+			<ServicesList />
 			{id ? <ServiceDetail serviceId={id as string} /> : <p>Loading...</p>}
 		</Main>
 	);

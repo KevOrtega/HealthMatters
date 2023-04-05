@@ -1,6 +1,5 @@
 import Button from "@/atoms/Button";
 import Image from "@/atoms/Image";
-import Order from "@/molecules/Order";
 import { useServiceSearchContext } from "@/context/ServiceSearchProvider";
 import useSpecialties from "@/hooks/useSpecialties";
 import { useState } from "react";
@@ -10,7 +9,6 @@ export default function ChooseSpecialties() {
 	const { specialties } = useSpecialties();
 	const { specialties: specialties_choosen, dispatch } =
 		useServiceSearchContext();
-	const [isOrderOpen, setIsOrderOpen] = useState<boolean>(false);
 	const [specialties_section, setSpecialtiesSection] = useState(1);
 
 	const getSpecialtiesSliced = (specialties: specialties_response[]) =>

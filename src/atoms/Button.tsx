@@ -9,7 +9,7 @@ export default function Button({
 		primary: () => (
 			<button
 				className={
-					"bg-deep-sea w-56 h-16 text-white text-xl font-bold capitalize shadow-lg rounded-xl transition-transform hover:-translate-y-0.5 hover:opacity-80 active:-translate-y-0 cursor-default " +
+					"bg-deep-sea w-full md:w-56 h-16 text-white text-xl md:text-base font-bold capitalize shadow-lg rounded-xl transition-transform hover:-translate-y-0.5 hover:opacity-80 active:-translate-y-0 cursor-default " +
 					className
 				}
 				{...props}
@@ -18,7 +18,7 @@ export default function Button({
 		secondary: () => (
 			<button
 				className={
-					"bg-transparent w-56 h-16 text-deep-sea text-xl font-bold capitalize shadow-lg rounded-xl border-solid border-4 border-deep-sea transition-transform hover:-translate-y-0.5 hover:opacity-80 active:-translate-y-0 cursor-default " +
+					"bg-transparent w-full md:w-56 h-16 text-deep-sea text-xl md:text-base font-bold capitalize shadow-lg rounded-xl border-solid border-4 border-deep-sea transition-transform hover:-translate-y-0.5 hover:opacity-80 active:-translate-y-0 cursor-default " +
 					className
 				}
 				{...props}
@@ -28,7 +28,7 @@ export default function Button({
 		submit: () => (
 			<button
 				className={
-					"p-2 mr-3 inline-block border-b border-kaitoke-green text-kaitoke-green " +
+					"p-2 md:p-4 md:mr-3 inline-block border-b border-kaitoke-green text-kaitoke-green " +
 					className
 				}
 				{...props}

@@ -11,11 +11,11 @@ export default function SearchBar() {
 
 	return (
 		<Input
-			className="w-1/3 shadow-xl rounded-full h-full"
+			className="w-full md:w-1/2 lg:w-1/3 shadow-xl rounded-full h-full px-4 py-2 text-gray-700 bg-white leading-tight focus:outline-none focus:shadow-outline"
 			type="search"
 			value={search}
 			onChange={handleChange}
-			placeholder="find your service"
+			placeholder="Find your service"
 		/>
 	);
 }
