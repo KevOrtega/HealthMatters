@@ -55,8 +55,8 @@ export default function Pagination() {
 				max={pages}
 				min={1}
 			/>
-			&nbsp; of {pages || 1}
-			{!!pages && page < pages && (
+			&nbsp; of {pages || page}
+			{page < (pages || Infinity) && (
 				<Button
 					onClick={() => setPage((Number(current_page) + 1).toString())}
 					className="m-3 h-5"

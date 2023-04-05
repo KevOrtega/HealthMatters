@@ -1,12 +1,13 @@
 import useSWR from "swr";
 import { servicesFetcher } from "@/requests";
+import { iService } from "@/interface";
+import axios from "axios";
 
 export default function useServices(
 	search?: string,
 	specialties_to_search?: string[],
 	order?: string,
-	page?: number,
-	refreshKey?: number
+	page?: number
 ) {
 	const { data, isLoading, mutate, error } = useSWR(
 		`${process.env.services_url}/?search=${
@@ -17,15 +18,21 @@ export default function useServices(
 				: ""
 		}&order=${
 			order && !!order.length && order !== "default" ? order : ""
-		}&page=${page || "1"}&refreshKey=${refreshKey}`,
+		}&page=${page || "1"}`,
 		servicesFetcher
 	);
+
+	const addService = async (new_service: iService) => {
+		if (data) mutate({ ...data, services: [...data.services, new_service] });
+		await axios.post(`${process.env.services_url}`, new_service);
+		mutate();
+	};
 
 	return {
 		services: data?.services,
 		pages: data?.pages,
 		isLoading,
 		error,
-		setServices: mutate,
+		addService,
 	};
 }

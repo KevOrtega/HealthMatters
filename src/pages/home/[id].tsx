@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
-import { ServiceSearchProvider } from "@/context/ServiceSearchProvider";
 import Main from "@/atoms/Main";
-import Services from "@/molecules/Services";
+import Services from "@/molecules/ServicesList";
 import Header from "@/molecules/Header";
 import Specialties from "@/molecules/Specialties";
 import ServiceDetail from "@/molecules/ServiceDetail";
@@ -11,12 +10,16 @@ export default function home() {
 	const { id } = router.query;
 	return (
 		<Main>
-			<ServiceSearchProvider>
-				<Header />
-				<Specialties />
-				<Services />
-				{id ? <ServiceDetail serviceId={id as string} /> : <p>Loading...</p>}
-			</ServiceSearchProvider>
+			<Header />
+			<div className="flex flex-col md:flex-row">
+				<div className="w-full md:w-1/2">
+					<Specialties />
+					<Services />
+				</div>
+				<div className="w-full md:w-1/2">
+					{id ? <ServiceDetail serviceId={id as string} /> : <p>Loading...</p>}
+				</div>
+			</div>
 		</Main>
 	);
 }

@@ -5,6 +5,7 @@ export type iUser = {
 	password: string;
 	medicalLicense?: string;
 	image?: string;
+	specialties?: string[];
 };
 
 export type user_response = {
