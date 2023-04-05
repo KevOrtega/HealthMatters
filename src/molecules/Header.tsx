@@ -4,10 +4,12 @@ import SearchBar from "./Search";
 import Button from "@/atoms/Button";
 import { useState } from "react";
 import useUser from "@/hooks/useUser";
+import useCheckIsDoctor from "@/hooks/useCheckIsDoctor";
 
 export default function Header() {
 	const { user, logOut } = useUser();
 	const [isOpenProfile, setOpenProfile] = useState(false);
+	const { isDoctor } = useCheckIsDoctor();
 
 	const openProfile = () => setOpenProfile(!isOpenProfile);
 
@@ -27,7 +29,7 @@ export default function Header() {
 							<Button onClick={openProfile}>{user.name}</Button>
 							{isOpenProfile && (
 								<div className="flex flex-col absolute z-10 w-full top-full left-0 mt-2 shadow-xl p-2 text-mine-shaft bg-white border border-egg rounded-lg">
-									{user.medicalLicense && (
+									{isDoctor && (
 										<Link className="w-full text-center py-3" href="/profile">
 											Profile
 										</Link>

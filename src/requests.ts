@@ -43,8 +43,12 @@ export const registerFetcher = (
 		.post(process.env.register_url || "", credentials)
 		.then(({ data }) => data);
 
-export const validateDoctorFetcher = (token: string): Promise<void> =>
-	axios.get(process.env.validate_doctor_url || "", { headers: { token } });
+export const validateDoctorFetcher = (url: string): Promise<iUser> =>
+	axios.get(url, {
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem("login_token")}`,
+		},
+	});
 
 export const buyService = (services: iServiceToBuy[], patient: iPatient) =>
 	axios
