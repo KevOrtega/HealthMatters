@@ -1,4 +1,5 @@
 export type iUser = {
+	_id: string;
 	name: string;
 	lastname: string;
 	email: string;
@@ -6,6 +7,7 @@ export type iUser = {
 	medicalLicense?: string;
 	image?: string;
 	specialties?: string[];
+	deleted: boolean;
 };
 
 export type user_response = {

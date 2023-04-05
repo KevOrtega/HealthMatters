@@ -85,7 +85,7 @@ export default function LoginForm() {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="mx-auto max-w-md px-6 py-10">
+		<form onSubmit={handleSubmit} className="w-full p-10">
 			<p
 				className={`border-deep-blush border-2 transition-opacity opacity-0 ${
 					!!Object.values(valid_credentials).find(({ isValid }) => !isValid) &&
@@ -100,7 +100,7 @@ export default function LoginForm() {
 
 			<button
 				type="button"
-				className="my-3 p-5 w-full text-left shadow-lg rounded-lg bg-white hover:bg-gray-100"
+				className="my-3 p-5 w-full text-left shadow-lg rounded-lg"
 				onClick={handleGoogleLogin}
 			>
 				<img
@@ -120,9 +120,9 @@ export default function LoginForm() {
 				<Input
 					type="email"
 					name="email"
-					className={`border-gray-300 rounded-md shadow-sm focus:border-deep-blush focus:ring focus:ring-deep-blush focus:ring-opacity-50 ${
-						!valid_credentials["email"].isValid && "border-b-deep-blush"
-					}`}
+					className={
+						!valid_credentials["email"].isValid ? "border-b-deep-blush" : ""
+					}
 					value={credentials.email}
 					onChange={handleChange}
 				/>
@@ -135,20 +135,14 @@ export default function LoginForm() {
 				<Input
 					type="password"
 					name="password"
-					className={`border-gray-300 rounded-md shadow-sm focus:border-deep-blush focus:ring focus:ring-deep-blush focus:ring-opacity-50 ${
-						!valid_credentials["password"].isValid && "border-b-deep-blush"
-					}`}
+					className={
+						!valid_credentials["password"].isValid ? "border-b-deep-blush" : ""
+					}
 					value={credentials.password}
 					onChange={handleChange}
 				/>
 			</fieldset>
-
-			<Button
-				type="submit"
-				className="w-full py-3 mt-4 font-medium text-white bg-deep-blush rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-deep-blush"
-			>
-				Login
-			</Button>
+			<Button type="submit">Login</Button>
 		</form>
 	);
 }

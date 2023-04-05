@@ -1,4 +1,5 @@
 import { usersFetcher } from "@/requests";
+import axios from "axios";
 import useSWR from "swr";
 
 export default function useUsers() {
@@ -7,10 +8,17 @@ export default function useUsers() {
 		error,
 		mutate,
 		isLoading,
-	} = useSWR(process.env.users_url || "", usersFetcher);
+	} = useSWR(`${process.env.users_url}`, usersFetcher);
 
-	const deleteUser = async (email_to_delete: string) => {
-		mutate(usersData?.filter(({ email }) => email === email_to_delete));
+	const deleteUser = async (id: string) => {
+		const user_to_delete = usersData?.find(({ _id }) => _id === id);
+		// mutate(
+		// 	usersData?.map((user) =>
+		// 		user._id === id ? { ...user, deleted: true } : user
+		// 	)
+		// );
+		await axios.delete(`${process.env.users_url}/${user_to_delete?._id}`);
+		mutate();
 	};
 
 	return {
