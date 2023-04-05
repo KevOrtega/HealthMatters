@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -106,27 +106,21 @@ export default function DoctorProfile() {
 		<div className="h-screen bg-gradient-to-t from-kaitoke-green to-viking grid grid-cols-2 gap-4 p-8">
 			<div className="flex flex-col justify-center">
 				<h1 className="text-5xl font-semibold mb-6 font-handwrite text-white">
-					Doctor Profile Page
+					Doctor {user.name}
 				</h1>
-				{user && (
-					<div className="mt-6">
-						<h2 className="text-2xl font-bold text-white">
-							Información del usuario registrado:
-						</h2>
-						<p className="text-white">Nombre: {user.name}</p>
-						<p className="text-white">Email: {user.email}</p>
-						<p className="text-white">Licencia médica: {user.medicalLicense}</p>
-					</div>
-				)}
+				<div className="mt-6">
+					<p className="text-white">Email: {user.email}</p>
+					<p className="text-white">Licencia médica: {user.medicalLicense}</p>
+				</div>
 			</div>
 			<div className="col-span-2 p-8 bg-white rounded-lg shadow-md">
 				<form onSubmit={handleSubmit} className="space-y-4">
 					<div className="mt-4">
 						<label htmlFor="doctorImage" className="block font-bold">
-							Imagen del médico:
+							Your image:
 						</label>
 						<div className="relative">
-							{doctorImageUrl || user?.image ? (
+							{doctorImageUrl || user.image ? (
 								<img
 									src={doctorImageUrl ? doctorImageUrl : user?.image}
 									alt={`Imagen del ${user?.name}`}
@@ -144,7 +138,7 @@ export default function DoctorProfile() {
 								id="doctorImage"
 								accept="image/*"
 								onChange={handleImageChange}
-								className="absolute inset-0 opacity-0 cursor-pointer"
+								className="absolute inset-0 opacity-0 cursor-pointer w-32 h-32 rounded-full object-cover mb-4"
 							/>
 						</div>
 					</div>
@@ -188,7 +182,7 @@ export default function DoctorProfile() {
 						onChange={(e) => setAtHome(Number(e.target.value))}
 						className="w-full p-2 border border-egg rounded"
 					/>
-					{doctor_specialties.length && (
+					{!!doctor_specialties.length && (
 						<Select
 							onChange={handleSpecialtySelected}
 							options={doctor_specialties}

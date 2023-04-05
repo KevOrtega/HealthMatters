@@ -26,17 +26,28 @@ export default function Header() {
 					</li>
 					{user ? (
 						<li className="relative px-5 py-2 bg-anakiwa text-white rounded-sm capitalize">
-							<Button onClick={openProfile}>{user.name}</Button>
+							<Button
+								className="transition-transform hover:scale-105 active:scale-100"
+								onClick={openProfile}
+							>
+								{user.name}
+							</Button>
 							{isOpenProfile && (
-								<div className="flex flex-col absolute z-10 w-full top-full left-0 mt-2 shadow-xl p-2 text-mine-shaft bg-white border border-egg rounded-lg">
+								<div className="flex flex-col absolute z-20 min-h-max w-32 top-full right-0 mt-2 shadow-xl p-2 text-mine-shaft bg-white border border-egg rounded-lg">
 									{isDoctor && (
-										<Link className="w-full text-center py-3" href="/profile">
+										<Link
+											className="w-full flex items-center justify-center h-14 my-1 transition-transform hover:scale-105 active:scale-100"
+											href="/profile"
+										>
 											Profile
 										</Link>
 									)}
-									<Link className="w-full text-center py-3" href="/home">
-										<Button onClick={logOut}>Logout</Button>
-									</Link>
+									<Button
+										className="z-20 w-full h-14 my-1 transition-transform hover:scale-105 active:scale-100"
+										onClick={logOut}
+									>
+										Logout
+									</Button>
 								</div>
 							)}
 						</li>
