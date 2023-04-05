@@ -6,11 +6,11 @@ import SignUpPatient from "@/molecules/SignUpPatient";
 export default function SignUp() {
 	return (
 		<Main>
-			<section className="flex w-full h-screen items-center justify-center">
-				<div className="w-1/2 flex items-center justify-center">
+			<section className="flex flex-col sm:flex-row h-screen items-center justify-center">
+				<div className="w-full sm:w-1/2 flex items-center justify-center mb-8 sm:mb-0">
 					<Image priority type="choose" />
 				</div>
-				<div className="w-1/2">
+				<div className="w-full sm:w-1/2">
 					<SignUpPatient />
 					<div className="flex justify-center items-center my-4 bg-white px-2 uppercase font-medium tracking-wide">
 						<hr className="border-t-1 mx-3 border-egg w-full" />
@@ -27,7 +27,7 @@ export default function SignUp() {
 							</Link>
 						</button>
 					</div>
-					<p className="text-egg">
+					<p className="text-egg mt-4 sm:mt-8">
 						Are you a doctor?{" "}
 						<Link
 							className="ml-2 text-sm text-mine-shaft font-bold transition-opacity hover:opacity-50"

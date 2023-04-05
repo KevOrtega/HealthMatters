@@ -6,11 +6,11 @@ import SignUpDoctor from "@/molecules/SignUpDoctor";
 export default function SignUp() {
 	return (
 		<Main>
-			<section className="flex w-full h-screen items-center justify-center">
-				<div className="w-1/2 flex items-center justify-center">
+			<section className="flex flex-col md:flex-row h-screen items-center justify-center">
+				<div className="w-full md:w-1/2 flex items-center justify-center mb-4 md:mb-0">
 					<Image priority type="doctor" />
 				</div>
-				<div className="w-1/2">
+				<div className="w-full md:w-1/2 px-4">
 					<SignUpDoctor />
 					<div className="flex justify-center items-center my-4 bg-white px-2 uppercase font-medium tracking-wide">
 						<hr className="border-t-1 mx-3 border-egg w-full" />

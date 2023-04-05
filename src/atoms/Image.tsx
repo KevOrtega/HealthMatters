@@ -21,7 +21,7 @@ export default function Image({
 		choose: () => (
 			<ImageNext
 				priority={priority}
-				className={"w-auto h-auto " + className}
+				className={`w-full sm:w-auto h-auto ${className}`}
 				src={ChooseSVG}
 				alt="choose"
 			/>
@@ -29,7 +29,7 @@ export default function Image({
 		map: () => (
 			<ImageNext
 				priority={priority}
-				className={"w-auto h-auto " + className}
+				className={`w-full sm:w-auto h-auto ${className}`}
 				src={MapSVG}
 				alt="map"
 			/>
@@ -37,7 +37,7 @@ export default function Image({
 		medicine: () => (
 			<ImageNext
 				priority={priority}
-				className={"w-auto h-auto " + className}
+				className={`w-full sm:w-auto h-auto ${className}`}
 				src={MedicineSVG}
 				alt="medicine"
 			/>
@@ -45,7 +45,7 @@ export default function Image({
 		pay: () => (
 			<ImageNext
 				priority={priority}
-				className={"w-auto h-auto " + className}
+				className={`w-full sm:w-auto h-auto ${className}`}
 				src={PaySVG}
 				alt="pay"
 			/>
@@ -53,7 +53,7 @@ export default function Image({
 		search: () => (
 			<ImageNext
 				priority={priority}
-				className={"w-auto h-auto " + className}
+				className={`w-full sm:w-auto h-auto ${className}`}
 				src={SearchSVG}
 				alt="search"
 			/>
@@ -61,7 +61,7 @@ export default function Image({
 		tune: () => (
 			<ImageNext
 				priority={priority}
-				className={"w-auto h-auto " + className}
+				className={`w-full sm:w-auto h-auto ${className}`}
 				src={TuneSVG}
 				alt="tune"
 			/>
@@ -69,7 +69,7 @@ export default function Image({
 		arrow_back: () => (
 			<ImageNext
 				priority={priority}
-				className={"w-auto h-auto " + className}
+				className={`w-full sm:w-auto h-auto ${className}`}
 				src={ArrowBack}
 				alt="back"
 			/>
@@ -77,7 +77,7 @@ export default function Image({
 		arrow_forward: () => (
 			<ImageNext
 				priority={priority}
-				className={"w-auto h-auto " + className}
+				className={`w-full sm:w-auto h-auto ${className}`}
 				src={ArrowForward}
 				alt="forward"
 			/>
@@ -85,7 +85,7 @@ export default function Image({
 		ascendant: () => (
 			<ImageNext
 				priority={priority}
-				className={"w-auto h-auto invert " + className}
+				className={`w-full sm:w-auto h-auto invert ${className}`}
 				src={Ascendant}
 				alt="ascendant"
 			/>
@@ -93,7 +93,7 @@ export default function Image({
 		doctor: () => (
 			<ImageNext
 				priority={priority}
-				className={"w-auto h-auto " + className}
+				className={`w-full sm:w-auto h-auto ${className}`}
 				src={Doctor}
 				alt="doctor"
 			/>
@@ -101,7 +101,7 @@ export default function Image({
 		error: () => (
 			<ImageNext
 				priority={priority}
-				className={"w-auto h-auto " + className}
+				className={`w-full sm:w-auto h-auto ${className}`}
 				src={Error}
 				alt="error"
 			/>

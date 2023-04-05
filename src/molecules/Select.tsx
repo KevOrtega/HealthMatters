@@ -20,7 +20,7 @@ export default function Select({
 		<div className="relative">
 			<Button
 				onClick={switchSelectionOpen}
-				className="shadow-md transition-shadow hover:shadow-lg active:shadow-md border border-egg min-w-max w-72 h-20 flex items-center justify-center my-5 rounded-lg"
+				className="shadow-md transition-shadow hover:shadow-lg active:shadow-md border border-egg min-w-max w-full md:w-72 h-20 flex items-center justify-center my-5 rounded-lg"
 			>
 				{selected}
 				<div className="w-7">
@@ -28,7 +28,7 @@ export default function Select({
 				</div>
 			</Button>
 			{selection_open && (
-				<div className="flex flex-col absolute min-w-max w-72 h-20 text-center top-full mt-3">
+				<div className="flex flex-col absolute min-w-max w-full md:w-72 h-20 text-center top-full mt-3">
 					{options?.map((option, i) => (
 						<div key={option + i}>
 							<Button

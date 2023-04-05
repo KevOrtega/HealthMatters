@@ -36,17 +36,17 @@ export default function Services() {
 	}
 
 	return (
-		<div className="w-full px-20">
+		<div className="w-full px-4 sm:px-6 lg:px-8">
 			<Title className="text-left my-6 text-2xl font-bold text-gray-900">
 				Servicios
 			</Title>
 			<Pagination />
-			<div className="w-full flex justify-evenly items-start flex-wrap">
+			<div className="w-full flex justify-evenly sm:justify-start items-start flex-wrap">
 				{services &&
 					services.map((service: iService, i: number) => (
 						<Service
 							{...service}
-							className="m-10 cursor-pointer"
+							className="m-4 sm:m-6 lg:m-10 cursor-pointer"
 							key={"service--" + i}
 						/>
 					))}
