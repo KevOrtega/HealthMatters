@@ -5,7 +5,7 @@ import Button from "@/atoms/Button";
 import AdminNavigation from "@/molecules/AdminNavigation";
 
 export default function Admin() {
-	const { usersData, error, deleteUser, isLoading } = useUsers();
+	const { usersData, error, deleteUser, reactiveUser, isLoading } = useUsers();
 	if (error)
 		return (
 			<div className="text-center text-red-600 font-bold mt-5">
@@ -56,7 +56,10 @@ export default function Admin() {
 														Delete
 													</Button>
 												) : (
-													<Button className="py-2 px-4 rounded-lg shadow-md bg-viking">
+													<Button
+														className="py-2 px-4 rounded-lg shadow-md bg-viking"
+														onClick={() => reactiveUser(user._id)}
+													>
 														Reactive
 													</Button>
 												)}
