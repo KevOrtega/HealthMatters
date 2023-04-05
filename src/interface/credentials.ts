@@ -12,5 +12,5 @@ export type iRegisterCredentials = {
 };
 
 export interface registerRequest extends iRegisterCredentials {
-	specialties: string[];
+	specialties?: string[];
 }
