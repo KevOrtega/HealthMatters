@@ -32,7 +32,7 @@ export default function Services({
 			<p className="text-egg mb-2 text-left">
 				${prices?.atConsultory || prices?.atHome}
 			</p>
-			{rating > 1 && (
+			{rating && rating > 1 && (
 				<p className="text-egg mb-2 text-left">rating: {rating}</p>
 			)}
 			{service_doctor && (

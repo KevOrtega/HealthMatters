@@ -30,11 +30,11 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 	const addToCartHandler = () =>
 		user && price_selected && date
 			? addToCart({
-					_id: service._id,
+					_id: `${service._id}`,
 					name: service.name,
 					description: service.description,
 					price: price_selected,
-					rating: service.rating,
+					rating: service.rating || 1,
 					doctor: service.doctor,
 					date: date,
 			  })
@@ -58,7 +58,7 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 			? buyService(
 					[
 						{
-							id: service._id,
+							id: `${service._id}`,
 							price: price_selected,
 							date: date,
 						},
