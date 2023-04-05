@@ -15,6 +15,8 @@ const nextConfig = {
 		checkout_url: "https://healthmattersapi-production.up.railway.app/checkout",
 		validate_doctor_url:
 			"https://healthmattersapi-production.up.railway.app/profile/doctor",
+		validate_admin_url:
+			"https://healthmattersapi-production.up.railway.app/profile/admin",
 		dates_url: "https://healthmattersapi-production.up.railway.app/dates",
 		users_url: "https://healthmattersapi-production.up.railway.app/users",
 		google_login_url:

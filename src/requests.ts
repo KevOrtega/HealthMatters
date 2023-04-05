@@ -43,7 +43,7 @@ export const registerFetcher = (
 		.post(process.env.register_url || "", credentials)
 		.then(({ data }) => data);
 
-export const validateDoctorFetcher = (url: string): Promise<iUser> =>
+export const validateUserFetcher = (url: string): Promise<iUser> =>
 	axios.get(url, {
 		headers: {
 			Authorization: `Bearer ${localStorage.getItem("login_token")}`,

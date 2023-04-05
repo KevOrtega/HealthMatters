@@ -18,7 +18,10 @@ export default function Services() {
 
 	return (
 		<div className="w-full px-20">
-			<Title className="text-left my-6 text-2xl font-bold text-gray-900">
+			<Title
+				type="medium"
+				className="text-left my-6 text-2xl font-bold text-gray-900"
+			>
 				Servicios
 			</Title>
 			<Pagination />

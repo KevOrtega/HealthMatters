@@ -5,11 +5,13 @@ import Button from "@/atoms/Button";
 import { useState } from "react";
 import useUser from "@/hooks/useUser";
 import useCheckIsDoctor from "@/hooks/useCheckIsDoctor";
+import useCheckIsAdmin from "@/hooks/useCheckIsAdmin";
 
 export default function Header() {
 	const { user, logOut } = useUser();
 	const [isOpenProfile, setOpenProfile] = useState(false);
 	const { isDoctor } = useCheckIsDoctor();
+	const { isAdmin } = useCheckIsAdmin();
 
 	const openProfile = () => setOpenProfile(!isOpenProfile);
 
@@ -34,6 +36,14 @@ export default function Header() {
 							</Button>
 							{isOpenProfile && (
 								<div className="flex flex-col absolute z-20 min-h-max w-32 top-full right-0 mt-2 shadow-xl p-2 text-mine-shaft bg-white border border-egg rounded-lg">
+									{isAdmin && (
+										<Link
+											className="w-full flex items-center justify-center h-14 my-1 transition-transform hover:scale-105 active:scale-100"
+											href="/admin"
+										>
+											Admin
+										</Link>
+									)}
 									{isDoctor && (
 										<Link
 											className="w-full flex items-center justify-center h-14 my-1 transition-transform hover:scale-105 active:scale-100"

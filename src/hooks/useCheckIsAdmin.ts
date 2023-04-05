@@ -1,13 +1,13 @@
 import { validateUserFetcher } from "@/requests";
 import useSWR from "swr";
 
-export default function useCheckIsDoctor() {
+export default function useCheckIsAdmin() {
 	const { data: user, error } = useSWR(
-		`${process.env.validate_doctor_url}`,
+		`${process.env.validate_admin_url}`,
 		validateUserFetcher
 	);
 
 	return {
-		isDoctor: error || !user ? false : true,
+		isAdmin: error || !user ? false : true,
 	};
 }
