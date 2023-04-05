@@ -21,10 +21,16 @@ export default function useUsers() {
 		mutate();
 	};
 
+	const reactiveUser = async (id: string) => {
+		await axios.put(`${process.env.users_url}/${id}`);
+		mutate();
+	};
+
 	return {
 		usersData,
 		error,
 		deleteUser,
+		reactiveUser,
 		isLoading,
 	};
 }
