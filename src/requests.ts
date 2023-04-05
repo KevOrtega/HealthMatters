@@ -10,6 +10,7 @@ import {
 	iServiceToBuy,
 	iPatient,
 	user_response,
+	registerRequest,
 } from "@/interface";
 import { Fetcher } from "swr";
 import axios, { AxiosResponse } from "axios";
@@ -36,7 +37,7 @@ export const loginFetcher = (
 	axios.post(process.env.login_url || "", credentials).then(({ data }) => data);
 
 export const registerFetcher = (
-	credentials: iRegisterCredentials
+	credentials: registerRequest
 ): Promise<user_response> =>
 	axios
 		.post(process.env.register_url || "", credentials)

@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { ServiceSearchProvider } from "@/context/ServiceSearchProvider";
 import Main from "@/atoms/Main";
 import Services from "@/molecules/Services";
 import Header from "@/molecules/Header";
@@ -11,12 +10,10 @@ export default function home() {
 	const { id } = router.query;
 	return (
 		<Main>
-			<ServiceSearchProvider>
-				<Header />
-				<Specialties />
-				<Services />
-				{id ? <ServiceDetail serviceId={id as string} /> : <p>Loading...</p>}
-			</ServiceSearchProvider>
+			<Header />
+			<Specialties />
+			<Services />
+			{id ? <ServiceDetail serviceId={id as string} /> : <p>Loading...</p>}
 		</Main>
 	);
 }

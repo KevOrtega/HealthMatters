@@ -12,9 +12,12 @@ import {
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import ChooseSpecialties from "./ChooseSpecialties";
+import { useServiceSearchContext } from "@/context/ServiceSearchProvider";
 
 export default function SignUpDoctor() {
 	const router = useRouter();
+	const { specialties } = useServiceSearchContext();
 	const { google_login_url } = useGoogleLogin();
 	const initial_credentials = {
 		name: "",
@@ -89,7 +92,7 @@ export default function SignUpDoctor() {
 				if (!isValid) throw new Error(error);
 			}
 
-			const logged = await registerFetcher(credentials);
+			const logged = await registerFetcher({ ...credentials, specialties });
 			localStorage.setItem("login_token", logged.token);
 
 			setCredentials(initial_credentials);
@@ -217,6 +220,7 @@ export default function SignUpDoctor() {
 					required
 				/>
 			</fieldset>
+			<ChooseSpecialties />
 			<div className="flex items-center justify-between">
 				<Button type="submit">Sign up</Button>
 			</div>

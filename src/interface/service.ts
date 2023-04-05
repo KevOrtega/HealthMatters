@@ -6,7 +6,7 @@ export type iService = {
 		atHome?: number;
 		atConsultory?: number;
 	};
-	doctor: string;
+	doctor: string[];
 	rating: number;
 };
 
@@ -42,7 +42,7 @@ export type CartService = {
 	_id: string;
 	name: string;
 	description: string;
-	doctor: string;
+	doctor: string[];
 	rating: number;
 	price: number;
 	date: Date;
