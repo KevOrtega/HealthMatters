@@ -40,54 +40,56 @@ export default function Order() {
 			<Title className="p-5" type="medium">
 				Order by
 			</Title>
-			<Button
-				onClick={() => setOrder("price")}
-				className={`inline-flex justify-center items-center w-1/2 h-16 p-5 rounded-tr-lg font-bold capitalize transition-colors ${
-					order.includes("price") && "bg-anakiwa text-white"
-				}`}
-			>
-				price
-				{order.includes("price") && (
-					<Image
-						className={`text-white h-7 ${
-							order === "priceDESC" && "rotate-180"
-						} `}
-						type="ascendant"
-					/>
-				)}
-			</Button>
-			<Button
-				onClick={() => setOrder("rating")}
-				className={`inline-flex justify-center items-center w-1/2 h-16 p-5 rounded-tl-lg font-bold capitalize transition-colors ${
-					order.includes("rating") && "bg-anakiwa text-white"
-				}`}
-			>
-				rating
-				{order.includes("rating") && (
-					<Image
-						className={`text-white h-7 ${
-							order === "ratingDESC" && "rotate-180"
-						} `}
-						type="ascendant"
-					/>
-				)}
-			</Button>
-			<Button
-				onClick={() => setOrder("alphabetically")}
-				className={`inline-flex justify-center items-center w-full h-16 p-5 rounded-tl-lg rounded-tr-lg font-bold capitalize transition-colors ${
-					order.includes("alphabetical") && "bg-anakiwa text-white"
-				}`}
-			>
-				alphabetical
-				{order.includes("alphabetically") && (
-					<Image
-						className={`text-white h-7 ${
-							order === "alphabeticallyDESC" && "rotate-180"
-						} `}
-						type="ascendant"
-					/>
-				)}
-			</Button>
+			<div className="flex flex-wrap">
+				<Button
+					onClick={() => setOrder("price")}
+					className={`inline-flex justify-center items-center w-1/2 md:w-auto h-16 p-5 rounded-tr-lg font-bold capitalize transition-colors ${
+						order.includes("price") && "bg-anakiwa text-white"
+					}`}
+				>
+					price
+					{order.includes("price") && (
+						<Image
+							className={`text-white h-7 ${
+								order === "priceDESC" && "rotate-180"
+							} `}
+							type="ascendant"
+						/>
+					)}
+				</Button>
+				<Button
+					onClick={() => setOrder("rating")}
+					className={`inline-flex justify-center items-center w-1/2 md:w-auto h-16 p-5 rounded-tl-lg font-bold capitalize transition-colors ${
+						order.includes("rating") && "bg-anakiwa text-white"
+					}`}
+				>
+					rating
+					{order.includes("rating") && (
+						<Image
+							className={`text-white h-7 ${
+								order === "ratingDESC" && "rotate-180"
+							} `}
+							type="ascendant"
+						/>
+					)}
+				</Button>
+				<Button
+					onClick={() => setOrder("alphabetically")}
+					className={`inline-flex justify-center items-center w-full h-16 p-5 rounded-tl-lg rounded-tr-lg font-bold capitalize transition-colors ${
+						order.includes("alphabetical") && "bg-anakiwa text-white"
+					}`}
+				>
+					alphabetical
+					{order.includes("alphabetically") && (
+						<Image
+							className={`text-white h-7 ${
+								order === "alphabeticallyDESC" && "rotate-180"
+							} `}
+							type="ascendant"
+						/>
+					)}
+				</Button>
+			</div>
 		</div>
 	);
 }

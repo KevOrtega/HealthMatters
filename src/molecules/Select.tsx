@@ -21,7 +21,7 @@ export default function Select({
 		<div className="relative">
 			<Button
 				onClick={switchSelectionOpen}
-				className="shadow-md transition-shadow hover:shadow-lg active:shadow-md border border-egg min-w-max w-72 h-20 flex items-center justify-center my-5 rounded-lg"
+				className="shadow-md transition-shadow hover:shadow-lg active:shadow-md border border-egg min-w-max w-full md:w-72 h-20 flex items-center justify-center my-5 rounded-lg"
 			>
 				{selected}
 				<div className="w-7">
@@ -33,7 +33,7 @@ export default function Select({
 					initial={{ scale: 0.8 }}
 					animate={{ scale: 1 }}
 					exit={{ scale: 0.3 }}
-					className="flex flex-col min-w-max w-72 h-20 text-center top-full m-3 mb-5"
+					className="flex flex-col min-w-max w-full md:w-72 h-20 text-center top-full m-3 mb-5"
 				>
 					{options?.map((option, i) => (
 						<div key={option + i}>

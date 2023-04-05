@@ -8,20 +8,24 @@ export default function Title({
 	const title_types: Record<string, Function> = {
 		bigger: () => (
 			<h1
-				className={"text-9xl text-white font-handwrite font-bold " + className}
+				className={
+					"text-5xl sm:text-7xl md:text-9xl text-white font-handwrite font-bold " +
+					className
+				}
 				{...props}
 			/>
 		),
 		big: () => (
 			<h2
 				className={
-					"text-4xl text-deep-sea font-handwrite font-bold " + className
+					"text-3xl sm:text-4xl md:text-5xl text-deep-sea font-handwrite font-bold " +
+					className
 				}
 				{...props}
 			/>
 		),
 		medium: () => (
-			<h3 className={"text-2xl font-bold " + className} {...props} />
+			<h3 className={"text-xl sm:text-2xl font-bold " + className} {...props} />
 		),
 	};
 
