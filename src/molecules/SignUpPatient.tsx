@@ -134,9 +134,9 @@ export default function SignUpPatient() {
 				<Input
 					type="text"
 					name="name"
-					className={
+					className={`${
 						!valid_credentials["name"].isValid ? "border-b-deep-blush" : ""
-					}
+					} w-full p-2 rounded-lg`}
 					value={credentials.name}
 					onChange={handleChange}
 					required
@@ -149,9 +149,9 @@ export default function SignUpPatient() {
 				<Input
 					type="text"
 					name="lastname"
-					className={
+					className={`${
 						!valid_credentials["lastname"].isValid ? "border-b-deep-blush" : ""
-					}
+					} w-full p-2 rounded-lg`}
 					value={credentials.lastname}
 					onChange={handleChange}
 					required
@@ -164,9 +164,9 @@ export default function SignUpPatient() {
 				<Input
 					type="email"
 					name="email"
-					className={
+					className={`${
 						!valid_credentials["email"].isValid ? "border-b-deep-blush" : ""
-					}
+					} w-full p-2 rounded-lg`}
 					value={credentials.email}
 					onChange={handleChange}
 					required
@@ -179,15 +179,15 @@ export default function SignUpPatient() {
 				<Input
 					type="password"
 					name="password"
-					className={
+					className={`${
 						!valid_credentials["password"].isValid ? "border-b-deep-blush" : ""
-					}
+					} w-full p-2 rounded-lg`}
 					value={credentials.password}
 					onChange={handleChange}
 					required
 				/>
 			</fieldset>
-			<div className="flex items-center justify-between">
+			<div className="flex items-center justify-between flex-col sm:flex-row">
 				<Button type="submit">Sign up</Button>
 			</div>
 		</form>

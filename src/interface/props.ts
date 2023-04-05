@@ -11,6 +11,7 @@ export type ButtonProps = {
 	className?: string;
 	type?: "primary" | "secondary" | "pagination" | "submit" | "default";
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
+	disabled?: boolean;
 };
 
 export type ImageProps = {

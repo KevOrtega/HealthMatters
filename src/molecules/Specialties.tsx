@@ -33,7 +33,7 @@ export default function Specialties() {
 	};
 
 	return (
-		<ul className="w-full py-5 px-10 flex items-center justify-around text-egg">
+		<ul className="p-5 flex flex-col items-center justify-around text-egg sm:flex-row sm:justify-center sm:space-x-6">
 			{specialties_section !== 1 && (
 				<li>
 					<Button

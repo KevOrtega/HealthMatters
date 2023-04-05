@@ -10,10 +10,14 @@ export default function infoPopUp() {
 
 	return (
 		<div className="relative">
-			<Button onClick={handlePopupToggle}>Ver información</Button>
+			<Button className="sm:text-sm lg:text-lg" onClick={handlePopupToggle}>
+				Ver información
+			</Button>
 			{isPopupOpen && (
-				<div className="absolute top-0 right-0 bg-white p-4 border border-gray-300 rounded-lg shadow-lg">
-					<p>Aquí va la información que deseas mostrar</p>
+				<div className="fixed top-0 right-0 left-0 bottom-0 flex justify-center items-center bg-gray-700 bg-opacity-50">
+					<div className="bg-white p-4 border border-gray-300 rounded-lg shadow-lg">
+						<p>Aquí va la información que deseas mostrar</p>
+					</div>
 				</div>
 			)}
 		</div>

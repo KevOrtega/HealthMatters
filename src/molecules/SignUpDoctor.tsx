@@ -116,9 +116,9 @@ export default function SignUpDoctor() {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="w-full p-10">
+		<form onSubmit={handleSubmit} className="w-full px-4 py-10 sm:px-20">
 			<p
-				className={`border-deep-blush border-2 transition-opacity opacity-0 ${
+				className={`border-2 border-deep-blush transition-opacity opacity-0 ${
 					!!Object.values(valid_credentials).find(({ isValid }) => !isValid) &&
 					"opacity-100"
 				} text-deep-blush capitalize flex items-center justify-center w-full px-5 text-center h-16 mb-2`}
@@ -137,8 +137,8 @@ export default function SignUpDoctor() {
 				<img
 					src="https://th.bing.com/th/id/OIP.KEygYmezNxIdPeCrxbrQ6wHaD_?pid=ImgDet&rs=1"
 					alt="Google Logo"
-					width="50rem"
-					height="50rem"
+					width="50"
+					height="50"
 					className="inline-block mr-2"
 				/>
 				Continue with Google
@@ -151,9 +151,11 @@ export default function SignUpDoctor() {
 				<Input
 					type="text"
 					name="name"
-					className={
-						!valid_credentials["name"].isValid ? "border-b-deep-blush" : ""
-					}
+					className={`${
+						!valid_credentials["name"].isValid
+							? "border-b-2 border-deep-blush"
+							: ""
+					} py-2`}
 					value={credentials.name}
 					onChange={handleChange}
 					required
@@ -166,9 +168,11 @@ export default function SignUpDoctor() {
 				<Input
 					type="text"
 					name="lastname"
-					className={
-						!valid_credentials["lastname"].isValid ? "border-b-deep-blush" : ""
-					}
+					className={`${
+						!valid_credentials["lastname"].isValid
+							? "border-b-2 border-deep-blush"
+							: ""
+					} py-2`}
 					value={credentials.lastname}
 					onChange={handleChange}
 					required
@@ -181,9 +185,11 @@ export default function SignUpDoctor() {
 				<Input
 					type="email"
 					name="email"
-					className={
-						!valid_credentials["email"].isValid ? "border-b-deep-blush" : ""
-					}
+					className={`${
+						!valid_credentials["email"].isValid
+							? "border-b-2 border-deep-blush"
+							: ""
+					} py-2`}
 					value={credentials.email}
 					onChange={handleChange}
 					required
@@ -196,9 +202,11 @@ export default function SignUpDoctor() {
 				<Input
 					type="password"
 					name="password"
-					className={
-						!valid_credentials["password"].isValid ? "border-b-deep-blush" : ""
-					}
+					className={`${
+						!valid_credentials["password"].isValid
+							? "border-b-2 border-deep-blush"
+							: ""
+					} py-2`}
 					value={credentials.password}
 					onChange={handleChange}
 					required
@@ -210,11 +218,11 @@ export default function SignUpDoctor() {
 				</label>
 				<Input
 					name="medicalLicense"
-					className={
+					className={`${
 						!valid_credentials["medicalLicense"].isValid
-							? "border-b-deep-blush"
+							? "border-b-2 border-deep-blush"
 							: ""
-					}
+					} py-2`}
 					value={credentials.medicalLicense}
 					onChange={handleChange}
 					required
@@ -222,7 +230,15 @@ export default function SignUpDoctor() {
 			</fieldset>
 			<ChooseSpecialties />
 			<div className="flex items-center justify-between">
-				<Button type="submit">Sign up</Button>
+				<Button
+					type="submit"
+					className="bg-deep-blush text-white py-2 px-4 rounded-lg w-full hover:bg-pale-pink transition-colors duration-300"
+					disabled={
+						!Object.values(valid_credentials).every(({ isValid }) => isValid)
+					}
+				>
+					Sign up
+				</Button>
 			</div>
 		</form>
 	);
