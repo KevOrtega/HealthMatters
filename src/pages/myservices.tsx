@@ -4,9 +4,9 @@ import ServicesCart from "@/molecules/ServicesCart";
 export default function MyServices() {
 	return (
 		<Main>
-			<div className="container mx-auto px-4">
+			<section className="w-screen h-screen">
 				<ServicesCart />
-			</div>
+			</section>
 		</Main>
 	);
 }

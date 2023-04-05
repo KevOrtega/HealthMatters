@@ -7,9 +7,10 @@ import {
 	iUser,
 	services_response,
 	specialties_response,
-	user_state,
 	iServiceToBuy,
 	iPatient,
+	user_response,
+	registerRequest,
 } from "@/interface";
 import { Fetcher } from "swr";
 import axios, { AxiosResponse } from "axios";
@@ -32,18 +33,22 @@ export const serviceByIdFetcher: Fetcher<iService> = async (url: string) =>
 
 export const loginFetcher = (
 	credentials: iLoginCredentials
-): Promise<user_state> =>
+): Promise<user_response> =>
 	axios.post(process.env.login_url || "", credentials).then(({ data }) => data);
 
 export const registerFetcher = (
-	credentials: iRegisterCredentials
-): Promise<user_state> =>
+	credentials: registerRequest
+): Promise<user_response> =>
 	axios
 		.post(process.env.register_url || "", credentials)
 		.then(({ data }) => data);
 
-export const validateDoctorFetcher = (token: string): Promise<void> =>
-	axios.get(process.env.validate_doctor_url || "", { headers: { token } });
+export const validateUserFetcher = (url: string): Promise<iUser> =>
+	axios.get(url, {
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem("login_token")}`,
+		},
+	});
 
 export const buyService = (services: iServiceToBuy[], patient: iPatient) =>
 	axios
@@ -63,3 +68,12 @@ export const datesFetcher = (url: string): Promise<iDate[]> =>
 
 export const googleLoginFetcher = (url: string): Promise<string> =>
 	axios.get(url).then(({ data }) => data);
+
+export const getUser = (url: string): Promise<iUser> =>
+	axios
+		.get(url, {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("login_token")}`,
+			},
+		})
+		.then(({ data }) => data);

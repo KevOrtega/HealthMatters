@@ -5,18 +5,18 @@ import { emailValidator, passwordValidator } from "@/validation";
 import Input from "@/atoms/Input";
 import { iLoginCredentials } from "@/interface";
 import Button from "@/atoms/Button";
-import { useUserContext } from "@/context/UserProvider";
 import Swal from "sweetalert2";
 import useGoogleLogin from "@/hooks/useGoogleLogin";
 
 export default function LoginForm() {
-	const { setUser } = useUserContext();
 	const { google_login_url } = useGoogleLogin();
 	const router = useRouter();
+
 	const initial_credentials = {
 		email: "",
 		password: "",
 	};
+
 	const [credentials, setCredentials] =
 		useState<iLoginCredentials>(initial_credentials);
 
@@ -62,7 +62,7 @@ export default function LoginForm() {
 			}
 
 			const logged = await loginFetcher(credentials);
-			setUser(logged);
+			localStorage.setItem("login_token", logged.token);
 
 			setCredentials(initial_credentials);
 

@@ -1,13 +1,14 @@
 export type iService = {
-	_id: string;
+	_id?: string;
 	name: string;
 	description: string;
 	prices: {
 		atHome?: number;
 		atConsultory?: number;
 	};
-	doctor: string;
-	rating: number;
+	specialties: string[];
+	doctor: string[];
+	rating?: number;
 };
 
 export type services_response = {
@@ -42,7 +43,7 @@ export type CartService = {
 	_id: string;
 	name: string;
 	description: string;
-	doctor: string;
+	doctor: string[];
 	rating: number;
 	price: number;
 	date: Date;

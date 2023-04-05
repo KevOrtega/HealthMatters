@@ -1,43 +1,46 @@
 import Image from "@/atoms/Image";
 import Link from "@/atoms/Link";
 import Main from "@/atoms/Main";
+import { ServiceSearchProvider } from "@/context/ServiceSearchProvider";
 import SignUpDoctor from "@/molecules/SignUpDoctor";
 
 export default function SignUp() {
 	return (
 		<Main>
-			<section className="flex flex-col md:flex-row h-screen items-center justify-center">
-				<div className="w-full md:w-1/2 flex items-center justify-center mb-4 md:mb-0">
-					<Image priority type="doctor" />
-				</div>
-				<div className="w-full md:w-1/2 px-4">
-					<SignUpDoctor />
-					<div className="flex justify-center items-center my-4 bg-white px-2 uppercase font-medium tracking-wide">
-						<hr className="border-t-1 mx-3 border-egg w-full" />
-						<p className="text-center ">Or</p>
-						<hr className="border-b-1 mx-3 border-egg w-full" />
+			<ServiceSearchProvider>
+				<section className="flex w-full h-screen items-center justify-center">
+					<div className="w-1/2 flex items-center justify-center">
+						<Image priority type="doctor" />
 					</div>
-					<div className="flex flex-col">
-						<button type="button" className="ml-2 text-sm my-4">
+					<div className="w-1/2">
+						<SignUpDoctor />
+						<div className="flex justify-center items-center my-4 bg-white px-2 uppercase font-medium tracking-wide">
+							<hr className="border-t-1 mx-3 border-egg w-full" />
+							<p className="text-center ">Or</p>
+							<hr className="border-b-1 mx-3 border-egg w-full" />
+						</div>
+						<div className="flex flex-col">
+							<button type="button" className="ml-2 text-sm my-4">
+								<Link
+									className="rounded-md border-4 border-deep-sea text-deep-sea py-2 px-4"
+									href="/login"
+								>
+									Login
+								</Link>
+							</button>
+						</div>
+						<p className="text-egg my-5">
+							Are you a patient?{" "}
 							<Link
-								className="rounded-md border-4 border-deep-sea text-deep-sea py-2 px-4"
-								href="/login"
+								className="m-2 text-sm text-mine-shaft font-bold transition-opacity hover:opacity-50"
+								href="/signup"
 							>
-								Login
+								Click here
 							</Link>
-						</button>
+						</p>
 					</div>
-					<p className="text-egg">
-						Are you a patient?{" "}
-						<Link
-							className="ml-2 text-sm text-mine-shaft font-bold transition-opacity hover:opacity-50"
-							href="/signup"
-						>
-							Click here
-						</Link>
-					</p>
-				</div>
-			</section>
+				</section>
+			</ServiceSearchProvider>
 		</Main>
 	);
 }

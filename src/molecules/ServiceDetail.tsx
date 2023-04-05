@@ -1,6 +1,5 @@
 import { useServicesById } from "@/hooks/useServicesById";
 import { useCartContext } from "@/context/CartProvider";
-import { useUserContext } from "@/context/UserProvider";
 import { buyService } from "@/requests";
 import Title from "@/atoms/Title";
 import Button from "@/atoms/Button";
@@ -9,10 +8,13 @@ import Link from "@/atoms/Link";
 import { useState } from "react";
 import ReactDatePicker from "react-datepicker";
 import Swal from "sweetalert2";
+import useUser from "@/hooks/useUser";
+import useDoctorById from "@/hooks/useDoctorById";
 
 export default function ServiceDetail({ serviceId }: { serviceId: string }) {
-	const { user } = useUserContext();
+	const { user } = useUser();
 	const { service } = useServicesById(serviceId);
+	const { service_doctor } = useDoctorById(service?.doctor[0] || "");
 	const { addToCart } = useCartContext();
 	const select_options: string[] = [];
 	const [date, setDate] = useState(new Date());
@@ -28,11 +30,11 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 	const addToCartHandler = () =>
 		user && price_selected && date
 			? addToCart({
-					_id: service._id,
+					_id: `${service._id}`,
 					name: service.name,
 					description: service.description,
 					price: price_selected,
-					rating: service.rating,
+					rating: service.rating || 1,
 					doctor: service.doctor,
 					date: date,
 			  })
@@ -56,7 +58,7 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 			? buyService(
 					[
 						{
-							id: service._id,
+							id: `${service._id}`,
 							price: price_selected,
 							date: date,
 						},
@@ -86,9 +88,11 @@ export default function ServiceDetail({ serviceId }: { serviceId: string }) {
 						X
 					</Link>
 					<p className="text-right">{service.rating}⭐</p>
-					<Title className="text-4xl" type="medium">
-						{service.name}
-					</Title>
+					{service_doctor && (
+						<Title className="text-4xl" type="medium">
+							{service_doctor.name}
+						</Title>
+					)}
 					<p className="mx-3 mb-5 text-egg">Doctor Gutierrez</p>
 					<p className="text-xl indent-1">{service.description}</p>
 

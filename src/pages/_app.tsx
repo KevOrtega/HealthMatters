@@ -1,8 +1,8 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
 import "@/styles/globals.css";
-import { UserProvider } from "@/context/UserProvider";
 import CartProvider from "@/context/CartProvider";
+import { ServiceSearchProvider } from "@/context/ServiceSearchProvider";
 
 export default function _app({ Component, pageProps }: AppProps) {
 	return (
@@ -11,11 +11,11 @@ export default function _app({ Component, pageProps }: AppProps) {
 				<title>HealthMatters</title>
 				{/* <link rel="icon" href="/favicon.ico" /> */}
 			</Head>
-			<UserProvider>
+			<ServiceSearchProvider>
 				<CartProvider>
 					<Component {...pageProps} />
 				</CartProvider>
-			</UserProvider>
+			</ServiceSearchProvider>
 		</div>
 	);
 }

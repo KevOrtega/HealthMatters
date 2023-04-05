@@ -1,6 +1,5 @@
 import Button from "@/atoms/Button";
 import Input from "@/atoms/Input";
-import { useUserContext } from "@/context/UserProvider";
 import useGoogleLogin from "@/hooks/useGoogleLogin";
 import { iRegisterCredentials } from "@/interface";
 import { registerFetcher } from "@/requests";
@@ -13,10 +12,12 @@ import {
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import ChooseSpecialties from "./ChooseSpecialties";
+import { useServiceSearchContext } from "@/context/ServiceSearchProvider";
 
 export default function SignUpDoctor() {
 	const router = useRouter();
-	const { setUser } = useUserContext();
+	const { specialties } = useServiceSearchContext();
 	const { google_login_url } = useGoogleLogin();
 	const initial_credentials = {
 		name: "",
@@ -91,8 +92,8 @@ export default function SignUpDoctor() {
 				if (!isValid) throw new Error(error);
 			}
 
-			const logged = await registerFetcher(credentials);
-			setUser(logged);
+			const logged = await registerFetcher({ ...credentials, specialties });
+			localStorage.setItem("login_token", logged.token);
 
 			setCredentials(initial_credentials);
 
@@ -227,15 +228,18 @@ export default function SignUpDoctor() {
 					required
 				/>
 			</fieldset>
-			<button
-				type="submit"
-				className="bg-deep-blush text-white py-2 px-4 rounded-lg w-full hover:bg-pale-pink transition-colors duration-300"
-				disabled={
-					!Object.values(valid_credentials).every(({ isValid }) => isValid)
-				}
-			>
-				Sign Up
-			</button>
+			<ChooseSpecialties />
+			<div className="flex items-center justify-between">
+				<Button
+					type="submit"
+					className="bg-deep-blush text-white py-2 px-4 rounded-lg w-full hover:bg-pale-pink transition-colors duration-300"
+					disabled={
+						!Object.values(valid_credentials).every(({ isValid }) => isValid)
+					}
+				>
+					Sign up
+				</Button>
+			</div>
 		</form>
 	);
 }

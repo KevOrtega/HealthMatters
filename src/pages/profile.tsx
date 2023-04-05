@@ -1,10 +1,17 @@
 import React from "react";
 import DoctorProfile from "@/molecules/DoctorProfileForm";
+import useCheckIsDoctor from "@/hooks/useCheckIsDoctor";
+import Main from "@/atoms/Main";
 
 export default function DoctorRegisterPage() {
+	const { isDoctor } = useCheckIsDoctor();
 	return (
-		<div className="sm:w-full md:w-1/2 lg:w-1/3">
-			<DoctorProfile />
-		</div>
+		<Main>
+			{isDoctor ? (
+				<DoctorProfile />
+			) : (
+				<div>You should be a doctor to see this page</div>
+			)}
+		</Main>
 	);
 }

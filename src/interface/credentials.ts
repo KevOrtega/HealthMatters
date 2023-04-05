@@ -10,3 +10,7 @@ export type iRegisterCredentials = {
 	password: string;
 	medicalLicense?: string;
 };
+
+export interface registerRequest extends iRegisterCredentials {
+	specialties?: string[];
+}

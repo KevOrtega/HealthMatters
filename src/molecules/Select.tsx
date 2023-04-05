@@ -1,5 +1,6 @@
 import Button from "@/atoms/Button";
 import Image from "@/atoms/Image";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
 export default function Select({
@@ -28,7 +29,12 @@ export default function Select({
 				</div>
 			</Button>
 			{selection_open && (
-				<div className="flex flex-col absolute min-w-max w-full md:w-72 h-20 text-center top-full mt-3">
+				<motion.div
+					initial={{ scale: 0.8 }}
+					animate={{ scale: 1 }}
+					exit={{ scale: 0.3 }}
+					className="flex flex-col min-w-max w-full md:w-72 h-20 text-center top-full m-3 mb-5"
+				>
 					{options?.map((option, i) => (
 						<div key={option + i}>
 							<Button
@@ -42,7 +48,7 @@ export default function Select({
 							)}
 						</div>
 					))}
-				</div>
+				</motion.div>
 			)}
 		</div>
 	);

@@ -1,29 +1,19 @@
 import Link from "@/atoms/Link";
 import Title from "@/atoms/Title";
-import { useUserContext } from "@/context/UserProvider";
 import SearchBar from "./Search";
 import Button from "@/atoms/Button";
 import { useState } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
+import useUser from "@/hooks/useUser";
+import useCheckIsDoctor from "@/hooks/useCheckIsDoctor";
+import useCheckIsAdmin from "@/hooks/useCheckIsAdmin";
 
 export default function Header() {
-	const { user } = useUserContext();
+	const { user, logOut } = useUser();
 	const [isOpenProfile, setOpenProfile] = useState(false);
+	const { isDoctor } = useCheckIsDoctor();
+	const { isAdmin } = useCheckIsAdmin();
 
 	const openProfile = () => setOpenProfile(!isOpenProfile);
-
-	const handleLogOut = async () => {
-		try {
-			await axios.post(process.env.logout || "");
-		} catch (error) {
-			Swal.fire({
-				icon: "error",
-				title: "Oops...",
-				text: "Error logging out",
-			});
-		}
-	};
 
 	return (
 		<header className="h-20 border-b-2 border-b-egg">
@@ -38,18 +28,36 @@ export default function Header() {
 					</li>
 					{user ? (
 						<li className="relative px-5 py-2 bg-anakiwa text-white rounded-sm capitalize">
-							<Button onClick={openProfile}>{user.name}</Button>
+							<Button
+								className="transition-transform hover:scale-105 active:scale-100"
+								onClick={openProfile}
+							>
+								{user.name}
+							</Button>
 							{isOpenProfile && (
-								<div className="flex flex-col absolute z-10 w-full top-full left-0 mt-2 shadow-xl p-2 text-mine-shaft bg-white border border-egg rounded-lg">
-									<Link
-										className="w-full text-center py-3 hover:"
-										href="/profile"
+								<div className="flex flex-col absolute z-20 min-h-max w-32 top-full right-0 mt-2 shadow-xl p-2 text-mine-shaft bg-white border border-egg rounded-lg">
+									{isAdmin && (
+										<Link
+											className="w-full flex items-center justify-center h-14 my-1 transition-transform hover:scale-105 active:scale-100"
+											href="/admin"
+										>
+											Admin
+										</Link>
+									)}
+									{isDoctor && (
+										<Link
+											className="w-full flex items-center justify-center h-14 my-1 transition-transform hover:scale-105 active:scale-100"
+											href="/profile"
+										>
+											Profile
+										</Link>
+									)}
+									<Button
+										className="z-20 w-full h-14 my-1 transition-transform hover:scale-105 active:scale-100"
+										onClick={logOut}
 									>
-										Profile
-									</Link>
-									<Link className="w-full text-center py-3 hover:" href="/home">
-										<Button onClick={handleLogOut}>Logout</Button>
-									</Link>
+										Logout
+									</Button>
 								</div>
 							)}
 						</li>

@@ -35,7 +35,11 @@ export default function Button({
 			/>
 		),
 		default: () => (
-			<button className={"cursor-default " + className} {...props} />
+			<button
+				type="button"
+				className={"cursor-default " + className}
+				{...props}
+			/>
 		),
 	};
 	return button_types[type]();
